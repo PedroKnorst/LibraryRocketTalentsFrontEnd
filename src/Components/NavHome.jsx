@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
-export const NavHome = styled.div`
-  margin: auto;
+export const NavHome = styled.nav`
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 2rem 0;
+  align-items: center;
   gap: 2.5rem;
 `;
 
