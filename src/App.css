@@ -6,9 +6,10 @@
 }
 
 body {
+  margin: 0;
+  padding: 0;
   background-color: #f4f4f4;
   display: grid;
   grid-template-rows: auto 1fr;
-  height: 100vh;
   font-family: "Roboto", sans-serif;
 }

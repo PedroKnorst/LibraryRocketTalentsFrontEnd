@@ -25,7 +25,7 @@ const LabelSelect = styled.label`
   left: 1rem;
   background-color: white;
   padding: 0 5rem 0 0;
-  color: #133052;
+  color: ${({ labelstyle }) => labelstyle};
   transition: all 0.4s ease-in-out;
 
   ${({ active }) =>
@@ -82,7 +82,7 @@ const OptionsSelect = styled.ul`
   }
 `;
 
-const Select = ({ label, style }) => {
+const Select = ({ label, style, labelstyle, selectstyle }) => {
   const [active, setActive] = React.useState(false);
 
   return (
@@ -90,8 +90,10 @@ const Select = ({ label, style }) => {
       onClick={() => setActive((prevActive) => !prevActive)}
       style={style}
     >
-      <SelectArea readOnly></SelectArea>
-      <LabelSelect active={`${active}`}>{label}</LabelSelect>
+      <SelectArea style={selectstyle} readOnly></SelectArea>
+      <LabelSelect labelstyle={labelstyle} active={`${active}`}>
+        {label}
+      </LabelSelect>
       <ArrowSelect active={`${active}`} />
       <OptionsSelect active={`${active}`}>
         <li>Ola</li>

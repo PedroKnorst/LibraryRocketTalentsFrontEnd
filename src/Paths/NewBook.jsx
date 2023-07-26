@@ -46,7 +46,11 @@ const NewBook = () => {
             <Input type="text" id="input_autor" />
             <LabelInput htmlFor="input_autor">Autor</LabelInput>
           </ContainerInput>
-          <Select style={{ gridArea: "genero" }} label={"Gênero"} />
+          <Select
+            style={{ gridArea: "genero" }}
+            labelStyle={"#133052"}
+            label={"Gênero"}
+          />
           <ContainerInput style={{ gridArea: "data" }}>
             <Input type="date" id="input_data" />
             <LabelInput htmlFor="input_data">Data de entrada</LabelInput>

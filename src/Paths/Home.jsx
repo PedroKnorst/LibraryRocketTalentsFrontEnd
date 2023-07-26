@@ -8,28 +8,26 @@ import History from "./History";
 import { styled } from "styled-components";
 import HomeNav from "./HomeNav";
 
-const NavBackground = styled.nav`
-  height: calc(100vh - 13.5rem);
+const MainBackground = styled.main`
+  height: 100%;
   background-color: white;
   margin: 1.5rem;
   border-radius: 5px;
-  padding: 2rem 0;
-  gap: 2.5rem;
 `;
 
 const Home = () => {
   return (
-    <div>
+    <>
       <Header />
-      <NavBackground>
+      <MainBackground>
         <Routes>
           <Route path="/" element={<HomeNav />} />
           <Route path="biblioteca" element={<Library />} />
           <Route path="novo" element={<NewBook />} />
           <Route path="historico" element={<History />} />
         </Routes>
-      </NavBackground>
-    </div>
+      </MainBackground>
+    </>
   );
 };
 

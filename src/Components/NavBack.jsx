@@ -6,7 +6,7 @@ export const NavBack = styled.nav`
   display: flex;
   gap: 0.5rem;
   font-size: 1.25rem;
-  margin: 0 2rem;
+  margin: 1.5rem 2rem;
 `;
 
 export const NavBackHome = styled(Link)`
