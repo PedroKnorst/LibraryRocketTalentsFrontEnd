@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 export const ContainerNewBook = styled.div`
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 2fr;
 `;
 
 export const SectionInputs = styled.section`
