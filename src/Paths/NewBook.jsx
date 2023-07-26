@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { NavBack, NavBackHome, NavBackPage } from "../Components/NavBack";
 import { ReactComponent as Back } from "../Assets/svg/chevron_left_FILL0_wght400_GRAD0_opsz48.svg";
 import {
@@ -18,21 +17,6 @@ import { ReactComponent as AddCapa } from "../Assets/svg/Caminho 261.svg";
 import Select from "../Components/Inputs/Select";
 
 const NewBook = () => {
-  async function getFetch() {
-    try {
-      const response = await axios.get("http://localhost:3001/books", {
-        method: "GET",
-      });
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  React.useEffect(() => {
-    getFetch();
-  }, []);
-
   return (
     <ContainerNewBook>
       <NavBack>
