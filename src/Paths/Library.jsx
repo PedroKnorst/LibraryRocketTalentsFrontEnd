@@ -1,10 +1,9 @@
 import React from "react";
 import { NavBack, NavBackHome, NavBackPage } from "../Components/NavBack";
 import { ReactComponent as Back } from "../assets/svg/chevron_left_FILL0_wght400_GRAD0_opsz48.svg";
-import { getBooks, postBook } from "../services/books";
+import { getBooks } from "../services/books";
 import {
   ButtonInputSearch,
-  ContainerBook,
   ContainerBooksLibrary,
   ContainerInputsLibrary,
   ContainerLibrary,
@@ -14,23 +13,23 @@ import {
 } from "../Components/LibraryStyle";
 import { ReactComponent as Search } from "../assets/svg/Caminho 263.svg";
 import Select from "../Components/Inputs/Select";
-import Livro1 from "../assets/livro01.png";
+import ModalBook from "../Components/Modal/ModalBook";
+import ContainerBook from "../Components/CardBook/ContainerBook";
 
 const Library = () => {
   const [data, setData] = React.useState(null);
+  const [modal, setModal] = React.useState(null);
 
   React.useEffect(() => {
-    const takeBooks = () => {
-      getBooks().then((res) => {
-        setData(res.data);
-        console.log(res.data);
-      });
-    };
-    takeBooks();
+    getBooks().then((res) => {
+      setData(res.data);
+      console.log(res.data);
+    });
   }, []);
 
   return (
     <ContainerLibrary>
+      {modal && <ModalBook modal={modal} setModal={setModal} />}
       <NavBack>
         <NavBackHome to="/home">
           <Back /> Home
@@ -58,11 +57,8 @@ const Library = () => {
         </ContainerInputsLibrary>
         <ContainerBooksLibrary>
           {data &&
-            data.map((d) => (
-              <ContainerBook key={d.title}>
-                <img src={Livro1} alt={d.title} />
-                <h2>{d.title}</h2>
-              </ContainerBook>
+            data.map((book) => (
+              <ContainerBook key={book.id} book={book} setModal={setModal} />
             ))}
         </ContainerBooksLibrary>
       </SectinoInputsLibrary>

@@ -64,7 +64,7 @@ export const ContainerBooksLibrary = styled.div`
   margin: 5rem;
 `;
 
-export const ContainerBook = styled.div`
+export const ContainerBookStyle = styled.div`
   display: grid;
   cursor: pointer;
   justify-items: center;
