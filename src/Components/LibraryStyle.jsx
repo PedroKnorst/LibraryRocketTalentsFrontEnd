@@ -13,7 +13,8 @@ export const ContainerInputsLibrary = styled.div`
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 2rem;
-  max-width: 1100px;
+  max-width: 1300px;
+  margin: auto;
   padding: 0 11.25rem;
 `;
 
@@ -61,4 +62,26 @@ export const ContainerBooksLibrary = styled.div`
   grid-template-columns: repeat(5, 1fr);
   gap: 2.5rem;
   margin: 5rem;
+`;
+
+export const ContainerBook = styled.div`
+  display: grid;
+  cursor: pointer;
+  justify-items: center;
+  padding: 1.5rem 2rem;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  gap: 1rem;
+
+  & h2 {
+    font-size: 1rem;
+    color: #3e4756;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  & img {
+    max-width: 100px;
+    height: 150px;
+  }
 `;

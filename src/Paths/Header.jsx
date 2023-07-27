@@ -1,6 +1,6 @@
 import React from "react";
-import { ReactComponent as Logo } from "../Assets/svg/Logo.svg";
-import { ReactComponent as User } from "../Assets/svg/person_black_24dp (1).svg";
+import { ReactComponent as Logo } from "../assets/svg/Logo.svg";
+import { ReactComponent as User } from "../assets/svg/person_black_24dp (1).svg";
 import {
   ArrowElement,
   DivUser,

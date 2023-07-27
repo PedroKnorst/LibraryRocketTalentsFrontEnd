@@ -1,6 +1,6 @@
 import React from "react";
 import { NavBack, NavBackHome, NavBackPage } from "../Components/NavBack";
-import { ReactComponent as Back } from "../Assets/svg/chevron_left_FILL0_wght400_GRAD0_opsz48.svg";
+import { ReactComponent as Back } from "../assets/svg/chevron_left_FILL0_wght400_GRAD0_opsz48.svg";
 import {
   ContainerInput,
   Input,
@@ -9,11 +9,14 @@ import {
   TextArea,
 } from "../Components/Inputs/Input";
 import {
+  ButtonCancel,
+  ButtonSave,
+  ConitainerButtons,
   ContainerInputs,
   ContainerNewBook,
   SectionInputs,
 } from "../Components/NewBookStyle";
-import { ReactComponent as AddCapa } from "../Assets/svg/Caminho 261.svg";
+import { ReactComponent as AddCapa } from "../assets/svg/Caminho 261.svg";
 import Select from "../Components/Inputs/Select";
 
 const NewBook = () => {
@@ -56,6 +59,10 @@ const NewBook = () => {
             <LabelInput htmlFor="input_data">Data de entrada</LabelInput>
           </ContainerInput>
         </ContainerInputs>
+        <ConitainerButtons>
+          <ButtonCancel>Cancelar</ButtonCancel>
+          <ButtonSave>Salvar</ButtonSave>
+        </ConitainerButtons>
       </SectionInputs>
     </ContainerNewBook>
   );

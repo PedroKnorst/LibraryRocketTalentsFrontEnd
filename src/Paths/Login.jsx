@@ -8,11 +8,11 @@ import {
   ButtonLogin,
   LostPassword,
 } from "../Components/FormLogin/FormLogin";
-import { ReactComponent as Email } from "../Assets/svg/Grupo 37.svg";
-import { ReactComponent as Senha } from "../Assets/svg/Grupo 36.svg";
+import { ReactComponent as Email } from "../assets/svg/Grupo 37.svg";
+import { ReactComponent as Senha } from "../assets/svg/Grupo 36.svg";
 import { styled } from "styled-components";
-import Background01 from "../Assets/BackgroundLogin1.png";
-import Background02 from "../Assets/svg/BackgroundLogin2.svg";
+import Background01 from "../assets/BackgroundLogin1.png";
+import Background02 from "../assets/svg/BackgroundLogin2.svg";
 
 const Bacground1 = styled.section`
   background: ${({ props }) => `url(${props})`} no-repeat center center;

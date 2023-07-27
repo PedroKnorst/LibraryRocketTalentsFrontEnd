@@ -6,9 +6,9 @@ import {
   NavHomeLi,
   NavHomeText,
 } from "../Components/NavHome";
-import { ReactComponent as IconNewBook } from "../Assets/svg/add_circle_FILL0_wght400_GRAD0_opsz48.svg";
-import { ReactComponent as IconLibrary } from "../Assets/svg/import_contacts_FILL0_wght400_GRAD0_opsz48 (1).svg";
-import { ReactComponent as IconHistory } from "../Assets/svg/pending_actions_FILL0_wght400_GRAD0_opsz48.svg";
+import { ReactComponent as IconNewBook } from "../assets/svg/add_circle_FILL0_wght400_GRAD0_opsz48.svg";
+import { ReactComponent as IconLibrary } from "../assets/svg/import_contacts_FILL0_wght400_GRAD0_opsz48 (1).svg";
+import { ReactComponent as IconHistory } from "../assets/svg/pending_actions_FILL0_wght400_GRAD0_opsz48.svg";
 
 const HomeNav = () => {
   return (

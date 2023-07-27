@@ -8,14 +8,6 @@ export const getBooks = () => {
   }
 };
 
-export const getUsers = () => {
-  try {
-    return api.get("/users");
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
-
 export const postBook = (body: any) => {
   try {
     return api.post("books", { ...body });
