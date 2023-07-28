@@ -15,3 +15,11 @@ export const postBook = (body: any) => {
     return Promise.reject(err);
   }
 };
+
+export const getHistory = () => {
+  try {
+    return api.get("/books/history");
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};

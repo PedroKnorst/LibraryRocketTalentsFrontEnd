@@ -33,15 +33,15 @@ const TbodyLoans = styled.tbody`
   & tr {
     border-bottom: #cdcdcd solid 1px;
   }
-
-  & tr:nth-child(1) td img {
-    cursor: pointer;
-    border-bottom: black solid 1px;
-    padding: 0.5rem 4rem 0.5rem 0;
-  }
 `;
 
-const HistoryLoans = () => {
+const FilterButton = styled(Filter)`
+  cursor: pointer;
+  border-bottom: black solid 1px;
+  padding: 0.5rem 4rem 0.5rem 0;
+`;
+
+const HistoryLoans = ({ loans }) => {
   return (
     <TableLoans>
       <TheadLoans>
@@ -56,21 +56,31 @@ const HistoryLoans = () => {
       <TbodyLoans>
         <tr>
           <td>
-            <Filter />
+            <FilterButton />
           </td>
           <td>
-            <Filter />
+            <FilterButton />
           </td>
           <td>
-            <Filter />
+            <FilterButton />
           </td>
           <td>
-            <Filter />
+            <FilterButton />
           </td>
           <td>
-            <Filter />
+            <FilterButton />
           </td>
         </tr>
+        {loans &&
+          loans.map((loan, id) => (
+            <tr key={id}>
+              <td>{loan.studentName}</td>
+              <td>{loan.class}</td>
+              <td>{loan.bookTitle}</td>
+              <td>{loan.withdrawalDate}</td>
+              <td>{loan.deliveryDate}</td>
+            </tr>
+          ))}
       </TbodyLoans>
     </TableLoans>
   );

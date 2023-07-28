@@ -60,7 +60,7 @@ const NewBook = () => {
           </ContainerInput>
         </ContainerInputs>
         <ConitainerButtons>
-          <ButtonCancel>Cancelar</ButtonCancel>
+          <ButtonCancel to="/home">Cancelar</ButtonCancel>
           <ButtonSave>Salvar</ButtonSave>
         </ConitainerButtons>
       </SectionInputs>

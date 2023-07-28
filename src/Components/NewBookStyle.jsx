@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
 export const ContainerNewBook = styled.div`
@@ -29,14 +30,17 @@ export const ConitainerButtons = styled.div`
   gap: 1.5rem;
 `;
 
-export const ButtonCancel = styled.button`
+export const ButtonCancel = styled(Link)`
+  text-decoration: none;
   font-family: "Roboto", sans-serif;
   width: 150px;
   padding: 1rem;
   box-sizing: border-box;
+  color: black;
   cursor: pointer;
   border: #133052 1px solid;
   text-transform: uppercase;
+  text-align: center;
   background-color: white;
   border-radius: 5px;
   font-size: 1rem;
