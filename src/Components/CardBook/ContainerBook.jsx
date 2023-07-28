@@ -1,6 +1,5 @@
 import React from "react";
 import { ContainerBookStyle } from "../LibraryStyle";
-import Livro from "../../assets/livro01.png";
 
 const ContainerBook = ({ book, setModal }) => {
   function openModal() {
@@ -10,7 +9,10 @@ const ContainerBook = ({ book, setModal }) => {
   return (
     <>
       <ContainerBookStyle key={book.title} onClick={openModal}>
-        <img src={Livro} alt={book.title} />
+        <img
+          src={`http://localhost:3001/static/${book.image}`}
+          alt={book.title}
+        />
         <h2>{book.title}</h2>
       </ContainerBookStyle>
     </>

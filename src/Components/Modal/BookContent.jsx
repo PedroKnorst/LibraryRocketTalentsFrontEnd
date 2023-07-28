@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 import { ReactComponent as Close } from "../../assets/svg/Caminho 265.svg";
-import Livro from "../../assets/livro01.png";
+import { Link } from "react-router-dom";
 
 const ContainerBook = styled.div`
   position: fixed;
@@ -68,6 +68,8 @@ const ContainerBookButtons = styled.div`
 `;
 
 const ButtonsStyle = `
+  text-decoration: none;
+  text-align: center;
   cursor: pointer;
   padding: 1rem 1.5rem;
   font-weight: 500;
@@ -76,7 +78,7 @@ const ButtonsStyle = `
   border-radius: 5px;
   font-family: "Roboto", sans-serif;`;
 
-const EditButton = styled.button`
+const EditButton = styled(Link)`
   ${ButtonsStyle}
   border: #167ce2 solid 1px;
   color: #167ce2;
@@ -138,7 +140,10 @@ const BookContent = ({ data, setModal }) => {
       <ButtonClose onClick={closeModal}>
         <Close />
       </ButtonClose>
-      <CoverBook src={Livro} alt="livro" />
+      <CoverBook
+        src={`http://localhost:3001/static/${data.image}`}
+        alt="livro"
+      />
       <ButtonBorrow>Emprestar</ButtonBorrow>
       <TextBook>
         <h2>{data.title}</h2>
@@ -160,7 +165,7 @@ const BookContent = ({ data, setModal }) => {
         </div>
       </TextBook>
       <ContainerBookButtons>
-        <EditButton>Editar</EditButton>
+        <EditButton to={`/home/editar/${data.id}`}>Editar</EditButton>
         <InactiveButton>Inativar</InactiveButton>
         <HistoryButton>Histórico</HistoryButton>
       </ContainerBookButtons>

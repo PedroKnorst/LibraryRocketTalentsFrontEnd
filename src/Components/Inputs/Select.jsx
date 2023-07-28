@@ -82,7 +82,7 @@ const OptionsSelect = styled.ul`
   }
 `;
 
-const Select = ({ label, style, labelstyle, selectstyle }) => {
+const Select = ({ label, style, labelstyle, selectstyle, value }) => {
   const [active, setActive] = React.useState(false);
 
   return (
@@ -90,7 +90,7 @@ const Select = ({ label, style, labelstyle, selectstyle }) => {
       onClick={() => setActive((prevActive) => !prevActive)}
       style={style}
     >
-      <SelectArea style={selectstyle} readOnly></SelectArea>
+      <SelectArea value={value} style={selectstyle} readOnly></SelectArea>
       <LabelSelect labelstyle={labelstyle} active={`${active}`}>
         {label}
       </LabelSelect>

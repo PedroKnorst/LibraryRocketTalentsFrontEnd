@@ -8,6 +8,14 @@ export const getBooks = () => {
   }
 };
 
+export const getBook = (id: any) => {
+  try {
+    return api.get("/books/" + id);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
 export const postBook = (body: any) => {
   try {
     return api.post("books", { ...body });
