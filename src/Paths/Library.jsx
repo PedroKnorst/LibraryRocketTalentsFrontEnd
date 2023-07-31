@@ -18,6 +18,8 @@ import ContainerBook from "../Components/CardBook/ContainerBook";
 import { UserContext } from "../UserContext";
 import { Route, Routes } from "react-router-dom";
 import BookDataBorrow from "../Components/Modal/BookDataBorrow";
+import BookIsInactive from "../Components/Modal/BookIsInactive";
+import BookDataInactive from "../Components/Modal/BookDataInactive";
 
 const Library = () => {
   const { books } = React.useContext(UserContext);
@@ -27,7 +29,7 @@ const Library = () => {
       <Routes>
         <Route path="livro/:id" element={<ModalBook />} />
         <Route path="emprestar/:id" element={<BookDataBorrow />} />
-        <Route path="inativar/:id" />
+        <Route path="inativar/:id" element={<BookDataInactive />} />
       </Routes>
       <NavBack>
         <NavBackHome to="/home">

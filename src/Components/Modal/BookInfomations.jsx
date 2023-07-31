@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  ButtonBorrow,
   ButtonClose,
   ContainerBook,
   ContainerBookButtons,
@@ -14,7 +13,7 @@ import {
 import { ReactComponent as Close } from "../../assets/svg/Caminho 265.svg";
 import { ReactComponent as Book } from "../../assets/svg/auto_stories_FILL0_wght400_GRAD0_opsz48 (1).svg";
 
-const BookIsNotBorrowed = ({ data }) => {
+const BookInfomations = ({ data }) => {
   return (
     <>
       <ContainerBook>
@@ -25,7 +24,7 @@ const BookIsNotBorrowed = ({ data }) => {
           src={`http://localhost:3001/static/${data.image}`}
           alt="livro"
         />
-        <LinkBorrow to={`../emprestar/${data.id}`}>
+        <LinkBorrow active={`${true}`} to={`../emprestar/${data.id}`}>
           <Book />
           Emprestar
         </LinkBorrow>
@@ -50,7 +49,9 @@ const BookIsNotBorrowed = ({ data }) => {
         </TextBook>
         <ContainerBookButtons>
           <EditButton to={`/home/editar/${data.id}`}>Editar</EditButton>
-          <InactiveButton>Inativar</InactiveButton>
+          <InactiveButton to={`../inativar/${data.id}`}>
+            Inativar
+          </InactiveButton>
           <HistoryButton>Histórico</HistoryButton>
         </ContainerBookButtons>
       </ContainerBook>
@@ -58,4 +59,4 @@ const BookIsNotBorrowed = ({ data }) => {
   );
 };
 
-export default BookIsNotBorrowed;
+export default BookInfomations;

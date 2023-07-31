@@ -1,8 +1,9 @@
 import React from "react";
 import BookIsBorrowed from "./BookIsBorrowed";
-import BookIsNotBorrowed from "./BookIsNotBorrowed";
+import BookInformations from "./BookInfomations";
 import { getBook } from "../../services/books";
 import { useParams } from "react-router-dom";
+import BookIsInactive from "./BookIsInactive";
 
 const BookContent = () => {
   const { id } = useParams();
@@ -11,44 +12,18 @@ const BookContent = () => {
   React.useEffect(() => {
     getBook(id).then((res) => {
       setData(res.data);
-      console.log(res.data);
     });
   }, [id]);
 
-  // React.useEffect(() => {
-  //   getBook(data.id).then((res) => {
-  //     console.log(res.data);
-  //     setNewData(res.data);
-  //   });
-  // }, [data]);
-
-  // React.useEffect(() => {
-  //   putBook(data.id, { ...data }).then((res) => {
-  //     console.log(res.data);
-  //     return res.data;
-  //   });
-  // }, [data]);
-
-  // function closeModal() {
-  //   setModal(null);
-  // }
-
-  // function isBorrowed() {
-  //   setBorrow((borrow) => !borrow);
-  //   data.isBorrowed = borrow;
-  // }
-
-  if (data)
-    return (
-      <>
-        {data.isBorrowed ? (
-          <BookIsBorrowed data={data} />
-        ) : (
-          <BookIsNotBorrowed data={data} />
-        )}
-      </>
-    );
-  else return null;
+  if (data) {
+    if (!data.isBorrowed && data.status.isActive)
+      return <BookInformations data={data} />;
+    else if (data.isBorrowed && data.status.isActive)
+      return <BookIsBorrowed data={data} />;
+    else if (!data.isBorrowed && !data.status.isActive)
+      return <BookIsInactive data={data} />;
+    else return null;
+  } else return null;
 };
 
 export default BookContent;

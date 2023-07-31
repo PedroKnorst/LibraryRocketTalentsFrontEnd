@@ -6,7 +6,7 @@ export const ContainerInput = styled.div`
 `;
 
 const InputStyle = `
-  max-width: 400px;
+  width: 350px;
   border: solid 1px #133052;
   border-radius: 5px;
   padding: 1rem;
@@ -21,6 +21,12 @@ const InputStyle = `
 
 export const Input = styled.input`
   ${InputStyle}
+`;
+
+export const InputError = styled.p`
+  color: #f31;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
 `;
 
 export const LabelInput = styled.label`

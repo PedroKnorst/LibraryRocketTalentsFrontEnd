@@ -15,6 +15,23 @@ export const ContainerBook = styled.div`
     "borrow edit";
   padding: 2.5rem;
   gap: 2rem;
+
+  & h2 {
+    justify-self: center;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #3e4756;
+  }
+`;
+
+export const TextAreaStyle = styled.textarea`
+  resize: none;
+  border: #133052 solid 1px;
+  border-radius: 5px;
+  padding: 1rem;
+  color: #3e4756;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
 `;
 
 export const ButtonClose = styled(Link)`
@@ -31,12 +48,6 @@ export const TextBook = styled.div`
   gap: 1.5rem;
   color: #3e4756;
   grid-area: text;
-
-  & h2 {
-    justify-self: center;
-    font-weight: 500;
-    font-size: 1.25rem;
-  }
 
   & div {
     display: grid;
@@ -88,8 +99,9 @@ export const EditButton = styled(Link)`
   }
 `;
 
-export const InactiveButton = styled.button`
+export const InactiveButton = styled(Link)`
   ${ButtonsStyle}
+  text-decoration: none;
   border: #ed5e5e solid 1px;
   color: #ed5e5e;
   transition: all 0.2s ease-in-out;
@@ -109,8 +121,7 @@ export const HistoryButton = styled.button`
   }
 `;
 
-export const ButtonBorrow = styled(Link)`
-  text-decoration: none;
+const ButtonBorrowStyle = `
   color: black;
   cursor: pointer;
   display: flex;
@@ -120,11 +131,16 @@ export const ButtonBorrow = styled(Link)`
   font-size: 1rem;
   font-family: "Roboto", sans-serif;
   gap: 0.5rem;
-  border: #adb5bd solid 1px;
-  background-color: #f4f4f4;
   padding: 1rem;
+  border: #adb5bd solid 1px;
   border-radius: 5px;
   transition: all 0.2s ease-in-out;
+`;
+
+export const ButtonBorrow = styled(Link)`
+  text-decoration: none;
+  ${ButtonBorrowStyle}
+  background-color: #f4f4f4;
 
   &:hover {
     background-color: #ffd857;
@@ -133,22 +149,67 @@ export const ButtonBorrow = styled(Link)`
 
 export const LinkBorrow = styled(Link)`
   text-decoration: none;
-  color: black;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 500;
-  font-size: 1rem;
-  font-family: "Roboto", sans-serif;
-  gap: 0.5rem;
-  border: #adb5bd solid 1px;
+  ${ButtonBorrowStyle}
   background-color: #ffc501;
-  padding: 1rem;
-  border-radius: 5px;
-  transition: all 0.2s ease-in-out;
+  position: relative;
+
+  ${({ active }) =>
+    active === "true"
+      ? "&:hover {background-color: #ffd857;}"
+      : ` cursor: not-allowed;
+          &::after {
+            content: "";
+            position: absolute;
+            background-color: rgba(173, 181, 189, 0.5);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+          }
+         `}
+`;
+
+export const ContainerLinkBorrow = styled.button`
+  grid-column: 2 / 3;
+  border: none;
+  ${ButtonBorrowStyle}
+  background-color: #ffc501;
 
   &:hover {
     background-color: #ffd857;
+  }
+`;
+
+export const ContainerDataStudent = styled.div`
+  display: grid;
+  grid-column: 1 / 3;
+
+  & h2 + div {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    padding: 1rem;
+  }
+
+  & div div h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #3e4756;
+  }
+
+  & div div p {
+    color: #3e4756;
+    font-size: 1rem;
+    font-weight: 300;
+  }
+
+  & h2 {
+    justify-self: start;
+    color: #3e4756;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
   }
 `;
