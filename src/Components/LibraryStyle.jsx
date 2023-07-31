@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
 export const ContainerLibrary = styled.div`
@@ -64,7 +65,8 @@ export const ContainerBooksLibrary = styled.div`
   margin: 5rem;
 `;
 
-export const ContainerBookStyle = styled.div`
+export const ContainerBookStyle = styled(Link)`
+  text-decoration: none;
   display: grid;
   cursor: pointer;
   justify-items: center;

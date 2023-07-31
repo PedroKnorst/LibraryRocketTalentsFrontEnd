@@ -26,7 +26,15 @@ export const postBook = (body: any) => {
 
 export const getHistory = () => {
   try {
-    return api.get("/books/history");
+    return api.get("/history");
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const putBook = (id: any, body: any) => {
+  try {
+    return api.put("/books/" + id, { ...body });
   } catch (err) {
     return Promise.reject(err);
   }

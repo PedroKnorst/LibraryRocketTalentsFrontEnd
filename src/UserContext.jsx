@@ -1,17 +1,33 @@
 import React from "react";
+import { getBooks, getHistory, putBook } from "./services/books";
+import { getUsers } from "./services/users";
 
 export const UserContext = React.createContext();
 
 export const UserStorage = ({ children }) => {
-  const [data, setData] = React.useState(null);
+  const [books, setBooks] = React.useState(null);
+  const [users, setUsers] = React.useState(null);
+  const [history, setHistory] = React.useState(null);
 
-  function changeData(newData) {
-    setData(newData);
-  }
+  React.useEffect(() => {
+    getBooks().then((res) => {
+      setBooks(res.data);
+    });
 
-  return (
-    <UserContext.Provider value={(data, changeData)}>
-      {children}
-    </UserContext.Provider>
-  );
+    getUsers().then((res) => {
+      setUsers(res.data);
+    });
+
+    getHistory().then((res) => {
+      setHistory(res.data);
+    });
+  }, []);
+
+  if (books && users && history)
+    return (
+      <UserContext.Provider value={{ books, users, history }}>
+        {children}
+      </UserContext.Provider>
+    );
+  else return null;
 };

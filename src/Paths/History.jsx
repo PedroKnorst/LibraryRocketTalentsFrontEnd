@@ -4,16 +4,10 @@ import { ReactComponent as Back } from "../assets/svg/chevron_left_FILL0_wght400
 import HistoryLoans, {
   ContainerHistoryLoans,
 } from "../Components/HistoryStyle";
-import { getHistory } from "../services/books/index";
+import { UserContext } from "../UserContext";
 
 const History = () => {
-  const [data, setData] = React.useState(null);
-
-  React.useEffect(() => {
-    getHistory().then((res) => {
-      setData(res.data);
-    });
-  }, []);
+  const { history } = React.useContext(UserContext);
 
   return (
     <ContainerHistoryLoans>
@@ -23,7 +17,7 @@ const History = () => {
         </NavBackHome>
         <NavBackPage>/ Histórico de empréstimos</NavBackPage>
       </NavBack>
-      <HistoryLoans loans={data} />
+      <HistoryLoans loans={history} />
     </ContainerHistoryLoans>
   );
 };

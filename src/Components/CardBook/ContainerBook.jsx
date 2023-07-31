@@ -1,14 +1,10 @@
 import React from "react";
 import { ContainerBookStyle } from "../LibraryStyle";
 
-const ContainerBook = ({ book, setModal }) => {
-  function openModal() {
-    setModal(book);
-  }
-
+const ContainerBook = ({ book }) => {
   return (
     <>
-      <ContainerBookStyle key={book.title} onClick={openModal}>
+      <ContainerBookStyle to={`livro/${book.id}`}>
         <img
           src={`http://localhost:3001/static/${book.image}`}
           alt={book.title}

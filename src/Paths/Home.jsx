@@ -24,7 +24,7 @@ const Home = () => {
       <MainBackground>
         <Routes>
           <Route path="/" element={<HomeNav />} />
-          <Route path="biblioteca" element={<Library />} />
+          <Route path="biblioteca/*" element={<Library />} />
           <Route path="editar/:id" element={<EditBook />} />
           <Route path="novo" element={<NewBook />} />
           <Route path="historico" element={<History />} />

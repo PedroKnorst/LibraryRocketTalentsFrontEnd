@@ -15,21 +15,20 @@ import { ReactComponent as Search } from "../assets/svg/Caminho 263.svg";
 import Select from "../Components/Inputs/Select";
 import ModalBook from "../Components/Modal/ModalBook";
 import ContainerBook from "../Components/CardBook/ContainerBook";
+import { UserContext } from "../UserContext";
+import { Route, Routes } from "react-router-dom";
+import BookDataBorrow from "../Components/Modal/BookDataBorrow";
 
 const Library = () => {
-  const [data, setData] = React.useState(null);
-  const [modal, setModal] = React.useState(null);
-
-  React.useEffect(() => {
-    getBooks().then((res) => {
-      setData(res.data);
-      console.log(res.data);
-    });
-  }, []);
+  const { books } = React.useContext(UserContext);
 
   return (
     <ContainerLibrary>
-      {modal && <ModalBook modal={modal} setModal={setModal} />}
+      <Routes>
+        <Route path="livro/:id" element={<ModalBook />} />
+        <Route path="emprestar/:id" element={<BookDataBorrow />} />
+        <Route path="inativar/:id" />
+      </Routes>
       <NavBack>
         <NavBackHome to="/home">
           <Back /> Home
@@ -56,10 +55,8 @@ const Library = () => {
           />
         </ContainerInputsLibrary>
         <ContainerBooksLibrary>
-          {data &&
-            data.map((book) => (
-              <ContainerBook key={book.id} book={book} setModal={setModal} />
-            ))}
+          {books &&
+            books.map((book) => <ContainerBook key={book.id} book={book} />)}
         </ContainerBooksLibrary>
       </SectinoInputsLibrary>
     </ContainerLibrary>
