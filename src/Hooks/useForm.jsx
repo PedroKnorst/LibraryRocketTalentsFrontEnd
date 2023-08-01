@@ -39,11 +39,17 @@ const useForm = (typeValidate) => {
     setValue(target.value);
   }
 
+  function onSelect({ target }) {
+    if (error) validate(target.textContent);
+    setValue(target.textContent);
+  }
+
   return {
     value,
     setValue,
     onChange,
     error,
+    onSelect,
     validate: () => validate(value),
     onBlur: () => validate(value),
   };

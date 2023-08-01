@@ -18,11 +18,17 @@ import ContainerBook from "../Components/CardBook/ContainerBook";
 import { UserContext } from "../UserContext";
 import { Route, Routes } from "react-router-dom";
 import BookDataBorrow from "../Components/Modal/BookDataBorrow";
-import BookIsInactive from "../Components/Modal/BookIsInactive";
 import BookDataInactive from "../Components/Modal/BookDataInactive";
+import useForm from "../Hooks/useForm";
 
 const Library = () => {
   const { books } = React.useContext(UserContext);
+  const category = useForm();
+  let categorys = ["Autor", "Gênero", "Data"];
+
+  function selectItem(e) {
+    category.onSelect(e);
+  }
 
   return (
     <ContainerLibrary>
@@ -51,6 +57,9 @@ const Library = () => {
             <ButtonInputSearch>Buscar</ButtonInputSearch>
           </ContainerSearchLibrary>
           <Select
+            selectItem={selectItem}
+            list={categorys}
+            value={category.value}
             labelstyle={"#ADB5BD"}
             selectstyle={{ borderColor: "#ADB5BD" }}
             label={"Filtrar"}

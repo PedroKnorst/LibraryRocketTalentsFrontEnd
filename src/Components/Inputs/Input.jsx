@@ -18,15 +18,21 @@ const InputStyle = `
   padding: 1rem;
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
-
-  &:focus + label {
-    transform: translateY(-25px);
-    font-size: 0.8rem;
-  }
 `;
 
 export const Input = styled.input`
   ${InputStyle}
+
+  ${({ value }) =>
+    value
+      ? `& + label {
+          transform: translateY(-25px);
+          font-size: 0.8rem;
+         }`
+      : `&:focus + label {
+          transform: translateY(-25px);
+          font-size: 0.8rem;
+         }`}
 `;
 
 export const InputError = styled.p`
@@ -49,30 +55,15 @@ export const LabelInput = styled.label`
 export const TextArea = styled.textarea`
   ${InputStyle}
   resize: none;
-`;
 
-export const InputFile = styled.label`
-  cursor: pointer;
-  width: 10rem;
-  display: flex;
-  align-items: center;
-  border: #ffc501 dashed 2px;
-  color: #ffc501;
-  font-weight: 500;
-  font-size: 1.25rem;
-  justify-content: center;
-
-  & img {
-    max-width: 100%;
-    height: 200px;
-  }
-
-  & input {
-    display: none;
-  }
-
-  & span {
-    display: flex;
-    gap: 0.5rem;
-  }
+  ${({ value }) =>
+    value
+      ? `& + label {
+          transform: translateY(-25px);
+          font-size: 0.8rem;
+         }`
+      : `&:focus + label {
+          transform: translateY(-25px);
+          font-size: 0.8rem;
+         }`}
 `;

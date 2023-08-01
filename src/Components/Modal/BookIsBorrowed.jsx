@@ -62,7 +62,9 @@ const BookIsBorrowed = ({ data }) => {
           </TextBook>
           <ContainerBookButtons>
             <EditButton to={`/home/editar/${data.id}`}>Editar</EditButton>
-            <InactiveButton>Inativar</InactiveButton>
+            <InactiveButton disabled style={{ cursor: "not-allowed" }}>
+              Inativar
+            </InactiveButton>
             <HistoryButton>Histórico</HistoryButton>
           </ContainerBookButtons>
           <ContainerDataStudent>

@@ -165,7 +165,7 @@ export const ButtonBorrow = styled(Link)`
   background-color: #f4f4f4;
 
   &:hover {
-    background-color: #ffd857;
+    background-color: #cdcdcd;
   }
 `;
 

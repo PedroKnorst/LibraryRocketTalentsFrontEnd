@@ -15,26 +15,27 @@ const SelectArea = styled.textarea`
   border: solid 1px #133052;
   border-radius: 5px;
   resize: none;
-  padding: 0.5rem;
+  padding: 1rem 0.5rem 0 1rem;
+  box-sizing: border-box;
   border-radius: 5px;
-`;
 
-const LabelSelect = styled.label`
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background-color: white;
-  padding: 0 5rem 0 0;
-  color: ${({ labelstyle }) => labelstyle};
-  transition: all 0.4s ease-in-out;
+  & + label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: white;
+    padding: 0 5rem 0 0;
+    color: ${({ labelstyle }) => labelstyle};
+    transition: all 0.4s ease-in-out;
 
-  ${({ active }) =>
-    active === "true"
-      ? `transform: translate(-0.25rem, -1.5rem);
+    ${({ active, value }) =>
+      active === "true" || value
+        ? `transform: translate(-0.25rem, -1.5rem);
          padding: 0 4px;
          font-size: 0.8rem;
          color: #343a40;`
-      : ""}
+        : ""}
+  }
 `;
 
 const ArrowSelect = styled(IconSelect)`
@@ -82,7 +83,15 @@ const OptionsSelect = styled.ul`
   }
 `;
 
-const Select = ({ label, style, labelstyle, selectstyle, value }) => {
+const Select = ({
+  label,
+  style,
+  labelstyle,
+  selectstyle,
+  value,
+  selectItem,
+  list,
+}) => {
   const [active, setActive] = React.useState(false);
 
   return (
@@ -90,15 +99,22 @@ const Select = ({ label, style, labelstyle, selectstyle, value }) => {
       onClick={() => setActive((prevActive) => !prevActive)}
       style={style}
     >
-      <SelectArea value={value} style={selectstyle} readOnly></SelectArea>
-      <LabelSelect labelstyle={labelstyle} active={`${active}`}>
-        {label}
-      </LabelSelect>
+      <SelectArea
+        labelstyle={labelstyle}
+        active={`${active}`}
+        value={value}
+        style={selectstyle}
+        readOnly
+      ></SelectArea>
+      <label>{label}</label>
       <ArrowSelect active={`${active}`} />
       <OptionsSelect active={`${active}`}>
-        <li>Ola</li>
-        <li>Ola</li>
-        <li>Ola</li>
+        <li>Selecione</li>
+        {list.map((item) => (
+          <li onClick={selectItem} key={item}>
+            {item}
+          </li>
+        ))}
       </OptionsSelect>
     </ContainerSelect>
   );
