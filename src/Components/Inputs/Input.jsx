@@ -3,6 +3,12 @@ import { styled } from "styled-components";
 export const ContainerInput = styled.div`
   position: relative;
   display: grid;
+
+  & p {
+    position: absolute;
+    bottom: -1.5rem;
+    left: 0;
+  }
 `;
 
 const InputStyle = `

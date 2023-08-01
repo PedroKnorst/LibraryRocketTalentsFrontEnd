@@ -6,7 +6,7 @@ import {
   CoverBook,
   EditButton,
   HistoryButton,
-  InactiveButton,
+  InactiveLink,
   LinkBorrow,
   TextBook,
 } from "./BookContentStyle";
@@ -49,9 +49,7 @@ const BookInfomations = ({ data }) => {
         </TextBook>
         <ContainerBookButtons>
           <EditButton to={`/home/editar/${data.id}`}>Editar</EditButton>
-          <InactiveButton to={`../inativar/${data.id}`}>
-            Inativar
-          </InactiveButton>
+          <InactiveLink to={`../inativar/${data.id}`}>Inativar</InactiveLink>
           <HistoryButton>Histórico</HistoryButton>
         </ContainerBookButtons>
       </ContainerBook>

@@ -99,7 +99,7 @@ export const EditButton = styled(Link)`
   }
 `;
 
-export const InactiveButton = styled(Link)`
+export const InactiveLink = styled(Link)`
   ${ButtonsStyle}
   text-decoration: none;
   border: #ed5e5e solid 1px;
@@ -108,6 +108,28 @@ export const InactiveButton = styled(Link)`
 
   &:hover {
     background-color: #f2cdcd;
+  }
+`;
+
+export const InactiveButton = styled.button`
+  ${ButtonsStyle}
+  border: #ed5e5e solid 1px;
+  color: #ed5e5e;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #f2cdcd;
+  }
+`;
+
+export const ActiveButton = styled.button`
+  ${ButtonsStyle}
+  border: #49D749 solid 1px;
+  color: #49d749;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #b5fbb5;
   }
 `;
 

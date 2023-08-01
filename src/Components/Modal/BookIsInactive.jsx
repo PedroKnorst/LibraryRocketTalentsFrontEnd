@@ -6,12 +6,12 @@ import {
   CoverBook,
   EditButton,
   HistoryButton,
-  InactiveButton,
+  ActiveButton,
   LinkBorrow,
   TextBook,
 } from "./BookContentStyle";
 import { useParams } from "react-router-dom";
-import { getBook } from "../../services/books";
+import { getBook, putBook } from "../../services/books";
 import { ReactComponent as Close } from "../../assets/svg/Caminho 265.svg";
 import { ReactComponent as Book } from "../../assets/svg/auto_stories_FILL0_wght400_GRAD0_opsz48 (1).svg";
 
@@ -24,6 +24,16 @@ const BookIsInactive = () => {
       setData(res.data);
     });
   }, [id]);
+
+  function activeBook() {
+    putBook(id, { ...data, status: { isActive: true, description: "" } }).then(
+      (res) => {
+        return res.data;
+      }
+    );
+    alert("Livro ativado novamente!");
+    location.reload();
+  }
 
   if (data)
     return (
@@ -60,7 +70,7 @@ const BookIsInactive = () => {
         </TextBook>
         <ContainerBookButtons>
           <EditButton to={`/home/editar/${data.id}`}>Editar</EditButton>
-          <InactiveButton>Ativar</InactiveButton>
+          <ActiveButton onClick={activeBook}>Ativar</ActiveButton>
           <HistoryButton>Histórico</HistoryButton>
         </ContainerBookButtons>
       </ContainerBook>
