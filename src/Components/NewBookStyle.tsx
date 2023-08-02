@@ -7,7 +7,7 @@ export const ContainerNewBook = styled.div`
   height: 100%;
 `;
 
-export const SectionInputs = styled.section`
+export const SectionInputs = styled.form`
   max-width: 60rem;
   display: grid;
   margin: auto;

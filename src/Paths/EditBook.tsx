@@ -17,8 +17,8 @@ import {
   TextArea,
 } from "../Components/Inputs/Input";
 import Select from "../Components/Inputs/Select";
-import { useParams } from "react-router-dom";
-import { getBook, getBooks } from "../services/books";
+import { useNavigate, useParams } from "react-router-dom";
+import { getBook, getBooks, putBook } from "../services/books";
 import useForm from "../Hooks/useForm";
 
 const EditBook = () => {
@@ -30,6 +30,7 @@ const EditBook = () => {
   const author = useForm();
   const genre = useForm();
   const entryDate = useForm();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     getBook(id).then((res) => {
@@ -41,9 +42,24 @@ const EditBook = () => {
     });
   }, [id]);
 
-  function selectGenre(e) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    putBook(id, {
+      ...book,
+      title: title.value,
+      author: author.value,
+      genre: genre.value,
+      synopsis: synopsis.value,
+      systemEntryDate: entryDate,
+    }).then((res) => res.data);
+
+    return navigate("../biblioteca");
+  };
+
+  const selectGenre = (e) => {
     genre.onSelect(e);
-  }
+  };
 
   if (book && data) {
     let filterGenre = data.reduce((items, currentItem) => {
@@ -61,7 +77,7 @@ const EditBook = () => {
           </NavBackHome>
           <NavBackPage>/ Editar livro</NavBackPage>
         </NavBack>
-        <SectionInputs>
+        <SectionInputs onSubmit={handleSubmit}>
           <ContainerInputs>
             <InputFile cover={book.image} />
             <ContainerInput style={{ gridArea: "titulo" }}>
