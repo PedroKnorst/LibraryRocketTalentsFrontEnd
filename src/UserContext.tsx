@@ -1,35 +1,9 @@
 import React from "react";
 import { getBooks, getHistory } from "./services/books";
 import { getUsers } from "./services/users";
-
-export interface Book {
-  id: string;
-  title: string;
-  author: string;
-  genre: string;
-  status: {
-    isActive: boolean;
-    description: string;
-  };
-  isBorrowed: boolean;
-  image: string;
-  systemEntryDate: string;
-  synopsis: string;
-  rentHistory: Loan[];
-}
-
-export interface User {
-  email: string;
-  password: string;
-}
-
-export interface Loan {
-  bookTitle?: string;
-  studentName: string;
-  class: string;
-  withdrawalDate: string;
-  deliveryDate: string;
-}
+import { Book } from "./interfaces/Book";
+import { User } from "./interfaces/user";
+import { Loan } from "./interfaces/history";
 
 type Data = {
   books: Book[];
