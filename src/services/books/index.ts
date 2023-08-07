@@ -1,3 +1,4 @@
+import { Book } from "../../UserContext";
 import { api } from "../api";
 
 export const getBooks = () => {
@@ -8,7 +9,7 @@ export const getBooks = () => {
   }
 };
 
-export const getBook = (id: any) => {
+export const getBook = (id: string) => {
   try {
     return api.get("/books/" + id);
   } catch (err) {
@@ -16,7 +17,7 @@ export const getBook = (id: any) => {
   }
 };
 
-export const postBook = (body: any) => {
+export const postBook = (body: Book) => {
   try {
     return api.post("books", { ...body });
   } catch (err) {
@@ -32,7 +33,7 @@ export const getHistory = () => {
   }
 };
 
-export const putBook = (id: any, body: any) => {
+export const putBook = (id: string, body: Book) => {
   try {
     return api.put("/books/" + id, { ...body });
   } catch (err) {

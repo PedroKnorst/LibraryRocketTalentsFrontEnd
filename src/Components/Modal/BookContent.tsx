@@ -17,11 +17,11 @@ const BookContent = () => {
   }, [id]);
 
   if (data) {
-    if (!data.isBorrowed && data.status?.isActive)
+    if (!data.isBorrowed && data.status.isActive)
       return <BookInformations data={data} />;
-    else if (data.isBorrowed && data.status?.isActive)
+    else if (data.isBorrowed && data.status.isActive)
       return <BookIsBorrowed data={data} />;
-    else if (!data.isBorrowed && !data.status?.isActive)
+    else if (!data.isBorrowed && !data.status.isActive)
       return <BookIsInactive data={data} />;
     else return null;
   } else return null;

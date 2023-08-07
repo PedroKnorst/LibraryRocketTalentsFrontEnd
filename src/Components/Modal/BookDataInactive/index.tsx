@@ -11,16 +11,16 @@ import InputTextArea from "../../Inputs/TexArea";
 const BookDataInactive = () => {
   const [data, setData] = React.useState(null);
   const { id } = useParams();
-  const description = useForm();
+  const description = useForm("description");
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    getBook(id).then((res) => {
+    getBook(`${id}`).then((res) => {
       setData(res.data);
     });
   }, [id]);
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (description.validate()) {

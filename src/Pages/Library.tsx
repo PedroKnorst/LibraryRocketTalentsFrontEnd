@@ -19,6 +19,7 @@ import BookDataInactive from "../Components/Modal/BookDataInactive";
 import useForm from "../Hooks/useForm";
 import { Book } from "../UserContext";
 import NavBack from "../Components/NavBack";
+import BookHistory from "../Components/Modal/BookHistory";
 
 const Library = () => {
   const { books } = React.useContext(UserContext);
@@ -32,6 +33,7 @@ const Library = () => {
           <Route path="livro/:id" element={<ModalBook />} />
           <Route path="emprestar/:id" element={<BookDataBorrow />} />
           <Route path="inativar/:id" element={<BookDataInactive />} />
+          <Route path="historico/:id" element={<BookHistory />} />
         </Routes>
         <NavBack path="/home" page="Biblioteca" />
         <SectinoInputsLibrary>
@@ -59,12 +61,7 @@ const Library = () => {
           <ContainerBooksLibrary>
             {books &&
               books.map((book: Book) => (
-                <ContainerBook
-                  key={book.id}
-                  id={book.id}
-                  title={book.title}
-                  image={book.image}
-                />
+                <ContainerBook key={book.id} data={book} />
               ))}
           </ContainerBooksLibrary>
         </SectinoInputsLibrary>

@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import IconSelect from "../../../assets/svg/IconSelect";
 
 interface Props {
   active: string;
@@ -42,7 +41,7 @@ export const SelectArea = styled.textarea<Props>`
   }
 `;
 
-export const ArrowSelect = styled(IconSelect)<Props>`
+export const ArrowSelect = styled.img<Props>`
   position: absolute;
   top: 1.5rem;
   right: 1rem;

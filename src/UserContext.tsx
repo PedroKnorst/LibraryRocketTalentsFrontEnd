@@ -3,19 +3,19 @@ import { getBooks, getHistory } from "./services/books";
 import { getUsers } from "./services/users";
 
 export interface Book {
-  id?: string;
-  title?: string;
-  author?: string;
-  genre?: string;
-  status?: {
+  id: string;
+  title: string;
+  author: string;
+  genre: string;
+  status: {
     isActive: boolean;
     description: string;
   };
-  isBorrowed?: boolean;
-  image?: string;
-  systemEntryDate?: string;
-  synopsis?: string;
-  rentHistory?: Array<object>;
+  isBorrowed: boolean;
+  image: string;
+  systemEntryDate: string;
+  synopsis: string;
+  rentHistory: Loan[];
 }
 
 export interface User {
@@ -24,7 +24,7 @@ export interface User {
 }
 
 export interface Loan {
-  book?: string;
+  bookTitle?: string;
   studentName: string;
   class: string;
   withdrawalDate: string;

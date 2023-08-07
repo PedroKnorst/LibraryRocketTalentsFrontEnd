@@ -1,13 +1,19 @@
-import React from "react";
 import { ContainerBookStyle } from "./style";
 import { Book } from "../../UserContext";
 
-const ContainerBook: React.FC<Book> = ({ id, image, title }) => {
+interface Props {
+  data: Book;
+}
+
+const ContainerBook = ({ data }: Props) => {
   return (
     <>
-      <ContainerBookStyle to={`livro/${id}`}>
-        <img src={`http://localhost:3001/static/${image}`} alt={title} />
-        <h2>{title}</h2>
+      <ContainerBookStyle to={`livro/${data.id}`}>
+        <img
+          src={`http://localhost:3001/static/${data.image}`}
+          alt={data.title}
+        />
+        <h2>{data.title}</h2>
       </ContainerBookStyle>
     </>
   );

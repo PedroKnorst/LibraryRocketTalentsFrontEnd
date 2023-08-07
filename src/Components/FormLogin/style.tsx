@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import Logo from "../../assets/svg/Logo.svg";
 
 export const ContainerLogin = styled.form`
   width: 25%;
@@ -32,8 +31,9 @@ export const IconeInput = styled.label`
   top: 15px;
 `;
 
-export const LogoLogin = styled(Logo)`
+export const ContainerLogo = styled.div`
   margin-bottom: 2.5rem;
+  text-align: center;
 `;
 
 export const ButtonLogin = styled.button`

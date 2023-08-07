@@ -6,20 +6,23 @@ import {
   ContainerLogin,
   IconeInput,
   InputLogin,
-  LogoLogin,
+  ContainerLogo,
   LostPassword,
 } from "./style";
 import Background01 from "../../assets/BackgroundLogin1.png";
 import Background02 from "../../assets/svg/BackgroundLogin2.svg";
 import Senha from "../../assets/svg/Senha";
 import Email from "../../assets/svg/Email";
+import Logo from "../../assets/svg/Logo";
 
 const LoginForm = () => {
   return (
     <Bacground1 active={Background01}>
       <Bacground2 active={Background02}>
         <ContainerLogin>
-          <LogoLogin />
+          <ContainerLogo>
+            <Logo />
+          </ContainerLogo>
           <ContainerInputLogin>
             <IconeInput htmlFor="login_email">
               <Email />

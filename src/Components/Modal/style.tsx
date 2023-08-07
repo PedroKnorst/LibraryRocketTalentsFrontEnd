@@ -3,10 +3,7 @@ import { styled } from "styled-components";
 
 export const ContainerBook = styled.div`
   position: absolute;
-  overflow: auto;
-  max-height: 30rem;
   top: 3rem;
-  bottom: 3rem;
   left: 50%;
   max-width: 90%;
   background-color: white;
@@ -24,6 +21,11 @@ export const ContainerBook = styled.div`
     font-weight: 600;
     font-size: 1.25rem;
     color: #3e4756;
+  }
+
+  @media (max-height: 750px) {
+    bottom: 3rem;
+    overflow: auto;
   }
 `;
 
@@ -71,6 +73,10 @@ export const CoverBook = styled.img`
   grid-area: img;
   max-width: 300px;
   height: 450px;
+
+  @media (max-height: 750px) {
+    height: 350px;
+  }
 `;
 
 export const ContainerBookButtons = styled.div`
@@ -136,8 +142,9 @@ export const ActiveButton = styled.button`
   }
 `;
 
-export const HistoryButton = styled.button`
+export const HistoryButton = styled(Link)`
   ${ButtonsStyle}
+  color: black;
   border: #adb5bd solid 1px;
   transition: all 0.2s ease-in-out;
 
@@ -162,7 +169,7 @@ const ButtonBorrowStyle = `
   transition: all 0.2s ease-in-out;
 `;
 
-export const ButtonBorrow = styled(Link)`
+export const LinkBorrowed = styled(Link)`
   text-decoration: none;
   ${ButtonBorrowStyle}
   background-color: #f4f4f4;

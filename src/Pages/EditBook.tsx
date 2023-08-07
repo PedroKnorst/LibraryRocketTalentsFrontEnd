@@ -29,22 +29,24 @@ const EditBook = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    getBook(id).then((res) => {
-      setBook(res.data);
-    });
+    if (id)
+      getBook(id).then((res) => {
+        setBook(res.data);
+      });
   }, [id]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    putBook(id, {
-      ...book,
-      title: title.value,
-      author: author.value,
-      genre: genre.value,
-      synopsis: synopsis.value,
-      systemEntryDate: entryDate.value,
-    }).then((res) => res.data);
+    if (book && id)
+      putBook(id, {
+        ...book,
+        title: title.value,
+        author: author.value,
+        genre: genre.value,
+        synopsis: synopsis.value,
+        systemEntryDate: entryDate.value,
+      }).then((res) => res.data);
 
     return navigate("../biblioteca");
   };

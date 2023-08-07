@@ -63,7 +63,9 @@ const BookIsBorrowed = ({ data }) => {
           <InactiveButton disabled style={{ cursor: "not-allowed" }}>
             Inativar
           </InactiveButton>
-          <HistoryButton>Histórico</HistoryButton>
+          <HistoryButton to={`../historico/${data.id}`}>
+            Histórico
+          </HistoryButton>
         </ContainerBookButtons>
         <ContainerDataStudent>
           <h2>Dados do aluno</h2>

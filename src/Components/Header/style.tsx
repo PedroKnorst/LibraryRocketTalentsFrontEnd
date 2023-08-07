@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
-import Arrow from "../../assets/svg/Arrow";
 
 export const HeaderContainer = styled.header`
   display: flex;
@@ -39,7 +38,9 @@ export const Logout = styled(Link)<Props>`
   transition: all 0.2s ease-in-out;
 `;
 
-export const ArrowElement = styled(Arrow)<Props>`
+export const ArrowElement = styled.img<Props>`
   ${({ active }) => (active === "true" ? "transform: rotateZ(-180deg);" : "")}
   transition: all 0.2s ease-in-out;
 `;
+
+export const LogoImg = styled.img``;

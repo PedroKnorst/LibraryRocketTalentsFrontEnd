@@ -23,13 +23,13 @@ const useForm = (typeValidate?: string) => {
       setError("Preencha um valor!");
       return false;
     } else if (
-      "email" in validation &&
+      typeValidate === "email" &&
       !validation["email"].regex.test(value)
     ) {
       setError(validation.email.message);
       return false;
     } else if (
-      "password" in validation &&
+      typeValidate === "password" &&
       !validation["password"].regex.test(value)
     ) {
       setError(validation.password.message);
@@ -39,17 +39,14 @@ const useForm = (typeValidate?: string) => {
       return true;
     }
   }
-  function onChange(e: React.ChangeEvent<HTMLInputElement>): void;
-  function onChange(e: React.ChangeEvent<HTMLTextAreaElement>): void;
-  function onChange(
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ): void {
-    if (e.currentTarget.textContent) {
-      if (error) validate(e.currentTarget.textContent);
-      setValue(e.currentTarget.textContent);
-    }
+  function onChange({ target }: React.ChangeEvent<HTMLInputElement>): void;
+  function onChange({ target }: React.ChangeEvent<HTMLTextAreaElement>): void;
+  function onChange({
+    target,
+  }: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
+    console.log(target.value);
+    if (error) validate(target.value);
+    setValue(target.value);
   }
 
   function onSelect(e: React.PointerEvent<HTMLElement>) {

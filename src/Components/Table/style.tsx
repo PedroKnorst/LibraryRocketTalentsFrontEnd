@@ -1,6 +1,10 @@
 import { styled } from "styled-components";
 import Filter from "../../assets/svg/Filter";
 
+export const ContainerTable = styled.div`
+  display: grid;
+`;
+
 export const TableLoans = styled.table`
   margin: 2.5rem 1.5rem;
   border-collapse: collapse;

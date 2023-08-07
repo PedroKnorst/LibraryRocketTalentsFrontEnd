@@ -5,6 +5,7 @@ import {
   OptionsSelect,
   SelectArea,
 } from "./style";
+import IconSelect from "../../../assets/svg/IconSelect.svg";
 
 interface SelectProps {
   label: string;
@@ -40,7 +41,7 @@ const Select = ({
         readOnly
       ></SelectArea>
       <label>{label}</label>
-      <ArrowSelect active={`${active}`} />
+      <ArrowSelect src={IconSelect} active={`${active}`} />
       <OptionsSelect active={`${active}`}>
         <li>Selecione</li>
         {list.map((item) => (
