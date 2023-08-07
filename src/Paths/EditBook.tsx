@@ -2,29 +2,25 @@ import React from "react";
 import {
   ButtonCancel,
   ButtonSave,
-  ConitainerButtons,
+  ContainerButtons,
   ContainerInputs,
   ContainerNewBook,
   SectionInputs,
 } from "../Components/NewBookStyle";
-import { NavBack, NavBackHome, NavBackPage } from "../Components/NavBack";
-import { ReactComponent as Back } from "../assets/svg/chevron_left_FILL0_wght400_GRAD0_opsz48.svg";
-import InputFile from "../Components/Inputs/ImgInput";
-import {
-  ContainerInput,
-  Input,
-  LabelInput,
-  TextArea,
-} from "../Components/Inputs/Input";
+import InputFile from "../Components/Inputs/InputImg";
 import Select from "../Components/Inputs/Select";
 import { useNavigate, useParams } from "react-router-dom";
-import { getBook, getBooks, putBook } from "../services/books";
+import { getBook, putBook } from "../services/books";
 import useForm from "../Hooks/useForm";
+import { Book, UserContext } from "../UserContext";
+import NavBack from "../Components/NavBack";
+import InputText from "../Components/Inputs/InputText";
+import InputTextArea from "../Components/Inputs/TexArea";
 
 const EditBook = () => {
   const { id } = useParams();
-  const [book, setBook] = React.useState(null);
-  const [data, setData] = React.useState(null);
+  const { books } = React.useContext(UserContext);
+  const [book, setBook] = React.useState<Book | null>(null);
   const title = useForm();
   const synopsis = useForm();
   const author = useForm();
@@ -36,13 +32,9 @@ const EditBook = () => {
     getBook(id).then((res) => {
       setBook(res.data);
     });
-
-    getBooks().then((res) => {
-      setData(res.data);
-    });
   }, [id]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     putBook(id, {
@@ -51,87 +43,77 @@ const EditBook = () => {
       author: author.value,
       genre: genre.value,
       synopsis: synopsis.value,
-      systemEntryDate: entryDate,
+      systemEntryDate: entryDate.value,
     }).then((res) => res.data);
 
     return navigate("../biblioteca");
   };
 
-  const selectGenre = (e) => {
-    genre.onSelect(e);
-  };
-
-  if (book && data) {
-    let filterGenre = data.reduce((items, currentItem) => {
+  const filterGenre = books.reduce((items: string[], currentItem: Book) => {
+    if (currentItem.genre)
       if (items.indexOf(currentItem.genre) < 0) {
         items.push(currentItem.genre);
       }
-      return items;
-    }, []);
+    return items;
+  }, []);
 
-    return (
-      <ContainerNewBook>
-        <NavBack>
-          <NavBackHome to="/home/biblioteca">
-            <Back /> Biblioteca
-          </NavBackHome>
-          <NavBackPage>/ Editar livro</NavBackPage>
-        </NavBack>
-        <SectionInputs onSubmit={handleSubmit}>
-          <ContainerInputs>
-            <InputFile cover={book.image} />
-            <ContainerInput style={{ gridArea: "titulo" }}>
-              <Input
-                onChange={title.onChange}
-                value={title.value ? title.value : book.title}
-                type="text"
-                id="input_title"
-              />
-              <LabelInput htmlFor="input_title">Título</LabelInput>
-            </ContainerInput>
-            <ContainerInput style={{ gridArea: "sinopse" }}>
-              <TextArea
-                onChange={synopsis.onChange}
-                value={synopsis.value ? synopsis.value : book.synopsis}
-                id="input_sinopse"
-              />
-              <LabelInput htmlFor="input_sinopse">Sinopse</LabelInput>
-            </ContainerInput>
-            <ContainerInput style={{ gridArea: "autor" }}>
-              <Input
-                onChange={author.onChange}
-                value={author.value ? author.value : book.author}
-                type="text"
-                id="input_autor"
-              />
-              <LabelInput htmlFor="input_autor">Autor</LabelInput>
-            </ContainerInput>
-            <Select
-              selectItem={selectGenre}
-              list={filterGenre}
-              value={genre.value ? genre.value : book.genre}
-              style={{ gridArea: "genero" }}
-              labelStyle={"#133052"}
-              label={"Gênero"}
-            />
-            <ContainerInput style={{ gridArea: "data" }}>
-              <Input
-                onChange={entryDate.onChange}
-                value={entryDate.value ? entryDate.value : book.systemEntryDate}
-                type="date"
-                id="input_data"
-              />
-              <LabelInput htmlFor="input_data">Data de entrada</LabelInput>
-            </ContainerInput>
-          </ContainerInputs>
-          <ConitainerButtons>
-            <ButtonCancel to="/home/biblioteca">Cancelar</ButtonCancel>
-            <ButtonSave>Salvar</ButtonSave>
-          </ConitainerButtons>
-        </SectionInputs>
-      </ContainerNewBook>
-    );
-  } else return null;
+  return (
+    <ContainerNewBook>
+      <NavBack path="/home/biblioteca" page="Editar Livro" />
+      <SectionInputs onSubmit={handleSubmit}>
+        <ContainerInputs>
+          <InputFile cover={book?.image} />
+          <InputText
+            gridArea={{ gridArea: "titulo" }}
+            id="input_title"
+            label="Títutlo"
+            onChange={title.onChange}
+            value={title.value}
+            type="text"
+            error={title.error}
+          />
+          <InputTextArea
+            gridArea={{ gridArea: "sinopse" }}
+            id="input_synopsis"
+            label="Sinopse"
+            onChange={synopsis.onChange}
+            value={synopsis.value}
+            error={synopsis.error}
+          />
+          <InputText
+            gridArea={{ gridArea: "autor" }}
+            id="input_author"
+            label="Autor"
+            onChange={author.onChange}
+            value={author.value}
+            type="text"
+            error={author.error}
+          />
+          <Select
+            selectItem={(e) => genre.onSelect(e)}
+            list={filterGenre}
+            value={genre.value}
+            style={{ gridArea: "genero" }}
+            labelStyle={"#133052"}
+            label={"Gênero"}
+          />
+          <InputText
+            gridArea={{ gridArea: "data" }}
+            id="input_date"
+            label="Data de entrada"
+            onChange={entryDate.onChange}
+            value={entryDate.value}
+            type="date"
+            error={entryDate.error}
+          />
+        </ContainerInputs>
+        <ContainerButtons>
+          <ButtonCancel to="/home/biblioteca">Cancelar</ButtonCancel>
+          <ButtonSave>Salvar</ButtonSave>
+        </ContainerButtons>
+      </SectionInputs>
+    </ContainerNewBook>
+  );
 };
 
 export default EditBook;

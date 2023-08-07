@@ -1,7 +1,4 @@
 import React from "react";
-import { NavBack, NavBackHome, NavBackPage } from "../Components/NavBack";
-import { ReactComponent as Back } from "../assets/svg/chevron_left_FILL0_wght400_GRAD0_opsz48.svg";
-import { getBooks } from "../services/books";
 import {
   ButtonInputSearch,
   ContainerBooksLibrary,
@@ -11,67 +8,69 @@ import {
   InputSearch,
   SectinoInputsLibrary,
 } from "../Components/LibraryStyle";
-import { ReactComponent as Search } from "../assets/svg/Caminho 263.svg";
+import Search from "../assets/svg/Search";
 import Select from "../Components/Inputs/Select";
 import ModalBook from "../Components/Modal/ModalBook";
-import ContainerBook from "../Components/CardBook/ContainerBook";
+import ContainerBook from "../Components/CardBook";
 import { UserContext } from "../UserContext";
 import { Route, Routes } from "react-router-dom";
 import BookDataBorrow from "../Components/Modal/BookDataBorrow";
 import BookDataInactive from "../Components/Modal/BookDataInactive";
 import useForm from "../Hooks/useForm";
+import { Book } from "../UserContext";
+import NavBack from "../Components/NavBack";
 
 const Library = () => {
   const { books } = React.useContext(UserContext);
   const category = useForm();
-  let categorys = ["Autor", "Gênero", "Data"];
+  const categorys = ["Autor", "Gênero", "Data"];
 
-  function selectItem(e) {
-    category.onSelect(e);
-  }
-
-  return (
-    <ContainerLibrary>
-      <Routes>
-        <Route path="livro/:id" element={<ModalBook />} />
-        <Route path="emprestar/:id" element={<BookDataBorrow />} />
-        <Route path="inativar/:id" element={<BookDataInactive />} />
-      </Routes>
-      <NavBack>
-        <NavBackHome to="/home">
-          <Back /> Home
-        </NavBackHome>
-        <NavBackPage>/ Biblioteca</NavBackPage>
-      </NavBack>
-      <SectinoInputsLibrary>
-        <ContainerInputsLibrary>
-          <ContainerSearchLibrary>
-            <label htmlFor="search">
-              <Search />
-            </label>
-            <InputSearch
-              type="text"
-              id="search"
-              placeholder="Pesquisar livro..."
+  if (books)
+    return (
+      <ContainerLibrary>
+        <Routes>
+          <Route path="livro/:id" element={<ModalBook />} />
+          <Route path="emprestar/:id" element={<BookDataBorrow />} />
+          <Route path="inativar/:id" element={<BookDataInactive />} />
+        </Routes>
+        <NavBack path="/home" page="Biblioteca" />
+        <SectinoInputsLibrary>
+          <ContainerInputsLibrary>
+            <ContainerSearchLibrary>
+              <label htmlFor="search">
+                <Search />
+              </label>
+              <InputSearch
+                type="text"
+                id="search"
+                placeholder="Pesquisar livro..."
+              />
+              <ButtonInputSearch>Buscar</ButtonInputSearch>
+            </ContainerSearchLibrary>
+            <Select
+              selectItem={(e) => category.onSelect(e)}
+              list={categorys}
+              value={category.value}
+              labelStyle={"#ADB5BD"}
+              selectStyle={{ borderColor: "#ADB5BD" }}
+              label={"Filtrar"}
             />
-            <ButtonInputSearch>Buscar</ButtonInputSearch>
-          </ContainerSearchLibrary>
-          <Select
-            selectItem={selectItem}
-            list={categorys}
-            value={category.value}
-            labelstyle={"#ADB5BD"}
-            selectstyle={{ borderColor: "#ADB5BD" }}
-            label={"Filtrar"}
-          />
-        </ContainerInputsLibrary>
-        <ContainerBooksLibrary>
-          {books &&
-            books.map((book) => <ContainerBook key={book.id} book={book} />)}
-        </ContainerBooksLibrary>
-      </SectinoInputsLibrary>
-    </ContainerLibrary>
-  );
+          </ContainerInputsLibrary>
+          <ContainerBooksLibrary>
+            {books &&
+              books.map((book: Book) => (
+                <ContainerBook
+                  key={book.id}
+                  id={book.id}
+                  title={book.title}
+                  image={book.image}
+                />
+              ))}
+          </ContainerBooksLibrary>
+        </SectinoInputsLibrary>
+      </ContainerLibrary>
+    );
+  else return null;
 };
 
 export default Library;

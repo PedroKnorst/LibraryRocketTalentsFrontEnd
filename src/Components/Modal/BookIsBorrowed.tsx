@@ -1,5 +1,4 @@
-import React from "react";
-import { ReactComponent as Close } from "../../assets/svg/Caminho 265.svg";
+import Close from "../../assets/svg/Close";
 import {
   ButtonBorrow,
   ButtonClose,
@@ -11,8 +10,8 @@ import {
   HistoryButton,
   InactiveButton,
   TextBook,
-} from "./BookContentStyle";
-import { ReactComponent as Book } from "../../assets/svg/auto_stories_FILL0_wght400_GRAD0_opsz48 (1).svg";
+} from "./style";
+import BookSvg from "../../assets/svg/BookSvg";
 import { putBook } from "../../services/books";
 
 const BookIsBorrowed = ({ data }) => {
@@ -28,68 +27,66 @@ const BookIsBorrowed = ({ data }) => {
 
   if (data)
     return (
-      <>
-        <ContainerBook>
-          <ButtonClose to="..">
-            <Close />
-          </ButtonClose>
-          <CoverBook
-            src={`http://localhost:3001/static/${data.image}`}
-            alt="livro"
-          />
-          <ButtonBorrow onClick={changeBorrow}>
-            <Book />
-            Devolver
-          </ButtonBorrow>
-          <TextBook>
-            <h2>{data.title}</h2>
+      <ContainerBook>
+        <ButtonClose to="..">
+          <Close />
+        </ButtonClose>
+        <CoverBook
+          src={`http://localhost:3001/static/${data.image}`}
+          alt="livro"
+        />
+        <ButtonBorrow onClick={changeBorrow}>
+          <BookSvg />
+          Devolver
+        </ButtonBorrow>
+        <TextBook>
+          <h2>{data.title}</h2>
+          <div>
+            <h3>Sinopse</h3>
+            <p>{data.synopsis}</p>
+          </div>
+          <div>
+            <h3>Autor</h3>
+            <p>{data.author}</p>
+          </div>
+          <div>
+            <h3>Gênero</h3>
+            <p>{data.genre}</p>
+          </div>
+          <div>
+            <h3>Data de Entrada</h3>
+            <p>{data.systemEntryDate}</p>
+          </div>
+        </TextBook>
+        <ContainerBookButtons>
+          <EditButton to={`/home/editar/${data.id}`}>Editar</EditButton>
+          <InactiveButton disabled style={{ cursor: "not-allowed" }}>
+            Inativar
+          </InactiveButton>
+          <HistoryButton>Histórico</HistoryButton>
+        </ContainerBookButtons>
+        <ContainerDataStudent>
+          <h2>Dados do aluno</h2>
+          <div>
             <div>
-              <h3>Sinopse</h3>
-              <p>{data.synopsis}</p>
+              <h3>Nome do aluno</h3>
+              <p>{lastItem.studentName}</p>
             </div>
             <div>
-              <h3>Autor</h3>
-              <p>{data.author}</p>
+              <h3>Turma</h3>
+              <p>{lastItem.class}</p>
             </div>
             <div>
-              <h3>Gênero</h3>
-              <p>{data.genre}</p>
+              <h3>Data de retirada</h3>
+              <p>{lastItem.withdrawalDate}</p>
             </div>
             <div>
-              <h3>Data de Entrada</h3>
-              <p>{data.systemEntryDate}</p>
+              <h3>Data de entrega</h3>
+              <p>{lastItem.deliveryDate}</p>
             </div>
-          </TextBook>
-          <ContainerBookButtons>
-            <EditButton to={`/home/editar/${data.id}`}>Editar</EditButton>
-            <InactiveButton disabled style={{ cursor: "not-allowed" }}>
-              Inativar
-            </InactiveButton>
-            <HistoryButton>Histórico</HistoryButton>
-          </ContainerBookButtons>
-          <ContainerDataStudent>
-            <h2>Dados do aluno</h2>
-            <div>
-              <div>
-                <h3>Nome do aluno</h3>
-                <p>{lastItem.studentName}</p>
-              </div>
-              <div>
-                <h3>Turma</h3>
-                <p>{lastItem.class}</p>
-              </div>
-              <div>
-                <h3>Data de retirada</h3>
-                <p>{lastItem.withdrawalDate}</p>
-              </div>
-              <div>
-                <h3>Data de entrega</h3>
-                <p>{lastItem.deliveryDate}</p>
-              </div>
-            </div>
-          </ContainerDataStudent>
-        </ContainerBook>
-      </>
+          </div>
+        </ContainerDataStudent>
+      </ContainerBook>
     );
   else return null;
 };

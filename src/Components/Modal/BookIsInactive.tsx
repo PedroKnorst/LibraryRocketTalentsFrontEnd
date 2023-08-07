@@ -9,15 +9,15 @@ import {
   ActiveButton,
   LinkBorrow,
   TextBook,
-} from "./BookContentStyle";
+} from "./style";
 import { useParams } from "react-router-dom";
 import { getBook, putBook } from "../../services/books";
-import { ReactComponent as Close } from "../../assets/svg/Caminho 265.svg";
-import { ReactComponent as Book } from "../../assets/svg/auto_stories_FILL0_wght400_GRAD0_opsz48 (1).svg";
+import Close from "../../assets/svg/Close";
+import BookSvg from "../../assets/svg/BookSvg";
 
 const BookIsInactive = () => {
   const { id } = useParams();
-  const [data, setData] = React.useState(null);
+  const [data, setData] = React.useState<Book | null>(null);
 
   React.useEffect(() => {
     getBook(id).then((res) => {
@@ -46,7 +46,7 @@ const BookIsInactive = () => {
           alt="livro"
         />
         <LinkBorrow active={`${false}`}>
-          <Book />
+          <BookSvg />
           Emprestar
         </LinkBorrow>
         <TextBook>

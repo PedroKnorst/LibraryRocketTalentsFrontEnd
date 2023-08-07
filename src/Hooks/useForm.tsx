@@ -13,35 +13,50 @@ const validation = {
   },
 };
 
-const useForm = (typeValidate) => {
+const useForm = (typeValidate?: string) => {
   const [value, setValue] = React.useState("");
-  const [error, setError] = React.useState(null);
+  const [error, setError] = React.useState("");
 
-  function validate(value) {
-    if (typeValidate === false) return true;
+  function validate(value: string) {
+    if (typeValidate === "") return true;
     if (value.length === 0) {
       setError("Preencha um valor!");
       return false;
     } else if (
-      validation[typeValidate] &&
-      !validation[typeValidate].regex.test(value)
+      "email" in validation &&
+      !validation["email"].regex.test(value)
     ) {
-      setError(validation[typeValidate].message);
+      setError(validation.email.message);
+      return false;
+    } else if (
+      "password" in validation &&
+      !validation["password"].regex.test(value)
+    ) {
+      setError(validation.password.message);
       return false;
     } else {
-      setError(null);
+      setError("");
       return true;
     }
   }
-
-  function onChange({ target }) {
-    if (error) validate(target.value);
-    setValue(target.value);
+  function onChange(e: React.ChangeEvent<HTMLInputElement>): void;
+  function onChange(e: React.ChangeEvent<HTMLTextAreaElement>): void;
+  function onChange(
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ): void {
+    if (e.currentTarget.textContent) {
+      if (error) validate(e.currentTarget.textContent);
+      setValue(e.currentTarget.textContent);
+    }
   }
 
-  function onSelect({ target }) {
-    if (error) validate(target.textContent);
-    setValue(target.textContent);
+  function onSelect(e: React.PointerEvent<HTMLElement>) {
+    if (e.currentTarget.textContent) {
+      if (error) validate(e.currentTarget.textContent);
+      setValue(e.currentTarget.textContent);
+    }
   }
 
   return {

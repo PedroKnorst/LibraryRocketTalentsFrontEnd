@@ -24,7 +24,7 @@ export const ContainerInputs = styled.div`
     "capa sinopse data";
 `;
 
-export const ConitainerButtons = styled.div`
+export const ContainerButtons = styled.div`
   display: flex;
   justify-self: end;
   gap: 1.5rem;
