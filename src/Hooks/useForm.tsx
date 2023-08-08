@@ -44,7 +44,6 @@ const useForm = (typeValidate?: string) => {
   function onChange({
     target,
   }: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
-    console.log(target.value);
     if (error) validate(target.value);
     setValue(target.value);
   }

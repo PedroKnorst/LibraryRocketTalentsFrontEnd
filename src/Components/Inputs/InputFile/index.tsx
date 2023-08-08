@@ -3,14 +3,14 @@ import Add from "../../../assets/svg/Add";
 import { ContainerImg } from "./style";
 
 interface Props {
-  cover: string;
+  cover?: string;
 }
 
 const InputFile = ({ cover }: Props) => {
-  const [img, setImg] = React.useState("");
+  const [img, setImg] = React.useState<string | null | ArrayBuffer>(null);
 
   React.useEffect(() => {
-    setImg(cover);
+    if (cover) setImg(cover);
   }, [cover]);
 
   function changeImage(e: React.ChangeEvent<HTMLInputElement>) {
@@ -24,7 +24,7 @@ const InputFile = ({ cover }: Props) => {
         };
         reader.readAsDataURL(file);
       } else {
-        setImg("");
+        setImg(null);
       }
     }
   }

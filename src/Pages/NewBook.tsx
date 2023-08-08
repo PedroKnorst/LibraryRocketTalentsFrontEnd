@@ -6,14 +6,14 @@ import {
   ContainerInputs,
   ContainerNewBook,
   SectionInputs,
-} from "../Components/NewBookStyle";
-import Select from "../Components/Inputs/Select";
+} from "../components/NewBook/style";
+import Select from "../components/Inputs/Select";
 import useForm from "../Hooks/useForm";
-import InputFile from "../Components/Inputs/InputImg";
+import InputFile from "../components/Inputs/InputFile";
 import { Book, UserContext } from "../UserContext";
-import InputText from "../Components/Inputs/InputText";
-import NavHome from "../Components/NavBack";
-import InputTextArea from "../Components/Inputs/TexArea";
+import InputText from "../components/Inputs/InputText";
+import NavHome from "../components/NavBack";
+import InputTextArea from "../components/Inputs/TexArea";
 
 const NewBook = () => {
   const { books } = React.useContext(UserContext);

@@ -42,5 +42,3 @@ export const ArrowElement = styled.img<Props>`
   ${({ active }) => (active === "true" ? "transform: rotateZ(-180deg);" : "")}
   transition: all 0.2s ease-in-out;
 `;
-
-export const LogoImg = styled.img``;

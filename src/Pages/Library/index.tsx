@@ -7,19 +7,19 @@ import {
   ContainerSearchLibrary,
   InputSearch,
   SectinoInputsLibrary,
-} from "../Components/LibraryStyle";
-import Search from "../assets/svg/Search";
-import Select from "../Components/Inputs/Select";
-import ModalBook from "../Components/Modal/ModalBook";
-import ContainerBook from "../Components/CardBook";
-import { UserContext } from "../UserContext";
+} from "./style";
+import Search from "../../assets/svg/Search";
+import Select from "../../components/Inputs/Select";
+import ModalBook from "./ModalBook";
+import { UserContext } from "../../UserContext";
 import { Route, Routes } from "react-router-dom";
-import BookDataBorrow from "../Components/Modal/BookDataBorrow";
-import BookDataInactive from "../Components/Modal/BookDataInactive";
-import useForm from "../Hooks/useForm";
-import { Book } from "../UserContext";
-import NavBack from "../Components/NavBack";
-import BookHistory from "../Components/Modal/BookHistory";
+import BookDataBorrow from "./BookDataBorrow";
+import BookDataInactive from "./BookDataInactive";
+import useForm from "../../Hooks/useForm";
+import { Book } from "../../interfaces/book";
+import NavBack from "../../components/NavBack";
+import BookHistory from "./BookHistory";
+import ContainerBook from "../../components/CardBook";
 
 const Library = () => {
   const { books } = React.useContext(UserContext);

@@ -1,5 +1,5 @@
 import "../App.css";
-import NavHome from "../Components/NavHome";
+import NavHome from "../components/NavHome";
 
 const NavHomePage = () => {
   return <NavHome />;

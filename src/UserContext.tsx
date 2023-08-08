@@ -1,7 +1,7 @@
 import React from "react";
 import { getBooks, getHistory } from "./services/books";
 import { getUsers } from "./services/users";
-import { Book } from "./interfaces/Book";
+import { Book } from "./interfaces/book";
 import { User } from "./interfaces/user";
 import { Loan } from "./interfaces/history";
 

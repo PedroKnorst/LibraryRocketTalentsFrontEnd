@@ -1,4 +1,4 @@
-import { Loan } from "../../UserContext";
+import { Loan } from "../../interfaces/history";
 import {
   FilterButton,
   TableLoans,

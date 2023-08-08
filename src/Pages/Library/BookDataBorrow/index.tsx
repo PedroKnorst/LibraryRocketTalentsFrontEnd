@@ -1,14 +1,18 @@
 import React from "react";
-import { ButtonClose, ContainerBook, ContainerLinkBorrow } from "../style";
+import {
+  ButtonClose,
+  BookModal,
+  ContainerLinkBorrow,
+  ContainerBookModal,
+} from "../style";
 import Close from "../../../assets/svg/Close";
 import { styled } from "styled-components";
 import BookSvg from "../../../assets/svg/BookSvg";
 import { getBook, putBook } from "../../../services/books";
 import { useNavigate, useParams } from "react-router-dom";
-import { BookModal } from "../ModalBook/style";
 import useForm from "../../../Hooks/useForm";
-import InputText from "../../Inputs/InputText";
-import { Book } from "../../../UserContext";
+import InputText from "../../../components/Inputs/InputText";
+import { Book } from "../../../interfaces/book";
 
 const ContainerBorrowInputs = styled.form`
   grid-column: 1 / 3;
@@ -33,9 +37,10 @@ const BookDataBorrow = () => {
   };
 
   React.useEffect(() => {
-    getBook(id).then((res) => {
-      setData(res.data);
-    });
+    if (id)
+      getBook(id).then((res) => {
+        setData(res.data);
+      });
   }, [id]);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -45,7 +50,8 @@ const BookDataBorrow = () => {
       student.validate() &&
       team.validate() &&
       date1.validate() &&
-      date2.validate()
+      date2.validate() &&
+      id
     ) {
       putBook(id, {
         ...data,
@@ -59,8 +65,8 @@ const BookDataBorrow = () => {
   }
 
   return (
-    <BookModal>
-      <ContainerBook>
+    <ContainerBookModal>
+      <BookModal>
         <h2>Informe os dados do aluno antes de continuar</h2>
         <ButtonClose to="..">
           <Close />
@@ -103,8 +109,8 @@ const BookDataBorrow = () => {
             Emprestar
           </ContainerLinkBorrow>
         </ContainerBorrowInputs>
-      </ContainerBook>
-    </BookModal>
+      </BookModal>
+    </ContainerBookModal>
   );
 };
 

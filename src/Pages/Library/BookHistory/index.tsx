@@ -1,10 +1,9 @@
 import React from "react";
-import { ButtonClose, ContainerBook } from "../style";
+import { ButtonClose, ContainerBookModal, BookModal } from "../style";
 import Close from "../../../assets/svg/Close";
-import { BookModal } from "../ModalBook/style";
 import { ContainerTable } from "./style";
-import HistoryLoans from "../../Table";
-import { Book } from "../../../UserContext";
+import HistoryLoans from "../../../components/Table";
+import { Book } from "../../../interfaces/book";
 import { useParams } from "react-router-dom";
 import { getBook } from "../../../services/books";
 
@@ -20,8 +19,8 @@ const BookHistory = () => {
 
   if (data)
     return (
-      <BookModal>
-        <ContainerBook>
+      <ContainerBookModal>
+        <BookModal>
           <ButtonClose to="..">
             <Close />
           </ButtonClose>
@@ -31,8 +30,8 @@ const BookHistory = () => {
             </h2>
             <HistoryLoans bookTitle={false} loans={data?.rentHistory} />
           </ContainerTable>
-        </ContainerBook>
-      </BookModal>
+        </BookModal>
+      </ContainerBookModal>
     );
   else return null;
 };

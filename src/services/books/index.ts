@@ -1,4 +1,4 @@
-import { Book } from "../../UserContext";
+import { Book } from "../../interfaces/book";
 import { api } from "../api";
 
 export const getBooks = () => {
@@ -27,7 +27,7 @@ export const postBook = (body: Book) => {
 
 export const getHistory = () => {
   try {
-    return api.get("/history");
+    return api.get("/books/history");
   } catch (err) {
     return Promise.reject(err);
   }

@@ -1,15 +1,20 @@
 import React from "react";
-import { ButtonClose, ContainerBook, InactiveButton } from "../style";
+import {
+  ButtonClose,
+  InactiveButton,
+  BookModal,
+  ContainerBookModal,
+} from "../style";
 import Close from "../../../assets/svg/Close";
-import { BookModal } from "../ModalBook/style";
 import { useNavigate, useParams } from "react-router-dom";
 import { getBook, putBook } from "../../../services/books";
 import useForm from "../../../Hooks/useForm";
 import { ContainerFormInactive } from "./style";
-import InputTextArea from "../../Inputs/TexArea";
+import InputTextArea from "../../../components/Inputs/TexArea";
+import { Book } from "../../../interfaces/book";
 
 const BookDataInactive = () => {
-  const [data, setData] = React.useState(null);
+  const [data, setData] = React.useState<Book | null>(null);
   const { id } = useParams();
   const description = useForm("description");
   const navigate = useNavigate();
@@ -23,7 +28,7 @@ const BookDataInactive = () => {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (description.validate()) {
+    if (description.validate() && id) {
       putBook(id, {
         ...data,
         status: { isActive: false, description: description.value },
@@ -35,8 +40,8 @@ const BookDataInactive = () => {
   }
 
   return (
-    <BookModal>
-      <ContainerBook>
+    <ContainerBookModal>
+      <BookModal>
         <ButtonClose to="..">
           <Close />
         </ButtonClose>
@@ -53,8 +58,8 @@ const BookDataInactive = () => {
             Inativar
           </InactiveButton>
         </ContainerFormInactive>
-      </ContainerBook>
-    </BookModal>
+      </BookModal>
+    </ContainerBookModal>
   );
 };
 

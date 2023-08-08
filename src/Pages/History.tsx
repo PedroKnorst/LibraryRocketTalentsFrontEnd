@@ -1,7 +1,7 @@
 import React from "react";
-import HistoryLoans from "../Components/Table";
+import HistoryLoans from "../components/Table";
 import { UserContext } from "../UserContext";
-import NavBack from "../Components/NavBack";
+import NavBack from "../components/NavBack";
 
 const History = () => {
   const { history } = React.useContext(UserContext);

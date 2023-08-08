@@ -1,5 +1,5 @@
 import "../App.css";
-import Header from "../Components/Header";
+import Header from "../components/Header";
 import { Route, Routes } from "react-router-dom";
 import NewBook from "./NewBook";
 import History from "./History";

@@ -1,8 +1,8 @@
-import Close from "../../assets/svg/Close";
+import Close from "../../../assets/svg/Close";
 import {
-  ButtonBorrow,
+  LinkBorrowed,
   ButtonClose,
-  ContainerBook,
+  BookModal,
   ContainerBookButtons,
   ContainerDataStudent,
   CoverBook,
@@ -10,12 +10,12 @@ import {
   HistoryButton,
   InactiveButton,
   TextBook,
-} from "./style";
-import BookSvg from "../../assets/svg/BookSvg";
-import { putBook } from "../../services/books";
+} from "../style";
+import BookSvg from "../../../assets/svg/BookSvg";
+import { putBook } from "../../../services/books";
 
 const BookIsBorrowed = ({ data }) => {
-  let lastItem = data.rentHistory[data.rentHistory.length - 1];
+  const lastItem = data.rentHistory[data.rentHistory.length - 1];
 
   function changeBorrow() {
     putBook(data.id, { ...data, isBorrowed: false }).then((res) => {
@@ -27,7 +27,7 @@ const BookIsBorrowed = ({ data }) => {
 
   if (data)
     return (
-      <ContainerBook>
+      <BookModal>
         <ButtonClose to="..">
           <Close />
         </ButtonClose>
@@ -35,10 +35,10 @@ const BookIsBorrowed = ({ data }) => {
           src={`http://localhost:3001/static/${data.image}`}
           alt="livro"
         />
-        <ButtonBorrow onClick={changeBorrow}>
+        <LinkBorrowed to={""} onClick={changeBorrow}>
           <BookSvg />
           Devolver
-        </ButtonBorrow>
+        </LinkBorrowed>
         <TextBook>
           <h2>{data.title}</h2>
           <div>
@@ -88,7 +88,7 @@ const BookIsBorrowed = ({ data }) => {
             </div>
           </div>
         </ContainerDataStudent>
-      </ContainerBook>
+      </BookModal>
     );
   else return null;
 };

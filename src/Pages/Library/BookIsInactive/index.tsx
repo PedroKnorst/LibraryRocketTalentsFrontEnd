@@ -1,20 +1,39 @@
 import {
   ButtonClose,
-  ContainerBook,
+  BookModal,
   ContainerBookButtons,
   CoverBook,
   EditButton,
   HistoryButton,
-  InactiveLink,
+  ActiveButton,
   LinkBorrow,
   TextBook,
+  ContainerDataInactive,
+  ContainerInactiveContent,
 } from "../style";
+import { putBook } from "../../../services/books";
 import Close from "../../../assets/svg/Close";
 import BookSvg from "../../../assets/svg/BookSvg";
+import { Book } from "../../../interfaces/book";
 
-const BookInfomations = ({ data }) => {
+interface Props {
+  data: Book;
+}
+
+const BookIsInactive = ({ data }: Props) => {
+  function activeBook() {
+    putBook(data.id, {
+      ...data,
+      status: { isActive: true, description: "" },
+    }).then((res) => {
+      return res.data;
+    });
+    alert("Livro ativado novamente!");
+    location.reload();
+  }
+
   return (
-    <ContainerBook>
+    <BookModal>
       <ButtonClose to="..">
         <Close />
       </ButtonClose>
@@ -22,7 +41,7 @@ const BookInfomations = ({ data }) => {
         src={`http://localhost:3001/static/${data.image}`}
         alt="livro"
       />
-      <LinkBorrow active={`${true}`} to={`../emprestar/${data.id}`}>
+      <LinkBorrow to={""} active={`${false}`}>
         <BookSvg />
         Emprestar
       </LinkBorrow>
@@ -47,11 +66,18 @@ const BookInfomations = ({ data }) => {
       </TextBook>
       <ContainerBookButtons>
         <EditButton to={`/home/editar/${data.id}`}>Editar</EditButton>
-        <InactiveLink to={`../inativar/${data.id}`}>Inativar</InactiveLink>
+        <ActiveButton onClick={activeBook}>Ativar</ActiveButton>
         <HistoryButton to={`../historico/${data.id}`}>Histórico</HistoryButton>
       </ContainerBookButtons>
-    </ContainerBook>
+      <ContainerDataInactive>
+        <h2>Informações da inativação</h2>
+        <ContainerInactiveContent>
+          <h3>Motivo</h3>
+          <p>{data.status.description}</p>
+        </ContainerInactiveContent>
+      </ContainerDataInactive>
+    </BookModal>
   );
 };
 
-export default BookInfomations;
+export default BookIsInactive;
