@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 export const ContainerBookStyle = styled(Link)`
   text-decoration: none;
   display: grid;
-  max-width: 12rem;
+  width: 10rem;
   cursor: pointer;
   justify-items: center;
   padding: 1.5rem 2rem;

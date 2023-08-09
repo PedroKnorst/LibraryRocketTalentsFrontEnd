@@ -24,12 +24,11 @@ const InputFile = ({ cover, setImg, img }: Props) => {
         setImg(null);
       }
     }
-    console.log(img);
   }
 
   React.useEffect(() => {
     if (cover) setImg(cover);
-  }, [cover, setImg]);
+  }, [cover]);
 
   return (
     <ContainerImg>

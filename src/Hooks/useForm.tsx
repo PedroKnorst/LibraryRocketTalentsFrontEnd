@@ -59,9 +59,6 @@ const useForm = (typeValidate?: string) => {
   return {
     value,
     setValue,
-    // img,
-    // changeImage,
-    // setImg,
     onChange,
     error,
     onSelect,

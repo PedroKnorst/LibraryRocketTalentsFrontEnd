@@ -7,12 +7,10 @@ interface Props {
 
 const ContainerBook = ({ data }: Props) => {
   return (
-    <>
-      <ContainerBookStyle to={`livro/${data.id}`}>
-        <img src={`${data.image}`} alt={data.title} />
-        <h2>{data.title}</h2>
-      </ContainerBookStyle>
-    </>
+    <ContainerBookStyle to={`livro/${data.id}`}>
+      <img src={`${data.image}`} alt={data.title} />
+      <h2>{data.title}</h2>
+    </ContainerBookStyle>
   );
 };
 

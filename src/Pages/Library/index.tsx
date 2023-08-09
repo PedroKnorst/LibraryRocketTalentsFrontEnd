@@ -10,15 +10,15 @@ import {
 } from "./style";
 import Search from "../../assets/svg/Search";
 import Select from "../../components/Inputs/Select";
-import ModalBook from "../modal/ModalBook";
+import BookContent from "../../components/modal/ModalBook";
 import { UserContext } from "../../UserContext";
 import { Route, Routes } from "react-router-dom";
-import BookDataBorrow from "../modal/BookDataBorrow";
-import BookDataInactive from "../modal/BookDataInactive";
+import BookDataBorrow from "../../components/modal/BookDataBorrow";
+import BookDataInactive from "../../components/modal/BookDataInactive";
 import useForm from "../../hooks/useForm";
 import { Book } from "../../interfaces/book";
 import NavBack from "../../components/NavBack";
-import BookHistory from "../modal/BookHistory";
+import BookHistory from "../../components/modal/BookHistory";
 import ContainerBook from "../../components/CardBook";
 
 const Library = () => {
@@ -75,14 +75,20 @@ const Library = () => {
 
   const defaultItem = () => {
     category.setValue("");
-    setNewBooks(books);
+
+    newBooks.sort((a, b) => {
+      if (a.id && b.id) return Number.parseInt(a.id) - Number.parseInt(b.id);
+      return -1;
+    });
+
+    setNewBooks(newBooks);
   };
 
   if (newBooks)
     return (
       <ContainerLibrary>
         <Routes>
-          <Route path="livro/:id" element={<ModalBook />} />
+          <Route path="livro/:id" element={<BookContent />} />
           <Route path="emprestar/:id" element={<BookDataBorrow />} />
           <Route path="inativar/:id" element={<BookDataInactive />} />
           <Route path="historico/:id" element={<BookHistory />} />

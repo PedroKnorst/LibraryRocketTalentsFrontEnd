@@ -44,7 +44,15 @@ const EditBook = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (book && id) {
+    if (
+      book &&
+      id &&
+      title.validate() &&
+      author.validate() &&
+      genre.validate() &&
+      synopsis.validate() &&
+      entryDate.validate()
+    ) {
       title.setValue(book.title);
       putBook(id, {
         ...book,
@@ -53,12 +61,12 @@ const EditBook = () => {
         genre: genre.value,
         synopsis: synopsis.value,
         systemEntryDate: entryDate.value,
+        image: img,
       }).then((res) => res.data);
+      navigate("../biblioteca");
+      alert("Livro editado com sucesso!");
+      location.reload();
     }
-
-    navigate("../biblioteca");
-    location.reload();
-    alert("Livro editado com sucesso!");
   };
 
   const filterGenre = books.reduce((items: string[], currentItem: Book) => {
@@ -85,7 +93,7 @@ const EditBook = () => {
               id="input_title"
               label="Títutlo"
               onChange={title.onChange}
-              value={book.title}
+              value={title.value}
               type="text"
               error={title.error}
             />
