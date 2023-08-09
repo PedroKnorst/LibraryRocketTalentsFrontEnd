@@ -15,10 +15,9 @@ const InputFile = ({ cover, setImg, img }: Props) => {
       if (file) {
         const reader = new FileReader();
 
-        if (reader)
-          reader.onloadend = () => {
-            setImg(reader.result);
-          };
+        reader.onloadend = () => {
+          setImg(reader.result);
+        };
         reader.readAsDataURL(file);
       } else {
         setImg(null);

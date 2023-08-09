@@ -37,6 +37,16 @@ const EditBook = () => {
       });
   }, [id]);
 
+  React.useEffect(() => {
+    if (book) {
+      title.setValue(book.title);
+      synopsis.setValue(book.synopsis);
+      author.setValue(book.author);
+      genre.setValue(book.genre);
+      entryDate.setValue(book.systemEntryDate);
+    }
+  }, [book]);
+
   const infoChange = (i: string | ArrayBuffer | null) => {
     setImg(i);
   };
@@ -63,6 +73,7 @@ const EditBook = () => {
         systemEntryDate: entryDate.value,
         image: img,
       }).then((res) => res.data);
+
       navigate("../biblioteca");
       alert("Livro editado com sucesso!");
       location.reload();
