@@ -4,12 +4,12 @@ import {
   InactiveButton,
   BookModal,
   ContainerBookModal,
+  ContainerFormInactive,
 } from "../style";
 import Close from "../../../assets/svg/Close";
 import { useNavigate, useParams } from "react-router-dom";
 import { getBook, putBook } from "../../../services/books";
-import useForm from "../../../Hooks/useForm";
-import { ContainerFormInactive } from "./style";
+import useForm from "../../../hooks/useForm";
 import InputTextArea from "../../../components/Inputs/TexArea";
 import { Book } from "../../../interfaces/book";
 
@@ -28,7 +28,7 @@ const BookDataInactive = () => {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (description.validate() && id) {
+    if (description.validate() && id && data) {
       putBook(id, {
         ...data,
         status: { isActive: false, description: description.value },

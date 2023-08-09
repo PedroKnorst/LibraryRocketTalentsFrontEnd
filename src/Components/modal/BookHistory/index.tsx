@@ -1,7 +1,11 @@
 import React from "react";
-import { ButtonClose, ContainerBookModal, BookModal } from "../style";
+import {
+  ButtonClose,
+  ContainerBookModal,
+  BookModal,
+  ContainerTable,
+} from "../style";
 import Close from "../../../assets/svg/Close";
-import { ContainerTable } from "./style";
 import HistoryLoans from "../../../components/Table";
 import { Book } from "../../../interfaces/book";
 import { useParams } from "react-router-dom";

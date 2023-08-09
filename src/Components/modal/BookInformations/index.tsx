@@ -11,17 +11,19 @@ import {
 } from "../style";
 import Close from "../../../assets/svg/Close";
 import BookSvg from "../../../assets/svg/BookSvg";
+import { Book } from "../../../interfaces/book";
 
-const BookInfomations = ({ data }) => {
+interface Props {
+  data: Book;
+}
+
+const BookInfomations = ({ data }: Props) => {
   return (
     <BookModal>
       <ButtonClose to="..">
         <Close />
       </ButtonClose>
-      <CoverBook
-        src={`http://localhost:3001/static/${data.image}`}
-        alt="livro"
-      />
+      <CoverBook src={`${data.image}`} alt="livro" />
       <LinkBorrow active={`${true}`} to={`../emprestar/${data.id}`}>
         <BookSvg />
         Emprestar

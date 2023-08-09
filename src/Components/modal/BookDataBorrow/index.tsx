@@ -10,7 +10,7 @@ import { styled } from "styled-components";
 import BookSvg from "../../../assets/svg/BookSvg";
 import { getBook, putBook } from "../../../services/books";
 import { useNavigate, useParams } from "react-router-dom";
-import useForm from "../../../Hooks/useForm";
+import useForm from "../../../hooks/useForm";
 import InputText from "../../../components/Inputs/InputText";
 import { Book } from "../../../interfaces/book";
 
@@ -51,11 +51,12 @@ const BookDataBorrow = () => {
       team.validate() &&
       date1.validate() &&
       date2.validate() &&
-      id
+      id &&
+      data
     ) {
       putBook(id, {
         ...data,
-        rentHistory: [...data?.rentHistory, newStudent],
+        rentHistory: [...data.rentHistory, newStudent],
         isBorrowed: true,
       }).then((res) => {
         return res.data;

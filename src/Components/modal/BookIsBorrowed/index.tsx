@@ -13,14 +13,20 @@ import {
 } from "../style";
 import BookSvg from "../../../assets/svg/BookSvg";
 import { putBook } from "../../../services/books";
+import { Book } from "../../../interfaces/book";
 
-const BookIsBorrowed = ({ data }) => {
+interface Props {
+  data: Book;
+}
+
+const BookIsBorrowed = ({ data }: Props) => {
   const lastItem = data.rentHistory[data.rentHistory.length - 1];
 
   function changeBorrow() {
-    putBook(data.id, { ...data, isBorrowed: false }).then((res) => {
-      return res.data;
-    });
+    if (data.id)
+      putBook(data.id, { ...data, isBorrowed: false }).then((res) => {
+        return res.data;
+      });
     alert("Livro devolvido!");
     location.reload();
   }
@@ -31,10 +37,7 @@ const BookIsBorrowed = ({ data }) => {
         <ButtonClose to="..">
           <Close />
         </ButtonClose>
-        <CoverBook
-          src={`http://localhost:3001/static/${data.image}`}
-          alt="livro"
-        />
+        <CoverBook src={`${data.image}`} alt="livro" />
         <LinkBorrowed to={""} onClick={changeBorrow}>
           <BookSvg />
           Devolver

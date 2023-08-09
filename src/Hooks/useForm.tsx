@@ -39,6 +39,7 @@ const useForm = (typeValidate?: string) => {
       return true;
     }
   }
+
   function onChange({ target }: React.ChangeEvent<HTMLInputElement>): void;
   function onChange({ target }: React.ChangeEvent<HTMLTextAreaElement>): void;
   function onChange({
@@ -58,6 +59,9 @@ const useForm = (typeValidate?: string) => {
   return {
     value,
     setValue,
+    // img,
+    // changeImage,
+    // setImg,
     onChange,
     error,
     onSelect,

@@ -22,12 +22,13 @@ interface Props {
 
 const BookIsInactive = ({ data }: Props) => {
   function activeBook() {
-    putBook(data.id, {
-      ...data,
-      status: { isActive: true, description: "" },
-    }).then((res) => {
-      return res.data;
-    });
+    if (data.id)
+      putBook(data.id, {
+        ...data,
+        status: { isActive: true, description: "" },
+      }).then((res) => {
+        return res.data;
+      });
     alert("Livro ativado novamente!");
     location.reload();
   }
@@ -37,10 +38,7 @@ const BookIsInactive = ({ data }: Props) => {
       <ButtonClose to="..">
         <Close />
       </ButtonClose>
-      <CoverBook
-        src={`http://localhost:3001/static/${data.image}`}
-        alt="livro"
-      />
+      <CoverBook src={`${data.image}`} alt="livro" />
       <LinkBorrow to={""} active={`${false}`}>
         <BookSvg />
         Emprestar

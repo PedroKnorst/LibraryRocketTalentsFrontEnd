@@ -14,7 +14,8 @@
     "allowJs": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "composite": true
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

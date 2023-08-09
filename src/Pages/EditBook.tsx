@@ -11,7 +11,7 @@ import InputFile from "../components/Inputs/InputFile";
 import Select from "../components/Inputs/Select";
 import { useNavigate, useParams } from "react-router-dom";
 import { getBook, putBook } from "../services/books";
-import useForm from "../Hooks/useForm";
+import useForm from "../hooks/useForm";
 import { Book } from "../interfaces/book";
 import { UserContext } from "../UserContext";
 import NavBack from "../components/NavBack";
@@ -22,6 +22,7 @@ const EditBook = () => {
   const { id } = useParams();
   const { books } = React.useContext(UserContext);
   const [book, setBook] = React.useState<Book | null>(null);
+  const [img, setImg] = React.useState<string | ArrayBuffer | null>("");
   const title = useForm();
   const synopsis = useForm();
   const author = useForm();
@@ -35,6 +36,10 @@ const EditBook = () => {
         setBook(res.data);
       });
   }, [id]);
+
+  const infoChange = (i: string | ArrayBuffer | null) => {
+    setImg(i);
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -64,13 +69,17 @@ const EditBook = () => {
     return items;
   }, []);
 
+  const defaultItem = () => {
+    genre.setValue("");
+  };
+
   if (book)
     return (
       <ContainerNewBook>
         <NavBack path="/home/biblioteca" page="Editar Livro" />
         <SectionInputs onSubmit={handleSubmit}>
           <ContainerInputs>
-            <InputFile cover={book?.image} />
+            <InputFile img={img} setImg={infoChange} cover={book.image} />
             <InputText
               gridArea={{ gridArea: "titulo" }}
               id="input_title"
@@ -98,6 +107,7 @@ const EditBook = () => {
               error={author.error}
             />
             <Select
+              defaultItem={defaultItem}
               selectItem={(e) => genre.onSelect(e)}
               list={filterGenre}
               value={genre.value}

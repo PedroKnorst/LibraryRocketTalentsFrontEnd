@@ -1,7 +1,7 @@
 import { Loan } from "./history";
 
 export interface Book {
-  id: string;
+  id?: string;
   title: string;
   author: string;
   genre: string;
@@ -10,7 +10,7 @@ export interface Book {
     description: string;
   };
   isBorrowed: boolean;
-  image: string;
+  image: string | ArrayBuffer | null;
   systemEntryDate: string;
   synopsis: string;
   rentHistory: Loan[];

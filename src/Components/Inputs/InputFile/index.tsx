@@ -3,31 +3,33 @@ import Add from "../../../assets/svg/Add";
 import { ContainerImg } from "./style";
 
 interface Props {
-  cover?: string;
+  cover?: string | null | ArrayBuffer;
+  setImg: (img: string | ArrayBuffer | null) => void;
+  img: string | ArrayBuffer | null;
 }
 
-const InputFile = ({ cover }: Props) => {
-  const [img, setImg] = React.useState<string | null | ArrayBuffer>(null);
-
-  React.useEffect(() => {
-    if (cover) setImg(cover);
-  }, [cover]);
-
+const InputFile = ({ cover, setImg, img }: Props) => {
   function changeImage(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
       const file = e.target.files[0];
       if (file) {
         const reader = new FileReader();
 
-        reader.onloadend = () => {
-          setImg(reader.result);
-        };
+        if (reader)
+          reader.onloadend = () => {
+            setImg(reader.result);
+          };
         reader.readAsDataURL(file);
       } else {
         setImg(null);
       }
     }
+    console.log(img);
   }
+
+  React.useEffect(() => {
+    if (cover) setImg(cover);
+  }, [cover, setImg]);
 
   return (
     <ContainerImg>
@@ -39,10 +41,7 @@ const InputFile = ({ cover }: Props) => {
       />
       {img ? (
         <span>
-          <img
-            src={`${cover ? `http://localhost:3001/static/${img}` : img}`}
-            alt="Uploaded"
-          />
+          <img src={`${img}`} alt="Uploaded" />
         </span>
       ) : (
         <span>

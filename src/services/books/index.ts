@@ -19,7 +19,7 @@ export const getBook = (id: string) => {
 
 export const postBook = (body: Book) => {
   try {
-    return api.post("books", { ...body });
+    return api.post("/books", body);
   } catch (err) {
     return Promise.reject(err);
   }

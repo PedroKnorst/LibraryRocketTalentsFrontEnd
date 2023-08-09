@@ -3,7 +3,7 @@ import BookIsBorrowed from "../BookIsBorrowed";
 import BookInformations from "../BookInformations";
 import { getBook } from "../../../services/books";
 import { useParams } from "react-router-dom";
-import BookIsInactive from "../BookIsInactive";
+import BookIsInactive from "../BookIsinactive";
 import { Book } from "../../../interfaces/book";
 import { ContainerBookModal } from "../style";
 

@@ -15,6 +15,7 @@ interface SelectProps {
   value: string;
   selectItem: React.PointerEventHandler<HTMLElement>;
   list: string[];
+  defaultItem: React.PointerEventHandler<HTMLElement>;
 }
 
 const Select = ({
@@ -25,6 +26,7 @@ const Select = ({
   value,
   selectItem,
   list,
+  defaultItem,
 }: SelectProps) => {
   const [active, setActive] = React.useState(false);
 
@@ -43,7 +45,7 @@ const Select = ({
       <label>{label}</label>
       <ArrowSelect src={IconSelect} active={`${active}`} />
       <OptionsSelect active={`${active}`}>
-        <li>Selecione</li>
+        <li onPointerDown={defaultItem}>Selecione</li>
         {list.map((item) => (
           <li onPointerDown={selectItem} key={item}>
             {item}
