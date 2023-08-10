@@ -4,30 +4,31 @@ import {
   ButtonSave,
   ContainerButtons,
   ContainerInputs,
-  ContainerNewBook,
+  ContainerBookPage,
   SectionInputs,
-} from "../components/NewBook/style";
-import InputFile from "../components/Inputs/InputFile";
-import Select from "../components/Inputs/Select";
+} from "./style";
+import InputFile from "../../components/Inputs/InputFile";
+import Select from "../../components/Inputs/Select";
 import { useNavigate, useParams } from "react-router-dom";
-import { getBook, putBook } from "../services/books";
-import useForm from "../hooks/useForm";
-import { Book } from "../interfaces/book";
-import { UserContext } from "../UserContext";
-import NavBack from "../components/NavBack";
-import InputText from "../components/Inputs/InputText";
-import InputTextArea from "../components/Inputs/TexArea";
+import { getBook, putBook } from "../../services/books";
+import useForm from "../../hooks/useForm";
+import { Book } from "../../interfaces/book";
+import { UserContext } from "../../UserContext";
+import NavBack from "../../components/NavBack";
+import InputText from "../../components/Inputs/InputText";
+import InputTextArea from "../../components/Inputs/TexArea";
 
 const EditBook = () => {
   const { id } = useParams();
   const { books } = React.useContext(UserContext);
   const [book, setBook] = React.useState<Book | null>(null);
-  const [img, setImg] = React.useState<string | ArrayBuffer | null>("");
+  const [img, setImg] = React.useState("");
   const title = useForm();
   const synopsis = useForm();
   const author = useForm();
   const genre = useForm();
   const entryDate = useForm();
+  const cover = useForm();
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -38,7 +39,17 @@ const EditBook = () => {
   }, [id]);
 
   React.useEffect(() => {
+    const convertData = (dataString: string) => {
+      const partes = dataString.split("/");
+      const dia = partes[0].padStart(2, "0");
+      const mes = partes[1].padStart(2, "0");
+      const ano = partes[2];
+      return `${ano}-${mes}-${dia}`;
+    };
+
     if (book) {
+      book.systemEntryDate = convertData(book.systemEntryDate);
+
       title.setValue(book.title);
       synopsis.setValue(book.synopsis);
       author.setValue(book.author);
@@ -47,8 +58,9 @@ const EditBook = () => {
     }
   }, [book]);
 
-  const infoChange = (i: string | ArrayBuffer | null) => {
+  const infoChange = (i: string) => {
     setImg(i);
+    cover.setValue(i);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -63,14 +75,18 @@ const EditBook = () => {
       synopsis.validate() &&
       entryDate.validate()
     ) {
-      title.setValue(book.title);
+      const changedDateEntry = new Date(entryDate.value).toLocaleDateString(
+        "pt-BR",
+        { timeZone: "UTC" }
+      );
+
       putBook(id, {
         ...book,
         title: title.value,
         author: author.value,
         genre: genre.value,
         synopsis: synopsis.value,
-        systemEntryDate: entryDate.value,
+        systemEntryDate: changedDateEntry,
         image: img,
       }).then((res) => res.data);
 
@@ -94,11 +110,16 @@ const EditBook = () => {
 
   if (book)
     return (
-      <ContainerNewBook>
+      <ContainerBookPage>
         <NavBack path="/home/biblioteca" page="Editar Livro" />
         <SectionInputs onSubmit={handleSubmit}>
           <ContainerInputs>
-            <InputFile img={img} setImg={infoChange} cover={book.image} />
+            <InputFile
+              error={cover.error}
+              img={img}
+              setImg={infoChange}
+              cover={book.image}
+            />
             <InputText
               gridArea={{ gridArea: "titulo" }}
               id="input_title"
@@ -149,7 +170,7 @@ const EditBook = () => {
             <ButtonSave>Salvar</ButtonSave>
           </ContainerButtons>
         </SectionInputs>
-      </ContainerNewBook>
+      </ContainerBookPage>
     );
 };
 

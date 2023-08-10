@@ -1,12 +1,12 @@
 import "../../App.css";
 import Header from "../../components/Header";
 import { Route, Routes } from "react-router-dom";
-import NewBook from "../NewBook";
+import NewBook from "../Book/NewBook";
 import History from "../History";
-import EditBook from "../EditBook";
+import EditBook from "../Book/EditBook";
 import Library from "../Library";
-import NavHomePage from "../NavHomePage";
 import { MainBackground } from "./style";
+import NavHome from "../NavHome";
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
       <Header />
       <MainBackground>
         <Routes>
-          <Route path="/" element={<NavHomePage />} />
+          <Route path="/" element={<NavHome />} />
           <Route path="biblioteca/*" element={<Library />} />
           <Route path="editar/:id" element={<EditBook />} />
           <Route path="novo" element={<NewBook />} />

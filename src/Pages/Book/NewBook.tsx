@@ -4,44 +4,53 @@ import {
   ButtonSave,
   ContainerButtons,
   ContainerInputs,
-  ContainerNewBook,
+  ContainerBookPage,
   SectionInputs,
-} from "../components/NewBook/style";
-import Select from "../components/Inputs/Select";
-import useForm from "../hooks/useForm";
-import InputFile from "../components/Inputs/InputFile";
-import { UserContext } from "../UserContext";
-import { Book } from "../interfaces/book";
-import InputText from "../components/Inputs/InputText";
-import NavHome from "../components/NavBack";
-import InputTextArea from "../components/Inputs/TexArea";
-import { postBook } from "../services/books";
+} from "./style";
+import Select from "../../components/Inputs/Select";
+import useForm from "../../hooks/useForm";
+import InputFile from "../../components/Inputs/InputFile";
+import { UserContext } from "../../UserContext";
+import { Book } from "../../interfaces/book";
+import InputText from "../../components/Inputs/InputText";
+import NavHome from "../../components/NavBack";
+import InputTextArea from "../../components/Inputs/TexArea";
+import { postBook } from "../../services/books";
 import { useNavigate } from "react-router-dom";
 
 const NewBook = () => {
   const { books } = React.useContext(UserContext);
-  const [img, setImg] = React.useState<string | ArrayBuffer | null>("");
+  const [img, setImg] = React.useState<string>("");
   const navigate = useNavigate();
-
-  const infoChange = (i: string | ArrayBuffer | null) => {
-    setImg(i);
-  };
 
   const title = useForm();
   const synopsis = useForm();
   const author = useForm();
   const genre = useForm();
   const entryDate = useForm();
+  const cover = useForm();
+
+  const infoChange = (i: string) => {
+    setImg(i);
+    cover.setValue(i);
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (
       title.validate() &&
       synopsis.validate() &&
       author.validate() &&
       genre.validate() &&
-      entryDate.validate()
+      entryDate.validate() &&
+      cover.validate()
     ) {
+      const changedDateEntry = new Date(entryDate.value).toLocaleDateString(
+        "pt-BR",
+        { timeZone: "UTC" }
+      );
+
       postBook({
         title: title.value,
         author: author.value,
@@ -53,8 +62,8 @@ const NewBook = () => {
           description: "",
         },
         synopsis: synopsis.value,
-        systemEntryDate: entryDate.value,
-        image: img,
+        systemEntryDate: changedDateEntry,
+        image: cover.value,
       }).then((res) => res.data);
 
       navigate("/home");
@@ -77,11 +86,11 @@ const NewBook = () => {
   };
 
   return (
-    <ContainerNewBook>
+    <ContainerBookPage>
       <NavHome path="/home" page="Cadastrar novo livro" />
       <SectionInputs onSubmit={handleSubmit}>
         <ContainerInputs>
-          <InputFile img={img} setImg={infoChange} />
+          <InputFile error={cover.error} img={img} setImg={infoChange} />
           <InputText
             gridArea={{ gridArea: "titulo" }}
             id="input_title"
@@ -132,7 +141,7 @@ const NewBook = () => {
           <ButtonSave>Salvar</ButtonSave>
         </ContainerButtons>
       </SectionInputs>
-    </ContainerNewBook>
+    </ContainerBookPage>
   );
 };
 

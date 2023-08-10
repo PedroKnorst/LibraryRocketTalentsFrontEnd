@@ -10,7 +10,7 @@ export interface Book {
     description: string;
   };
   isBorrowed: boolean;
-  image: string | ArrayBuffer | null;
+  image: string;
   systemEntryDate: string;
   synopsis: string;
   rentHistory: Loan[];
