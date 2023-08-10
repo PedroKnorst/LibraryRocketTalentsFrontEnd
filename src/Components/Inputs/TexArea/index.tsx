@@ -8,6 +8,7 @@ interface Props {
   id: string;
   label: string;
   error: string;
+  style?: object;
 }
 
 const InputTextArea = ({
@@ -17,10 +18,11 @@ const InputTextArea = ({
   id,
   label,
   error,
+  style,
 }: Props) => {
   return (
     <ContainerInput style={gridArea}>
-      <TextArea onChange={onChange} value={value} id={id} />
+      <TextArea style={style} onChange={onChange} value={value} id={id} />
       <LabelInput htmlFor={id}>{label}</LabelInput>
       {error && <InputError>{error}</InputError>}
     </ContainerInput>

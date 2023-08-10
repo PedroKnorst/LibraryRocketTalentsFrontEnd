@@ -97,6 +97,22 @@ export const BookModal = styled.div`
     color: #3e4756;
   }
 
+  @media (max-width: 1024px) {
+    width: 600px;
+  }
+
+  @media (max-width: 768px) {
+    width: 400px;
+  }
+
+  @media (max-width: 650px) {
+    width: 300px;
+  }
+
+  @media (max-width: 480px) {
+    width: 250px;
+  }
+
   @media (max-height: 750px) {
     bottom: 3rem;
     overflow: auto;

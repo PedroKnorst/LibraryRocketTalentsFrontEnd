@@ -48,6 +48,8 @@ const BookDataInactive = () => {
         <ContainerFormInactive onSubmit={handleSubmit}>
           <h2 style={{ justifySelf: "start" }}>Inativar Livro</h2>
           <InputTextArea
+            style={{ width: "500px", height: "100px" }}
+            gridArea={{ gridColumn: "1 / 3" }}
             id="input_synopsis"
             label="Sinopse"
             onChange={description.onChange}
