@@ -18,23 +18,17 @@ const ContainerBorrowInputs = styled.form`
   grid-column: 1 / 3;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  gap: 3rem 1.5rem;
 `;
 
 const BookDataBorrow = () => {
   const { id } = useParams();
   const [data, setData] = React.useState<Book | null>(null);
   const student = useForm();
-  const team = useForm();
+  const group = useForm("group");
   const date1 = useForm();
   const date2 = useForm();
   const navigate = useNavigate();
-  const newStudent = {
-    studentName: student.value,
-    class: team.value,
-    withdrawalDate: date1.value,
-    deliveryDate: date2.value,
-  };
 
   React.useEffect(() => {
     if (id)
@@ -46,22 +40,45 @@ const BookDataBorrow = () => {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (
-      student.validate() &&
-      team.validate() &&
-      date1.validate() &&
-      date2.validate() &&
-      id &&
-      data
-    ) {
-      putBook(id, {
-        ...data,
-        rentHistory: [...data.rentHistory, newStudent],
-        isBorrowed: true,
-      }).then((res) => {
-        return res.data;
-      });
-      return navigate(`../livro/${id}`);
+    if (date1.value < date2.value) {
+      if (
+        student.validate() &&
+        group.validate() &&
+        date1.validate() &&
+        date2.validate() &&
+        id &&
+        data
+      ) {
+        const changedDateWithdrawal = new Date(date1.value).toLocaleDateString(
+          "pt-BR",
+          { timeZone: "UTC" }
+        );
+
+        const changedDateDelivery = new Date(date2.value).toLocaleDateString(
+          "pt-BR",
+          {
+            timeZone: "UTC",
+          }
+        );
+
+        const newStudent = {
+          studentName: student.value,
+          class: group.value,
+          withdrawalDate: changedDateWithdrawal,
+          deliveryDate: changedDateDelivery,
+        };
+
+        putBook(id, {
+          ...data,
+          rentHistory: [...data.rentHistory, newStudent],
+          isBorrowed: true,
+        }).then((res) => {
+          return res.data;
+        });
+        return navigate(`../livro/${id}`);
+      }
+    } else {
+      date1.setError("A data de retirada deve ser antes da data de entrega!");
     }
   }
 
@@ -84,10 +101,10 @@ const BookDataBorrow = () => {
           <InputText
             id="class"
             label="Turma"
-            onChange={team.onChange}
-            value={team.value}
+            onChange={group.onChange}
+            value={group.value}
             type="text"
-            error={team.error}
+            error={group.error}
           />
           <InputText
             id="withdrawalDate"

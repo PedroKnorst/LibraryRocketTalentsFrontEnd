@@ -1,10 +1,9 @@
 import React from "react";
 
 const validation = {
-  email: {
-    regex:
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    message: "Preencha um email válido!",
+  group: {
+    regex: /^T\d+$/,
+    message: "A turma deve conter somente a letra T e após somente numeros",
   },
 };
 
@@ -18,10 +17,10 @@ const useForm = (typeValidate?: string) => {
       setError("Preencha um valor!");
       return false;
     } else if (
-      typeValidate === "email" &&
-      !validation["email"].regex.test(value)
+      typeValidate === "group" &&
+      !validation["group"].regex.test(value)
     ) {
-      setError(validation.email.message);
+      setError(validation.group.message);
       return false;
     } else {
       setError("");
@@ -50,6 +49,7 @@ const useForm = (typeValidate?: string) => {
     setValue,
     onChange,
     error,
+    setError,
     onSelect,
     validate: () => validate(value),
     onBlur: () => validate(value),

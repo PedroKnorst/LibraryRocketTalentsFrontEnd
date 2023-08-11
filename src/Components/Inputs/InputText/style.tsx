@@ -6,7 +6,7 @@ export const ContainerInputText = styled.div`
 
   & p {
     position: absolute;
-    bottom: -1.5rem;
+    top: 3.5rem;
     left: 0;
   }
 `;
@@ -50,7 +50,6 @@ export const Input = styled.input`
 export const InputError = styled.p`
   color: #f31;
   font-size: 0.875rem;
-  margin-top: 0.25rem;
 `;
 
 export const LabelInputText = styled.label`
