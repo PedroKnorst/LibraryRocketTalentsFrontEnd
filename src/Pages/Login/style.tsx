@@ -7,6 +7,18 @@ export const ContainerLogin = styled.form`
   display: grid;
   padding: 3.5rem 2.5rem;
   gap: 1rem;
+
+  @media (max-width: 1024px) {
+    width: 35%;
+  }
+
+  @media (max-width: 650px) {
+    width: 50%;
+  }
+
+  @media (max-width: 450px) {
+    width: 70%;
+  }
 `;
 
 export const InputLogin = styled.input`

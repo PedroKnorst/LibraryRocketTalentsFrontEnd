@@ -37,6 +37,22 @@ export const TextArea = styled.textarea`
   font-size: 1rem;
   resize: none;
 
+  @media (max-width: 1200px) {
+    width: 250px;
+  }
+
+  @media (max-width: 900px) {
+    width: 200px;
+  }
+
+  @media (max-width: 500px) {
+    width: 300px;
+  }
+
+  @media (max-width: 400px) {
+    width: 150px;
+  }
+
   ${({ value }) =>
     value
       ? `& + label {

@@ -110,6 +110,7 @@ const Library = () => {
               <ButtonInputSearch>Buscar</ButtonInputSearch>
             </ContainerSearchLibrary>
             <Select
+              mediaquerie="false"
               defaultItem={defaultItem}
               selectItem={selectItem}
               list={categorys}

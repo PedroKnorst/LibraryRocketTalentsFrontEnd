@@ -23,4 +23,8 @@ export const ContainerBookStyle = styled(Link)`
     max-width: 100px;
     height: 150px;
   }
+
+  @media (max-width: 1500px) {
+    width: 8rem;
+  }
 `;

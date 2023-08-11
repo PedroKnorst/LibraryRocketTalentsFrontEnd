@@ -147,6 +147,7 @@ const EditBook = () => {
               error={author.error}
             />
             <Select
+              mediaquerie="true"
               defaultItem={defaultItem}
               selectItem={(e) => genre.onSelect(e)}
               list={filterGenre}

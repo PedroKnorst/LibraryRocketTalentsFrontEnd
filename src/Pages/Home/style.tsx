@@ -5,5 +5,5 @@ export const MainBackground = styled.main`
   background-color: white;
   margin: 1.5rem;
   border-radius: 5px;
-  overflow: auto;
+  overflow-y: auto;
 `;

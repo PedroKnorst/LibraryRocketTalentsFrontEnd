@@ -16,6 +16,7 @@ interface SelectProps {
   selectItem: React.PointerEventHandler<HTMLElement>;
   list: string[];
   defaultItem: React.PointerEventHandler<HTMLElement>;
+  mediaquerie: string;
 }
 
 const Select = ({
@@ -27,6 +28,7 @@ const Select = ({
   selectItem,
   list,
   defaultItem,
+  mediaquerie,
 }: SelectProps) => {
   const [active, setActive] = React.useState(false);
 
@@ -34,6 +36,7 @@ const Select = ({
     <ContainerSelect
       onPointerDown={() => setActive((prevActive) => !prevActive)}
       style={style}
+      mediaquerie={`${mediaquerie}`}
     >
       <SelectArea
         labelstyle={labelStyle}

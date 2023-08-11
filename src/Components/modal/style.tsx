@@ -89,6 +89,7 @@ export const BookModal = styled.div`
     "borrow edit";
   padding: 2.5rem;
   gap: 2rem;
+  overflow: auto;
 
   & h2 {
     justify-self: center;
@@ -97,25 +98,21 @@ export const BookModal = styled.div`
     color: #3e4756;
   }
 
-  @media (max-width: 1024px) {
-    width: 600px;
+  @media (max-width: 1500px) {
+    bottom: 3rem;
   }
 
-  @media (max-width: 768px) {
-    width: 400px;
-  }
-
-  @media (max-width: 650px) {
-    width: 300px;
-  }
-
-  @media (max-width: 480px) {
-    width: 250px;
+  @media (max-width: 1250px) {
+    grid-template-areas:
+      "close"
+      "img"
+      "text"
+      "edit"
+      "borrow";
   }
 
   @media (max-height: 750px) {
     bottom: 3rem;
-    overflow: auto;
   }
 `;
 
@@ -164,6 +161,15 @@ export const CoverBook = styled.img`
   max-width: 300px;
   height: 450px;
 
+  @media (max-width: 1250px) {
+    justify-self: center;
+  }
+
+  @media (max-width: 450px) {
+    max-width: 250px;
+    height: 350px;
+  }
+
   @media (max-height: 750px) {
     height: 350px;
   }
@@ -174,6 +180,7 @@ export const ContainerBookButtons = styled.div`
   justify-content: center;
   gap: 1.5rem;
   grid-area: edit;
+  flex-wrap: wrap;
 `;
 
 const ButtonsStyle = `
@@ -267,6 +274,8 @@ export const LinkBorrowed = styled(Link)`
   &:hover {
     background-color: #cdcdcd;
   }
+
+  align-self: start;
 `;
 
 interface Props {
@@ -293,6 +302,8 @@ export const LinkBorrow = styled(Link)<Props>`
             bottom: 0;
           }
          `}
+
+  align-self: start;
 `;
 
 export const ContainerLinkBorrow = styled.button`
@@ -304,6 +315,8 @@ export const ContainerLinkBorrow = styled.button`
   &:hover {
     background-color: #ffd857;
   }
+
+  align-self: start;
 `;
 
 export const ContainerDataStudent = styled.div`

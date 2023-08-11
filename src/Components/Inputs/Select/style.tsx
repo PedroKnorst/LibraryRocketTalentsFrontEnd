@@ -1,13 +1,29 @@
 import { styled } from "styled-components";
 
 interface Props {
-  active: string;
+  active?: string;
   labelstyle?: string;
+  mediaquerie?: string;
 }
 
-export const ContainerSelect = styled.div`
+export const ContainerSelect = styled.div<Props>`
   display: grid;
   position: relative;
+
+  ${({ mediaquerie }) =>
+    mediaquerie === "true"
+      ? `@media (max-width: 900px) {
+          width: 235px;
+        }
+
+        @media (max-width: 500px) {
+          width: 335px;
+        }
+
+        @media (max-width: 400px) {
+          width: 185px;
+        }`
+      : ""}
 `;
 
 export const SelectArea = styled.textarea<Props>`

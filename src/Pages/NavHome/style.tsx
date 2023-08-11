@@ -8,6 +8,10 @@ export const NavHomeContainer = styled.nav`
   justify-content: center;
   align-items: center;
   gap: 2.5rem;
+
+  @media (max-width: 650px) {
+    margin: 1rem;
+  }
 `;
 
 export const NavHomeLi = styled(Link)`
@@ -35,6 +39,10 @@ export const NavHomeIcon = styled.div`
   align-items: center;
   justify-content: center;
   display: grid;
+
+  @media (max-width: 400px) {
+    width: 200px;
+  }
 `;
 
 export const NavHomeText = styled.div`

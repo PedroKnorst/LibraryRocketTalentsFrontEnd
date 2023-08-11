@@ -11,6 +11,7 @@ export const ContainerImg = styled.label`
   font-weight: 500;
   font-size: 1.25rem;
   justify-content: center;
+  justify-self: center;
 
   & img {
     max-width: 100%;
@@ -24,5 +25,8 @@ export const ContainerImg = styled.label`
   & span {
     display: flex;
     gap: 0.5rem;
+    align-items: center;
+    max-width: 100%;
+    height: 200px;
   }
 `;

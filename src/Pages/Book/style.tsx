@@ -8,7 +8,8 @@ export const ContainerBookPage = styled.div`
 `;
 
 export const SectionInputs = styled.form`
-  max-width: 60rem;
+  max-width: 55rem;
+  padding: 1rem;
   display: grid;
   margin: auto;
   gap: 2rem;
@@ -17,17 +18,46 @@ export const SectionInputs = styled.form`
 export const ContainerInputs = styled.div`
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
     "capa titulo autor"
     "capa sinopse genero"
     "capa sinopse data";
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas:
+      "capa titulo"
+      "capa sinopse"
+      "capa sinopse"
+      "capa autor"
+      ". genero"
+      ". data";
+    justify-items: center;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "capa"
+      "titulo"
+      "sinopse"
+      "sinopse"
+      "autor"
+      "genero"
+      "data";
+  }
 `;
 
 export const ContainerButtons = styled.div`
   display: flex;
   justify-self: end;
   gap: 1.5rem;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    justify-self: center;
+  }
 `;
 
 export const ButtonCancel = styled(Link)`
