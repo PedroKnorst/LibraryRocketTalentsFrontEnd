@@ -111,7 +111,7 @@ const EditBook = () => {
   if (book)
     return (
       <ContainerBookPage>
-        <NavBack path="/home/biblioteca" page="Editar Livro" />
+        <NavBack path={`../biblioteca`} page="Editar Livro" />
         <SectionInputs onSubmit={handleSubmit}>
           <ContainerInputs>
             <InputFile

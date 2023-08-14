@@ -14,11 +14,11 @@ const Home = () => {
       <Header />
       <MainBackground>
         <Routes>
-          <Route path="/" element={<NavHome />} />
-          <Route path="biblioteca/*" element={<Library />} />
-          <Route path="editar/:id" element={<EditBook />} />
-          <Route path="novo" element={<NewBook />} />
-          <Route path="historico" element={<History />} />
+          <Route path={`/`} element={<NavHome />} />
+          <Route path={`biblioteca/*`} element={<Library />} />
+          <Route path={`editar/:id`} element={<EditBook />} />
+          <Route path={`novo`} element={<NewBook />} />
+          <Route path={`historico`} element={<History />} />
         </Routes>
       </MainBackground>
     </>

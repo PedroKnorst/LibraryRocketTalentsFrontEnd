@@ -11,7 +11,7 @@ function App() {
         <UserStorage>
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/home/*" element={<Home />} />
+            <Route path="/:account/*" element={<Home />} />
           </Routes>
         </UserStorage>
       </BrowserRouter>

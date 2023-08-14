@@ -12,12 +12,15 @@ import {
 import Close from "../../../assets/svg/Close";
 import BookSvg from "../../../assets/svg/BookSvg";
 import { Book } from "../../../interfaces/book";
+import { useParams } from "react-router-dom";
 
 interface Props {
   data: Book;
 }
 
 const BookInfomations = ({ data }: Props) => {
+  const { account } = useParams();
+
   return (
     <BookModal>
       <ButtonClose to="..">
@@ -48,7 +51,7 @@ const BookInfomations = ({ data }: Props) => {
         </div>
       </TextBook>
       <ContainerBookButtons>
-        <EditButton to={`/home/editar/${data.id}`}>Editar</EditButton>
+        <EditButton to={`/${account}/editar/${data.id}`}>Editar</EditButton>
         <InactiveLink to={`../inativar/${data.id}`}>Inativar</InactiveLink>
         <HistoryButton to={`../historico/${data.id}`}>Histórico</HistoryButton>
       </ContainerBookButtons>

@@ -87,7 +87,7 @@ const NewBook = () => {
 
   return (
     <ContainerBookPage>
-      <NavHome path="/home" page="Cadastrar novo livro" />
+      <NavHome path=".." page="Cadastrar novo livro" />
       <SectionInputs onSubmit={handleSubmit}>
         <ContainerInputs>
           <InputFile error={cover.error} img={img} setImg={infoChange} />

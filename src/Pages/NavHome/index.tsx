@@ -6,7 +6,7 @@ import IconHistory from "../../assets/svg/IconHistory";
 const NavHome = () => {
   return (
     <NavHomeContainer>
-      <NavHomeLi to="/home/novo">
+      <NavHomeLi to="novo">
         <NavHomeIcon>
           <IconNewBook />
         </NavHomeIcon>
@@ -14,7 +14,7 @@ const NavHome = () => {
           <p>Cadastrar novo livro</p>
         </NavHomeText>
       </NavHomeLi>
-      <NavHomeLi to="/home/biblioteca">
+      <NavHomeLi to="biblioteca">
         <NavHomeIcon>
           <IconLibrary />
         </NavHomeIcon>
@@ -22,7 +22,7 @@ const NavHome = () => {
           <p>Biblioteca</p>
         </NavHomeText>
       </NavHomeLi>
-      <NavHomeLi to="/home/historico">
+      <NavHomeLi to="historico">
         <NavHomeIcon>
           <IconHistory />
         </NavHomeIcon>

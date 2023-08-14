@@ -14,12 +14,14 @@ import {
 import BookSvg from "../../../assets/svg/BookSvg";
 import { putBook } from "../../../services/books";
 import { Book } from "../../../interfaces/book";
+import { useParams } from "react-router-dom";
 
 interface Props {
   data: Book;
 }
 
 const BookIsBorrowed = ({ data }: Props) => {
+  const { account } = useParams();
   const lastItem = data.rentHistory[data.rentHistory.length - 1];
 
   function changeBorrow() {
@@ -62,7 +64,7 @@ const BookIsBorrowed = ({ data }: Props) => {
           </div>
         </TextBook>
         <ContainerBookButtons>
-          <EditButton to={`/home/editar/${data.id}`}>Editar</EditButton>
+          <EditButton to={`/${account}/editar/${data.id}`}>Editar</EditButton>
           <InactiveButton disabled style={{ cursor: "not-allowed" }}>
             Inativar
           </InactiveButton>

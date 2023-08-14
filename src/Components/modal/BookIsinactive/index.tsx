@@ -15,12 +15,15 @@ import { putBook } from "../../../services/books";
 import Close from "../../../assets/svg/Close";
 import BookSvg from "../../../assets/svg/BookSvg";
 import { Book } from "../../../interfaces/book";
+import { useParams } from "react-router-dom";
 
 interface Props {
   data: Book;
 }
 
 const BookIsInactive = ({ data }: Props) => {
+  const { account } = useParams();
+
   function activeBook() {
     if (data.id)
       putBook(data.id, {
@@ -63,7 +66,7 @@ const BookIsInactive = ({ data }: Props) => {
         </div>
       </TextBook>
       <ContainerBookButtons>
-        <EditButton to={`/home/editar/${data.id}`}>Editar</EditButton>
+        <EditButton to={`/${account}/editar/${data.id}`}>Editar</EditButton>
         <ActiveButton onClick={activeBook}>Ativar</ActiveButton>
         <HistoryButton to={`../historico/${data.id}`}>Histórico</HistoryButton>
       </ContainerBookButtons>

@@ -8,7 +8,7 @@ const History = () => {
 
   return (
     <>
-      <NavBack path="/home" page="Histórico de empréstimos" />
+      <NavBack path=".." page="Histórico de empréstimos" />
       <HistoryLoans bookTitle={true} loans={history} />
     </>
   );

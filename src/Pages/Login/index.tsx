@@ -30,7 +30,11 @@ const Login = () => {
     if (
       users.find((user) => user.email === email && user.password === password)
     ) {
-      navigate("/home");
+      const user = users.find(
+        (user) => user.email === email && user.password === password
+      );
+
+      navigate(`${user?.name}`);
     } else {
       alert("Email e/ou senha incoretos!");
     }
