@@ -23,7 +23,7 @@ In this repository is the entire front-end part of the refactoring challenge for
 ![Mobile-New](https://github.com/PedroKnorst/LibraryRocketTalentsFrontEnd/blob/main/screens/New%20Book-2.png)
 ![Mobile-Library](https://github.com/PedroKnorst/LibraryRocketTalentsFrontEnd/blob/main/screens/Library-2.png)
 
-# Tecnologies
+# Technologies
 - React
 - Typescript
 - Node Js
