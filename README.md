@@ -33,10 +33,8 @@ In this repository is the entire front-end part of the refactoring challenge for
 
 ```bash
 #clone the front-end repository
-git clone https://github.com/PedroKnorst/LibraryRocketTalentsFrontEnd
 
 #clone the back-end respository
-git clone https://github.com/PedroKnorst/LibraryRocketTalentsBackEnd
 
 #go to the back-end file
 cd LibraryRocketTalentsBackEnd
@@ -50,3 +48,6 @@ cd LibraryRocketTalentsFrontEnd
 #run the application
 npm run dev
 ```
+
+## Node version
+v18.14.0
