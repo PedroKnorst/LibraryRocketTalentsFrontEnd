@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Bacground1,
   Bacground2,
@@ -9,34 +9,34 @@ import {
   InputLogin,
   ContainerLogo,
   LostPassword,
-} from "./style";
-import Background01 from "../../assets/BackgroundLogin1.png";
-import Background02 from "../../assets/svg/BackgroundLogin2.svg";
-import Senha from "../../assets/svg/Senha";
-import Email from "../../assets/svg/Email";
-import Logo from "../../assets/svg/Logo";
-import { UserContext } from "../../UserContext";
-import { useNavigate } from "react-router-dom";
+} from './style';
+import Background01 from '../../assets/BackgroundLogin1.png';
+import Background02 from '../../assets/svg/BackgroundLogin2.svg';
+import Senha from '../../assets/svg/Senha';
+import Email from '../../assets/svg/Email';
+import Logo from '../../assets/svg/Logo';
+import { useNavigate } from 'react-router-dom';
+import { getUser } from '../../services/users';
 
 const Login = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const { users } = React.useContext(UserContext);
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [username, setUsername] = React.useState('');
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    getUser(email).then(res => {
+      setUsername(res.data);
+    });
+  }, [email]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (
-      users.find((user) => user.email === email && user.password === password)
-    ) {
-      const user = users.find(
-        (user) => user.email === email && user.password === password
-      );
-
-      navigate(`${user?.name}`);
+    if (username) {
+      navigate(`${username}`);
     } else {
-      alert("Email e/ou senha incoretos!");
+      alert('Email e/ou senha incoretos!');
     }
   };
 

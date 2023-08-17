@@ -1,42 +1,12 @@
-import { Book } from "../../interfaces/book";
-import { api } from "../api";
+import { Book } from '../../interfaces/book';
+import { api } from '../api';
 
-export const getBooks = () => {
-  try {
-    return api.get("/books");
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
+export const getBooks = async () => api.get('/books');
 
-export const getBook = (id: string) => {
-  try {
-    return api.get("/books/" + id);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
+export const getBook = async (id: string) => api.get('/books/' + id);
 
-export const postBook = (body: Book) => {
-  try {
-    return api.post("/books", body);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
+export const postBook = async (body: Book) => api.post('/books', body);
 
-export const getHistory = () => {
-  try {
-    return api.get("/books/history");
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
+export const getHistory = async () => api.get('/books/history');
 
-export const putBook = (id: string, body: Book) => {
-  try {
-    return api.put("/books/" + id, { ...body });
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
+export const putBook = async (id: string, body: Book) => api.put('/books/' + id, { ...body });
