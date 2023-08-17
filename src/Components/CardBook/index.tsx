@@ -1,5 +1,5 @@
-import { ContainerBookStyle } from "./style";
-import { Book } from "../../interfaces/book";
+import { ContainerBookStyle } from './style';
+import { Book } from '../../interfaces/book';
 
 interface Props {
   data: Book;
