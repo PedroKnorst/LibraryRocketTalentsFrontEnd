@@ -16,7 +16,7 @@ import Senha from '../../assets/svg/Senha';
 import Email from '../../assets/svg/Email';
 import Logo from '../../assets/svg/Logo';
 import { useNavigate } from 'react-router-dom';
-import { getUser } from '../../services/users';
+import { postUser } from '../../services/users';
 
 const Login = () => {
   const [email, setEmail] = React.useState('');
@@ -24,21 +24,19 @@ const Login = () => {
   const [username, setUsername] = React.useState('');
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    getUser(email).then(res => {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    postUser({ email, password }).then(res => {
       setUsername(res.data);
     });
-  }, [email]);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
 
     if (username) {
       navigate(`${username}`);
     } else {
       alert('Email e/ou senha incoretos!');
     }
-  };
+  }
 
   return (
     <Bacground1 active={Background01}>
