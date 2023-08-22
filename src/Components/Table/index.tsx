@@ -1,13 +1,7 @@
-import React from "react";
-import { Loan } from "../../interfaces/history";
-import {
-  FilterButton,
-  TableLoans,
-  TbodyLoans,
-  TheadLoans,
-  ContainerTable,
-} from "./style";
-import Filter from "../../assets/svg/Filter";
+import React from 'react';
+import { Loan } from '../../interfaces/history';
+import { FilterButton, TableLoans, TbodyLoans, TheadLoans, ContainerTable } from './style';
+import Filter from '../../assets/svg/Filter';
 
 interface Props {
   loans: Loan[];
@@ -15,8 +9,8 @@ interface Props {
 }
 
 const SortOrder = {
-  Ascending: "asc",
-  Descending: "desc",
+  Ascending: 'asc',
+  Descending: 'desc',
 };
 
 const HistoryLoans = ({ loans, bookTitle }: Props) => {
@@ -24,11 +18,7 @@ const HistoryLoans = ({ loans, bookTitle }: Props) => {
   const [sortOrder, setSortOrder] = React.useState(SortOrder.Ascending);
 
   const toggleSortOrder = () => {
-    setSortOrder(
-      sortOrder === SortOrder.Ascending
-        ? SortOrder.Descending
-        : SortOrder.Ascending
-    );
+    setSortOrder(sortOrder === SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending);
   };
 
   const sortStudent = () => {
@@ -53,13 +43,7 @@ const HistoryLoans = ({ loans, bookTitle }: Props) => {
 
     const sortedClass = loans.sort((a, b) => {
       if (a.class === b.class) return 0;
-      return sortOrder === SortOrder.Ascending
-        ? a.class < b.class
-          ? -1
-          : 1
-        : a.class > b.class
-        ? -1
-        : 1;
+      return sortOrder === SortOrder.Ascending ? (a.class < b.class ? -1 : 1) : a.class > b.class ? -1 : 1;
     });
 
     setData(sortedClass);

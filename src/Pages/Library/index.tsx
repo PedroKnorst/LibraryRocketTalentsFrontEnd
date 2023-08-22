@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   ButtonInputSearch,
   ContainerBooksLibrary,
@@ -7,26 +7,27 @@ import {
   ContainerSearchLibrary,
   InputSearch,
   SectinoInputsLibrary,
-} from "./style";
-import Search from "../../assets/svg/Search";
-import Select from "../../components/Inputs/Select";
-import BookContent from "../../components/modal/ModalBook";
-import { UserContext } from "../../UserContext";
-import { Route, Routes, useParams } from "react-router-dom";
-import BookDataBorrow from "../../components/modal/BookDataBorrow";
-import BookDataInactive from "../../components/modal/BookDataInactive";
-import useForm from "../../hooks/useForm";
-import { Book } from "../../interfaces/book";
-import NavBack from "../../components/NavBack";
-import BookHistory from "../../components/modal/BookHistory";
-import ContainerBook from "../../components/CardBook";
+} from './style';
+import Search from '../../assets/svg/Search';
+import Select from '../../components/Inputs/Select';
+import BookContent from '../../components/modal/ModalBook';
+import { UserContext } from '../../UserContext';
+import { Route, Routes, useParams } from 'react-router-dom';
+import BookDataBorrow from '../../components/modal/BookDataBorrow';
+import BookDataInactive from '../../components/modal/BookDataInactive';
+import useForm from '../../hooks/useForm';
+import { Book } from '../../interfaces/book';
+import NavBack from '../../components/NavBack';
+import BookHistory from '../../components/modal/BookHistory';
+import ContainerBook from '../../components/CardBook';
+import { compareAsc } from 'date-fns';
 
 const Library = () => {
-  const [search, setSearch] = React.useState("");
+  const [search, setSearch] = React.useState('');
   const { books } = React.useContext(UserContext);
   const [newBooks, setNewBooks] = React.useState<Book[]>(books);
   const category = useForm();
-  const categorys = ["Autor", "Gênero", "Data de Entrada"];
+  const categorys = ['Autor', 'Gênero', 'Data de Entrada'];
   const { account } = useParams();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,13 +37,13 @@ const Library = () => {
   const searchBook = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const searchBook = search.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const searchBook = search.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
-    const filteredBooks = books.filter((book) =>
+    const filteredBooks = books.filter(book =>
       book.title
         .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
         .includes(searchBook)
     );
 
@@ -53,29 +54,31 @@ const Library = () => {
     category.onSelect(e);
 
     function converterData(dataString: string) {
-      const partes = dataString.split("/");
+      const partes = dataString.split('/');
       const dia = parseInt(partes[0]);
       const mes = parseInt(partes[1]) - 1;
       const ano = parseInt(partes[2]);
       return new Date(ano, mes, dia);
     }
 
-    if (e.currentTarget.textContent === "Gênero") {
+    const entryDate: Date[] = [];
+
+    newBooks.forEach(book => {
+      entryDate.push(converterData(book.systemEntryDate));
+    });
+
+    if (e.currentTarget.textContent === 'Gênero') {
       newBooks.sort((a, b) => (a.genre < b.genre ? -1 : 1));
-    } else if (e.currentTarget.textContent === "Autor") {
+    } else if (e.currentTarget.textContent === 'Autor') {
       newBooks.sort((a, b) => (a.author < b.author ? -1 : 1));
-    } else if (e.currentTarget.textContent === "Data de Entrada") {
-      newBooks.sort(
-        (a, b) =>
-          converterData(b.systemEntryDate).getTime() -
-          converterData(a.systemEntryDate).getTime()
-      );
+    } else if (e.currentTarget.textContent === 'Data de Entrada') {
+      entryDate.sort(compareAsc);
     }
     setNewBooks(newBooks);
   };
 
   const defaultItem = () => {
-    category.setValue("");
+    category.setValue('');
 
     newBooks.sort((a, b) => {
       if (a.id && b.id) return Number.parseInt(a.id) - Number.parseInt(b.id);
@@ -116,16 +119,13 @@ const Library = () => {
               selectItem={selectItem}
               list={categorys}
               value={category.value}
-              labelStyle={"#ADB5BD"}
-              selectStyle={{ borderColor: "#ADB5BD" }}
-              label={"Filtrar"}
+              labelStyle={'#ADB5BD'}
+              selectStyle={{ borderColor: '#ADB5BD' }}
+              label={'Filtrar'}
             />
           </ContainerInputsLibrary>
           <ContainerBooksLibrary>
-            {newBooks &&
-              newBooks.map((book: Book) => (
-                <ContainerBook key={book.id} data={book} />
-              ))}
+            {newBooks && newBooks.map((book: Book) => <ContainerBook key={book.id} data={book} />)}
           </ContainerBooksLibrary>
         </SectinoInputsLibrary>
       </ContainerLibrary>
