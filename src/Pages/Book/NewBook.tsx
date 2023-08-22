@@ -1,27 +1,22 @@
-import React from "react";
-import {
-  ButtonCancel,
-  ButtonSave,
-  ContainerButtons,
-  ContainerInputs,
-  ContainerBookPage,
-  SectionInputs,
-} from "./style";
-import Select from "../../components/Inputs/Select";
-import useForm from "../../hooks/useForm";
-import InputFile from "../../components/Inputs/InputFile";
-import { UserContext } from "../../UserContext";
-import { Book } from "../../interfaces/book";
-import InputText from "../../components/Inputs/InputText";
-import NavHome from "../../components/NavBack";
-import InputTextArea from "../../components/Inputs/TexArea";
-import { postBook } from "../../services/books";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { ButtonCancel, ButtonSave, ContainerButtons, ContainerInputs, ContainerBookPage, SectionInputs } from './style';
+import Select from '../../components/Inputs/Select';
+import useForm from '../../hooks/useForm';
+import InputFile from '../../components/Inputs/InputFile';
+import { UserContext } from '../../UserContext';
+import { Book } from '../../interfaces/book';
+import InputText from '../../components/Inputs/InputText';
+import NavHome from '../../components/NavBack';
+import InputTextArea from '../../components/Inputs/TexArea';
+import { postBook, postCover } from '../../services/books';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const NewBook = () => {
   const { books } = React.useContext(UserContext);
-  const [img, setImg] = React.useState<string>("");
+  const [img, setImg] = React.useState<string>('');
+  const [file, setFile] = React.useState<Blob | string>('');
   const navigate = useNavigate();
+  const { account } = useParams();
 
   const title = useForm();
   const synopsis = useForm();
@@ -35,7 +30,7 @@ const NewBook = () => {
     cover.setValue(i);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (
@@ -46,10 +41,16 @@ const NewBook = () => {
       entryDate.validate() &&
       cover.validate()
     ) {
-      const changedDateEntry = new Date(entryDate.value).toLocaleDateString(
-        "pt-BR",
-        { timeZone: "UTC" }
-      );
+      const changedDateEntry = new Date(entryDate.value).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+
+      const formData = new FormData();
+      formData.append('uploaded_file', file);
+
+      let uploadedImg = img;
+
+      await postCover(formData).then(res => {
+        uploadedImg = res.data;
+      });
 
       postBook({
         title: title.value,
@@ -59,15 +60,15 @@ const NewBook = () => {
         rentHistory: [],
         status: {
           isActive: true,
-          description: "",
+          description: '',
         },
         synopsis: synopsis.value,
         systemEntryDate: changedDateEntry,
-        image: cover.value,
-      }).then((res) => res.data);
+        image: uploadedImg,
+      }).then(res => res.data);
 
-      navigate("/home");
-      alert("Livro adicionado a biblioteca!");
+      navigate(`../../${account}`);
+      alert('Livro adicionado a biblioteca!');
       location.reload();
     }
   };
@@ -82,17 +83,17 @@ const NewBook = () => {
   }, []);
 
   const defaultItem = () => {
-    genre.setValue("");
+    genre.setValue('');
   };
 
   return (
     <ContainerBookPage>
       <NavHome path=".." page="Cadastrar novo livro" />
-      <SectionInputs onSubmit={handleSubmit}>
+      <SectionInputs onSubmit={handleSubmit} action="/photos" method="post" encType="multipart/form-data">
         <ContainerInputs>
-          <InputFile error={cover.error} img={img} setImg={infoChange} />
+          <InputFile error={cover.error} img={img} setImg={infoChange} setFile={setFile} />
           <InputText
-            gridArea={{ gridArea: "titulo" }}
+            gridArea={{ gridArea: 'titulo' }}
             id="input_title"
             label="Títutlo"
             onChange={title.onChange}
@@ -101,7 +102,7 @@ const NewBook = () => {
             error={title.error}
           />
           <InputTextArea
-            gridArea={{ gridArea: "sinopse" }}
+            gridArea={{ gridArea: 'sinopse' }}
             id="input_synopsis"
             label="Sinopse"
             onChange={synopsis.onChange}
@@ -109,7 +110,7 @@ const NewBook = () => {
             error={synopsis.error}
           />
           <InputText
-            gridArea={{ gridArea: "autor" }}
+            gridArea={{ gridArea: 'autor' }}
             id="input_author"
             label="Autor"
             onChange={author.onChange}
@@ -120,15 +121,15 @@ const NewBook = () => {
           <Select
             mediaquerie="true"
             defaultItem={defaultItem}
-            selectItem={(e) => genre.onSelect(e)}
+            selectItem={e => genre.onSelect(e)}
             list={filterGenre}
             value={genre.value}
-            style={{ gridArea: "genero" }}
-            labelStyle={"#133052"}
-            label={"Gênero"}
+            style={{ gridArea: 'genero' }}
+            labelStyle={'#133052'}
+            label={'Gênero'}
           />
           <InputText
-            gridArea={{ gridArea: "data" }}
+            gridArea={{ gridArea: 'data' }}
             id="input_date"
             label="Data de entrada"
             onChange={entryDate.onChange}

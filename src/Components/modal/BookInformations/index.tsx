@@ -8,11 +8,11 @@ import {
   InactiveLink,
   LinkBorrow,
   TextBook,
-} from "../style";
-import Close from "../../../assets/svg/Close";
-import BookSvg from "../../../assets/svg/BookSvg";
-import { Book } from "../../../interfaces/book";
-import { useParams } from "react-router-dom";
+} from '../style';
+import Close from '../../../assets/svg/Close';
+import BookSvg from '../../../assets/svg/BookSvg';
+import { Book } from '../../../interfaces/book';
+import { useParams } from 'react-router-dom';
 
 interface Props {
   data: Book;
@@ -26,7 +26,7 @@ const BookInfomations = ({ data }: Props) => {
       <ButtonClose to="..">
         <Close />
       </ButtonClose>
-      <CoverBook src={`${data.image}`} alt="livro" />
+      <CoverBook src={`http://localhost:3001/static/${data.image}`} alt="livro" />
       <LinkBorrow active={`${true}`} to={`../emprestar/${data.id}`}>
         <BookSvg />
         Emprestar

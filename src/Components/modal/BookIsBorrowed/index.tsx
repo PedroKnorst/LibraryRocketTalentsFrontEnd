@@ -1,4 +1,4 @@
-import Close from "../../../assets/svg/Close";
+import Close from '../../../assets/svg/Close';
 import {
   LinkBorrowed,
   ButtonClose,
@@ -10,11 +10,11 @@ import {
   HistoryButton,
   InactiveButton,
   TextBook,
-} from "../style";
-import BookSvg from "../../../assets/svg/BookSvg";
-import { putBook } from "../../../services/books";
-import { Book } from "../../../interfaces/book";
-import { useParams } from "react-router-dom";
+} from '../style';
+import BookSvg from '../../../assets/svg/BookSvg';
+import { putBook } from '../../../services/books';
+import { Book } from '../../../interfaces/book';
+import { useParams } from 'react-router-dom';
 
 interface Props {
   data: Book;
@@ -26,10 +26,10 @@ const BookIsBorrowed = ({ data }: Props) => {
 
   function changeBorrow() {
     if (data.id)
-      putBook(data.id, { ...data, isBorrowed: false }).then((res) => {
+      putBook(data.id, { ...data, isBorrowed: false }).then(res => {
         return res.data;
       });
-    alert("Livro devolvido!");
+    alert('Livro devolvido!');
     location.reload();
   }
 
@@ -39,8 +39,8 @@ const BookIsBorrowed = ({ data }: Props) => {
         <ButtonClose to="..">
           <Close />
         </ButtonClose>
-        <CoverBook src={`${data.image}`} alt="livro" />
-        <LinkBorrowed to={""} onClick={changeBorrow}>
+        <CoverBook src={`http://localhost:3001/static/${data.image}`} alt="livro" />
+        <LinkBorrowed to={''} onClick={changeBorrow}>
           <BookSvg />
           Devolver
         </LinkBorrowed>
@@ -65,12 +65,10 @@ const BookIsBorrowed = ({ data }: Props) => {
         </TextBook>
         <ContainerBookButtons>
           <EditButton to={`/${account}/editar/${data.id}`}>Editar</EditButton>
-          <InactiveButton disabled style={{ cursor: "not-allowed" }}>
+          <InactiveButton disabled style={{ cursor: 'not-allowed' }}>
             Inativar
           </InactiveButton>
-          <HistoryButton to={`../historico/${data.id}`}>
-            Histórico
-          </HistoryButton>
+          <HistoryButton to={`../historico/${data.id}`}>Histórico</HistoryButton>
         </ContainerBookButtons>
         <ContainerDataStudent>
           <h2>Dados do aluno</h2>

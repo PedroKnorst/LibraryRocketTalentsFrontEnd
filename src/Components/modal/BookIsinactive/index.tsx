@@ -10,12 +10,12 @@ import {
   TextBook,
   ContainerDataInactive,
   ContainerInactiveContent,
-} from "../style";
-import { putBook } from "../../../services/books";
-import Close from "../../../assets/svg/Close";
-import BookSvg from "../../../assets/svg/BookSvg";
-import { Book } from "../../../interfaces/book";
-import { useParams } from "react-router-dom";
+} from '../style';
+import { putBook } from '../../../services/books';
+import Close from '../../../assets/svg/Close';
+import BookSvg from '../../../assets/svg/BookSvg';
+import { Book } from '../../../interfaces/book';
+import { useParams } from 'react-router-dom';
 
 interface Props {
   data: Book;
@@ -28,11 +28,11 @@ const BookIsInactive = ({ data }: Props) => {
     if (data.id)
       putBook(data.id, {
         ...data,
-        status: { isActive: true, description: "" },
-      }).then((res) => {
+        status: { isActive: true, description: '' },
+      }).then(res => {
         return res.data;
       });
-    alert("Livro ativado novamente!");
+    alert('Livro ativado novamente!');
     location.reload();
   }
 
@@ -41,8 +41,8 @@ const BookIsInactive = ({ data }: Props) => {
       <ButtonClose to="..">
         <Close />
       </ButtonClose>
-      <CoverBook src={`${data.image}`} alt="livro" />
-      <LinkBorrow to={""} active={`${false}`}>
+      <CoverBook src={`http://localhost:3001/static/${data.image}`} alt="livro" />
+      <LinkBorrow to={''} active={`${false}`}>
         <BookSvg />
         Emprestar
       </LinkBorrow>
