@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { styled } from "styled-components";
+import { Link } from 'react-router-dom';
+import { styled } from 'styled-components';
 
 export const ContainerBookStyle = styled(Link)`
   text-decoration: none;
@@ -11,6 +11,7 @@ export const ContainerBookStyle = styled(Link)`
   background-color: #f4f4f4;
   border-radius: 5px;
   gap: 1rem;
+  transition: all 0.2s linear;
 
   & h2 {
     font-size: 1rem;
@@ -22,6 +23,10 @@ export const ContainerBookStyle = styled(Link)`
   & img {
     max-width: 100px;
     height: 150px;
+  }
+
+  &:hover {
+    background-color: #dcdada;
   }
 
   @media (max-width: 1500px) {

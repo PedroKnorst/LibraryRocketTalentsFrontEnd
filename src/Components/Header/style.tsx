@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { styled } from "styled-components";
+import { Link } from 'react-router-dom';
+import { styled } from 'styled-components';
 
 export const HeaderContainer = styled.header`
   display: flex;
@@ -23,7 +23,7 @@ interface Props {
 }
 
 export const Logout = styled(Link)<Props>`
-  display: ${({ active }) => (active === "true" ? "block" : "none")};
+  display: ${({ active }) => (active === 'true' ? 'block' : 'none')};
   position: absolute;
   cursor: pointer;
   text-decoration: none;
@@ -36,9 +36,13 @@ export const Logout = styled(Link)<Props>`
   font-size: 18px;
   border-radius: 5px;
   transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #dbdbdb;
+  }
 `;
 
 export const ArrowElement = styled.img<Props>`
-  ${({ active }) => (active === "true" ? "transform: rotateZ(-180deg);" : "")}
+  ${({ active }) => (active === 'true' ? 'transform: rotateZ(-180deg);' : '')}
   transition: all 0.2s ease-in-out;
 `;

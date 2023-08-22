@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { styled } from "styled-components";
+import { Link } from 'react-router-dom';
+import { styled } from 'styled-components';
 
 export const ContainerBookPage = styled.div`
   display: grid;
@@ -20,32 +20,32 @@ export const ContainerInputs = styled.div`
   gap: 1.5rem;
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
-    "capa titulo autor"
-    "capa sinopse genero"
-    "capa sinopse data";
+    'capa titulo autor'
+    'capa sinopse genero'
+    'capa sinopse data';
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr 2fr;
     grid-template-areas:
-      "capa titulo"
-      "capa sinopse"
-      "capa sinopse"
-      "capa autor"
-      ". genero"
-      ". data";
+      'capa titulo'
+      'capa sinopse'
+      'capa sinopse'
+      'capa autor'
+      '. genero'
+      '. data';
     justify-items: center;
   }
 
   @media (max-width: 500px) {
     grid-template-columns: 1fr;
     grid-template-areas:
-      "capa"
-      "titulo"
-      "sinopse"
-      "sinopse"
-      "autor"
-      "genero"
-      "data";
+      'capa'
+      'titulo'
+      'sinopse'
+      'sinopse'
+      'autor'
+      'genero'
+      'data';
   }
 `;
 
@@ -62,31 +62,42 @@ export const ContainerButtons = styled.div`
 
 export const ButtonCancel = styled(Link)`
   text-decoration: none;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   width: 150px;
   padding: 1rem;
   box-sizing: border-box;
   color: black;
   cursor: pointer;
-  border: #133052 1px solid;
+  border: #133052 2px solid;
   text-transform: uppercase;
   text-align: center;
   background-color: white;
   border-radius: 5px;
   font-size: 1rem;
   font-weight: 500;
+  transition: all 0.2s linear;
+
+  &:hover {
+    background-color: #133052;
+    color: white;
+  }
 `;
 
 export const ButtonSave = styled.button`
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   width: 150px;
   padding: 1rem;
   box-sizing: border-box;
   cursor: pointer;
-  border: none;
+  border: #ffc501 2px solid;
   background-color: #ffc501;
   border-radius: 5px;
   text-transform: uppercase;
   font-weight: 500;
   font-size: 1rem;
+  transition: all 0.2s linear;
+
+  &:hover {
+    background-color: white;
+  }
 `;

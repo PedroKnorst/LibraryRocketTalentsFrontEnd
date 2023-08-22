@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
 
 export const ContainerTable = styled.div`
   display: grid;
@@ -39,8 +39,13 @@ export const TbodyLoans = styled.tbody`
 
 export const FilterButton = styled.div`
   cursor: pointer;
-  border-bottom: black solid 1px;
+  border-bottom: black solid 2px;
   padding: 0.5rem 4rem 0.5rem 0;
+  transition: all 0.2s linear;
+
+  &:hover {
+    border-bottom: #a8a2a2 solid 2px;
+  }
 
   @media (max-width: 1024px) {
     padding: 0.5rem 2rem 0.5rem 0;

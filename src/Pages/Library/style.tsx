@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
 
 export const ContainerLibrary = styled.div`
   display: grid;
@@ -85,11 +85,16 @@ export const InputSearch = styled.input`
 export const ButtonInputSearch = styled.button`
   cursor: pointer;
   background-color: #ffc501;
+  border: #ffc501 2px solid;
   padding: 0.5rem 1rem;
-  border: none;
   border-radius: 5px;
   font-size: 1rem;
   font-weight: 500;
+  transition: all 0.2s linear;
+
+  &:hover {
+    background-color: #ffffff;
+  }
 `;
 
 export const ContainerBooksLibrary = styled.div`
