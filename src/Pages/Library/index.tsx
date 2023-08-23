@@ -20,7 +20,6 @@ import { Book } from '../../interfaces/book';
 import NavBack from '../../components/NavBack';
 import BookHistory from '../../components/modal/BookHistory';
 import ContainerBook from '../../components/CardBook';
-import { compareAsc } from 'date-fns';
 
 const Library = () => {
   const [search, setSearch] = React.useState('');
@@ -61,18 +60,12 @@ const Library = () => {
       return new Date(ano, mes, dia);
     }
 
-    const entryDate: Date[] = [];
-
-    newBooks.forEach(book => {
-      entryDate.push(converterData(book.systemEntryDate));
-    });
-
     if (e.currentTarget.textContent === 'Gênero') {
       newBooks.sort((a, b) => (a.genre < b.genre ? -1 : 1));
     } else if (e.currentTarget.textContent === 'Autor') {
       newBooks.sort((a, b) => (a.author < b.author ? -1 : 1));
     } else if (e.currentTarget.textContent === 'Data de Entrada') {
-      entryDate.sort(compareAsc);
+      newBooks.sort((a, b) => converterData(a.systemEntryDate).getTime() - converterData(b.systemEntryDate).getTime());
     }
     setNewBooks(newBooks);
   };
