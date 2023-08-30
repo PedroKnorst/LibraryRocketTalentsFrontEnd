@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
 
 export const ContainerLogin = styled.form`
   width: 25%;
@@ -81,7 +81,7 @@ export const Bacground1 = styled.section<Props>`
   background: ${({ active }) => `url(${active})`} no-repeat center center;
   background-size: cover;
   min-height: 100vh;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   position: relative;
 `;
 

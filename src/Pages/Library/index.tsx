@@ -11,8 +11,8 @@ import {
 import Search from '../../assets/svg/Search';
 import Select from '../../components/Inputs/Select';
 import BookContent from '../../components/modal/ModalBook';
-import { UserContext } from '../../UserContext';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { UserBooksContext } from '../../context/UserContext';
+import { Route, Routes } from 'react-router-dom';
 import BookDataBorrow from '../../components/modal/BookDataBorrow';
 import BookDataInactive from '../../components/modal/BookDataInactive';
 import useForm from '../../hooks/useForm';
@@ -23,11 +23,10 @@ import ContainerBook from '../../components/CardBook';
 
 const Library = () => {
   const [search, setSearch] = React.useState('');
-  const { books } = React.useContext(UserContext);
+  const { books } = React.useContext(UserBooksContext);
   const [newBooks, setNewBooks] = React.useState<Book[]>(books);
   const category = useForm();
   const categorys = ['Autor', 'Gênero', 'Data de Entrada'];
-  const { account } = useParams();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -90,7 +89,7 @@ const Library = () => {
           <Route path="inativar/:id" element={<BookDataInactive />} />
           <Route path="historico/:id" element={<BookHistory />} />
         </Routes>
-        <NavBack path={`../../${account}`} page="Biblioteca" />
+        <NavBack path=".." page="Biblioteca" />
         <SectinoInputsLibrary>
           <ContainerInputsLibrary>
             <ContainerSearchLibrary onSubmit={searchBook}>

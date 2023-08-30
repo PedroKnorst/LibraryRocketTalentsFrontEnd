@@ -1,19 +1,16 @@
-import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
-import { UserStorage } from "./UserContext";
+import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Login from './pages/Login';
+import Home from './pages/Home';
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <UserStorage>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/:account/*" element={<Home />} />
-          </Routes>
-        </UserStorage>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/:account/*" element={<Home />} />
+        </Routes>
       </BrowserRouter>
     </>
   );

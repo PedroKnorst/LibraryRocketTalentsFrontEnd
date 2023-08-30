@@ -6,14 +6,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getBook, postCover, putBook } from '../../services/books';
 import useForm from '../../hooks/useForm';
 import { Book } from '../../interfaces/book';
-import { UserContext } from '../../UserContext';
+import { UserBooksContext } from '../../context/UserContext';
 import NavBack from '../../components/NavBack';
 import InputText from '../../components/Inputs/InputText';
 import InputTextArea from '../../components/Inputs/TexArea';
 
 const EditBook = () => {
   const { id } = useParams();
-  const { books } = React.useContext(UserContext);
+  const { books } = React.useContext(UserBooksContext);
   const [book, setBook] = React.useState<Book | null>(null);
   const [img, setImg] = React.useState('');
   const [file, setFile] = React.useState<Blob | string>('');

@@ -3,20 +3,19 @@ import { ButtonCancel, ButtonSave, ContainerButtons, ContainerInputs, ContainerB
 import Select from '../../components/Inputs/Select';
 import useForm from '../../hooks/useForm';
 import InputFile from '../../components/Inputs/InputFile';
-import { UserContext } from '../../UserContext';
+import { UserBooksContext } from '../../context/UserContext';
 import { Book } from '../../interfaces/book';
 import InputText from '../../components/Inputs/InputText';
 import NavHome from '../../components/NavBack';
 import InputTextArea from '../../components/Inputs/TexArea';
 import { postBook, postCover } from '../../services/books';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const NewBook = () => {
-  const { books } = React.useContext(UserContext);
+  const { books } = React.useContext(UserBooksContext);
   const [img, setImg] = React.useState<string>('');
   const [file, setFile] = React.useState<Blob | string>('');
   const navigate = useNavigate();
-  const { account } = useParams();
 
   const title = useForm();
   const synopsis = useForm();
@@ -67,7 +66,7 @@ const NewBook = () => {
         image: uploadedImg,
       }).then(res => res.data);
 
-      navigate(`../../${account}`);
+      navigate('home');
       alert('Livro adicionado a biblioteca!');
       location.reload();
     }

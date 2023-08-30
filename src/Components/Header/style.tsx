@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 export const HeaderContainer = styled.header`
@@ -22,7 +21,7 @@ interface Props {
   active: string;
 }
 
-export const Logout = styled(Link)<Props>`
+export const Logout = styled.button<Props>`
   display: ${({ active }) => (active === 'true' ? 'block' : 'none')};
   position: absolute;
   cursor: pointer;
