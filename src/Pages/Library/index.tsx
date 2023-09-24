@@ -20,6 +20,7 @@ import { Book } from '../../interfaces/book';
 import NavBack from '../../components/NavBack';
 import BookHistory from '../../components/modal/BookHistory';
 import ContainerBook from '../../components/CardBook';
+import * as fns from 'date-fns';
 
 const Library = () => {
   const [search, setSearch] = React.useState('');
@@ -56,6 +57,7 @@ const Library = () => {
       const dia = parseInt(partes[0]);
       const mes = parseInt(partes[1]) - 1;
       const ano = parseInt(partes[2]);
+      console.log(fns.parseISO(dataString));
       return new Date(ano, mes, dia);
     }
 
