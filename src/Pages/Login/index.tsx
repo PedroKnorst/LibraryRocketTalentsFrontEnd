@@ -25,7 +25,7 @@ const Login = () => {
 
   React.useEffect(() => {
     if (localStorage.getItem('User')) {
-      navigate('home');
+      navigate('/home');
     }
   }, []);
 
@@ -35,7 +35,7 @@ const Login = () => {
     await postUser({ email, password })
       .then(res => {
         localStorage.setItem('User', JSON.stringify(res.data));
-        navigate('home');
+        navigate('/home');
       })
       .catch(() => {
         alert('Email e/ou senha incorretos');

@@ -30,7 +30,7 @@ const EditBook = () => {
       getBook(id).then(res => {
         setBook(res.data);
       });
-  }, [id]);
+  }, []);
 
   React.useEffect(() => {
     const convertData = (dataString: string) => {
@@ -90,7 +90,7 @@ const EditBook = () => {
         image: uploadedImg,
       }).then(res => res.data);
 
-      navigate('../biblioteca');
+      navigate('/home/biblioteca');
       alert('Livro editado com sucesso!');
       location.reload();
     }
@@ -111,7 +111,7 @@ const EditBook = () => {
   if (book)
     return (
       <ContainerBookPage>
-        <NavBack path={`../biblioteca`} page="Editar Livro" />
+        <NavBack path="/home/biblioteca" page="Editar Livro" />
         <SectionInputs onSubmit={handleSubmit}>
           <ContainerInputs>
             <InputFile setFile={setFile} error={cover.error} img={img} setImg={infoChange} cover={book.image} />
@@ -162,7 +162,7 @@ const EditBook = () => {
             />
           </ContainerInputs>
           <ContainerButtons>
-            <ButtonCancel to="../biblioteca">Cancelar</ButtonCancel>
+            <ButtonCancel to="/home/biblioteca">Cancelar</ButtonCancel>
             <ButtonSave>Salvar</ButtonSave>
           </ContainerButtons>
         </SectionInputs>

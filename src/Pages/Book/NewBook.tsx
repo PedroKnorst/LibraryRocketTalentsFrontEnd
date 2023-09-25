@@ -32,6 +32,8 @@ const NewBook = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const findRepeatBookTitle = books.find(book => book.title === title.value);
+
     if (
       title.validate() &&
       synopsis.validate() &&
@@ -40,35 +42,39 @@ const NewBook = () => {
       entryDate.validate() &&
       cover.validate()
     ) {
-      const changedDateEntry = new Date(entryDate.value).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+      if (!findRepeatBookTitle) {
+        const changedDateEntry = new Date(entryDate.value).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
 
-      const formData = new FormData();
-      formData.append('uploaded_file', file);
+        const formData = new FormData();
+        formData.append('uploaded_file', file);
 
-      let uploadedImg = img;
+        let uploadedImg = img;
 
-      await postCover(formData).then(res => {
-        uploadedImg = res.data;
-      });
+        await postCover(formData).then(res => {
+          uploadedImg = res.data;
+        });
 
-      postBook({
-        title: title.value,
-        author: author.value,
-        genre: genre.value,
-        isBorrowed: false,
-        rentHistory: [],
-        status: {
-          isActive: true,
-          description: '',
-        },
-        synopsis: synopsis.value,
-        systemEntryDate: changedDateEntry,
-        image: uploadedImg,
-      }).then(res => res.data);
+        postBook({
+          title: title.value,
+          author: author.value,
+          genre: genre.value,
+          isBorrowed: false,
+          rentHistory: [],
+          status: {
+            isActive: true,
+            description: '',
+          },
+          synopsis: synopsis.value,
+          systemEntryDate: changedDateEntry,
+          image: uploadedImg,
+        }).then(res => res.data);
 
-      navigate('home');
-      alert('Livro adicionado a biblioteca!');
-      location.reload();
+        navigate('home');
+        alert('Livro adicionado a biblioteca!');
+        location.reload();
+      } else {
+        title.setError('Titulo de livro ja existente.');
+      }
     }
   };
 

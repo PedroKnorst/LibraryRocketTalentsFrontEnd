@@ -12,22 +12,19 @@ import {
 import Close from '../../../assets/svg/Close';
 import BookSvg from '../../../assets/svg/BookSvg';
 import { Book } from '../../../interfaces/book';
-import { useParams } from 'react-router-dom';
 
 interface Props {
   data: Book;
 }
 
 const BookInfomations = ({ data }: Props) => {
-  const { account } = useParams();
-
   return (
     <BookModal>
-      <ButtonClose to="..">
+      <ButtonClose to="/home/biblioteca">
         <Close />
       </ButtonClose>
       <CoverBook src={`http://localhost:3001/static/${data.image}`} alt="livro" />
-      <LinkBorrow active={`${true}`} to={`../emprestar/${data.id}`}>
+      <LinkBorrow active={`${true}`} to={`/home/biblioteca/emprestar/${data.id}`}>
         <BookSvg />
         Emprestar
       </LinkBorrow>
@@ -51,9 +48,9 @@ const BookInfomations = ({ data }: Props) => {
         </div>
       </TextBook>
       <ContainerBookButtons>
-        <EditButton to={`/${account}/editar/${data.id}`}>Editar</EditButton>
-        <InactiveLink to={`../inativar/${data.id}`}>Inativar</InactiveLink>
-        <HistoryButton to={`../historico/${data.id}`}>Histórico</HistoryButton>
+        <EditButton to={`/home/editar/${data.id}`}>Editar</EditButton>
+        <InactiveLink to={`/home/biblioteca/inativar/${data.id}`}>Inativar</InactiveLink>
+        <HistoryButton to={`/home/biblioteca/historico/${data.id}`}>Histórico</HistoryButton>
       </ContainerBookButtons>
     </BookModal>
   );

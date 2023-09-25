@@ -91,7 +91,7 @@ const Library = () => {
           <Route path="inativar/:id" element={<BookDataInactive />} />
           <Route path="historico/:id" element={<BookHistory />} />
         </Routes>
-        <NavBack path=".." page="Biblioteca" />
+        <NavBack path="/home" page="Biblioteca" />
         <SectinoInputsLibrary>
           <ContainerInputsLibrary>
             <ContainerSearchLibrary onSubmit={searchBook}>

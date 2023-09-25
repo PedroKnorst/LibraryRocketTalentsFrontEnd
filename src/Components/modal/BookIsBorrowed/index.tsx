@@ -14,29 +14,39 @@ import {
 import BookSvg from '../../../assets/svg/BookSvg';
 import { putBook } from '../../../services/books';
 import { Book } from '../../../interfaces/book';
-import { useParams } from 'react-router-dom';
 
 interface Props {
   data: Book;
 }
 
 const BookIsBorrowed = ({ data }: Props) => {
-  const { account } = useParams();
-  const lastItem = data.rentHistory[data.rentHistory.length - 1];
+  let lastItem = data.rentHistory[data.rentHistory.length - 1];
 
-  function changeBorrow() {
+  const changeBorrow = () => {
+    lastItem = {
+      bookTitle: lastItem.bookTitle,
+      studentName: lastItem.studentName,
+      class: lastItem.class,
+      withdrawalDate: lastItem.withdrawalDate,
+      deliveryDate: new Date().toLocaleDateString('pt-BR', {
+        timeZone: 'UTC',
+      }),
+    };
+
+    data.rentHistory[data.rentHistory.length - 1] = lastItem;
+
     if (data.id)
-      putBook(data.id, { ...data, isBorrowed: false }).then(res => {
-        return res.data;
-      });
+      putBook(data.id, { ...data, isBorrowed: false })
+        .then(res => res.data)
+        .catch(error => console.log(error));
     alert('Livro devolvido!');
     location.reload();
-  }
+  };
 
   if (data)
     return (
       <BookModal>
-        <ButtonClose to="..">
+        <ButtonClose to="/home/biblioteca">
           <Close />
         </ButtonClose>
         <CoverBook src={`http://localhost:3001/static/${data.image}`} alt="livro" />
@@ -64,11 +74,11 @@ const BookIsBorrowed = ({ data }: Props) => {
           </div>
         </TextBook>
         <ContainerBookButtons>
-          <EditButton to={`/${account}/editar/${data.id}`}>Editar</EditButton>
+          <EditButton to={`/home/editar/${data.id}`}>Editar</EditButton>
           <InactiveButton disabled style={{ cursor: 'not-allowed' }}>
             Inativar
           </InactiveButton>
-          <HistoryButton to={`../historico/${data.id}`}>Histórico</HistoryButton>
+          <HistoryButton to={`/home/biblioteca/historico/${data.id}`}>Histórico</HistoryButton>
         </ContainerBookButtons>
         <ContainerDataStudent>
           <h2>Dados do aluno</h2>
