@@ -21,11 +21,12 @@ import NavBack from '../../components/NavBack';
 import BookHistory from '../../components/modal/BookHistory';
 import ContainerBook from '../../components/CardBook';
 import * as fns from 'date-fns';
+import AlertMessage from '../../helpers/AlertMessage';
 
 const Library = () => {
   const [search, setSearch] = React.useState('');
   const { books } = React.useContext(UserBooksContext);
-  const [newBooks, setNewBooks] = React.useState<Book[]>(books);
+  const [filteredBooks, setfilteredBooks] = React.useState<Book[]>(books);
   const category = useForm();
   const categorys = ['Autor', 'Gênero', 'Data de Entrada'];
 
@@ -36,17 +37,15 @@ const Library = () => {
   const searchBook = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const searchBook = search.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-    const filteredBooks = books.filter(book =>
+    const searchBook = books.filter(book =>
       book.title
         .toLowerCase()
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
-        .includes(searchBook)
+        .includes(search.normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
     );
 
-    setNewBooks(filteredBooks);
+    setfilteredBooks(searchBook);
   };
 
   const selectItem = (e: React.PointerEvent<HTMLElement>) => {
@@ -62,27 +61,29 @@ const Library = () => {
     }
 
     if (e.currentTarget.textContent === 'Gênero') {
-      newBooks.sort((a, b) => (a.genre < b.genre ? -1 : 1));
+      filteredBooks.sort((a, b) => (a.genre < b.genre ? -1 : 1));
     } else if (e.currentTarget.textContent === 'Autor') {
-      newBooks.sort((a, b) => (a.author < b.author ? -1 : 1));
+      filteredBooks.sort((a, b) => (a.author < b.author ? -1 : 1));
     } else if (e.currentTarget.textContent === 'Data de Entrada') {
-      newBooks.sort((a, b) => converterData(a.systemEntryDate).getTime() - converterData(b.systemEntryDate).getTime());
+      filteredBooks.sort(
+        (a, b) => converterData(a.systemEntryDate).getTime() - converterData(b.systemEntryDate).getTime()
+      );
     }
-    setNewBooks(newBooks);
+    setfilteredBooks(filteredBooks);
   };
 
   const defaultItem = () => {
     category.setValue('');
 
-    newBooks.sort((a, b) => {
+    filteredBooks.sort((a, b) => {
       if (a.id && b.id) return Number.parseInt(a.id) - Number.parseInt(b.id);
       return -1;
     });
 
-    setNewBooks(newBooks);
+    setfilteredBooks(filteredBooks);
   };
 
-  if (newBooks)
+  if (filteredBooks)
     return (
       <ContainerLibrary>
         <Routes>
@@ -92,6 +93,7 @@ const Library = () => {
           <Route path="historico/:id" element={<BookHistory />} />
         </Routes>
         <NavBack path="/home" page="Biblioteca" />
+        <AlertMessage message="Sucesso" status="success" tittleMessage="Success" />
         <SectinoInputsLibrary>
           <ContainerInputsLibrary>
             <ContainerSearchLibrary onSubmit={searchBook}>
@@ -119,7 +121,7 @@ const Library = () => {
             />
           </ContainerInputsLibrary>
           <ContainerBooksLibrary>
-            {newBooks && newBooks.map((book: Book) => <ContainerBook key={book.id} data={book} />)}
+            {filteredBooks && filteredBooks.map((book: Book) => <ContainerBook key={book.id} data={book} />)}
           </ContainerBooksLibrary>
         </SectinoInputsLibrary>
       </ContainerLibrary>

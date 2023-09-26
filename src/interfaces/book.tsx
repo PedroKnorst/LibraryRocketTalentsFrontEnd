@@ -1,4 +1,4 @@
-import { Loan } from "./history";
+import { Loan } from './history';
 
 export interface Book {
   id?: string;
