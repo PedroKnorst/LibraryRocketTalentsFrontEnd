@@ -20,8 +20,6 @@ import { Book } from '../../interfaces/book';
 import NavBack from '../../components/NavBack';
 import BookHistory from '../../components/modal/BookHistory';
 import ContainerBook from '../../components/CardBook';
-import * as fns from 'date-fns';
-import AlertMessage from '../../helpers/AlertMessage';
 
 const Library = () => {
   const [search, setSearch] = React.useState('');
@@ -56,7 +54,6 @@ const Library = () => {
       const dia = parseInt(partes[0]);
       const mes = parseInt(partes[1]) - 1;
       const ano = parseInt(partes[2]);
-      console.log(fns.parseISO(dataString));
       return new Date(ano, mes, dia);
     }
 
@@ -93,7 +90,6 @@ const Library = () => {
           <Route path="historico/:id" element={<BookHistory />} />
         </Routes>
         <NavBack path="/home" page="Biblioteca" />
-        <AlertMessage message="Sucesso" status="success" tittleMessage="Success" />
         <SectinoInputsLibrary>
           <ContainerInputsLibrary>
             <ContainerSearchLibrary onSubmit={searchBook}>

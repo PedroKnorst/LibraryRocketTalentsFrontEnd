@@ -1,4 +1,4 @@
-const User = () => {
+const UserImg = () => {
   return (
     <svg
       id="person_black_24dp_1_"
@@ -24,4 +24,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default UserImg;

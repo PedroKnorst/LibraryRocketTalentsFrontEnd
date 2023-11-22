@@ -37,10 +37,11 @@ const BookIsBorrowed = ({ data }: Props) => {
 
     if (data.id)
       putBook(data.id, { ...data, isBorrowed: false })
-        .then(res => res.data)
+        .then(() => {
+          alert('Livro devolvido!');
+          location.reload();
+        })
         .catch(error => console.log(error));
-    alert('Livro devolvido!');
-    location.reload();
   };
 
   if (data)

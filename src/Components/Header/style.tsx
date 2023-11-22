@@ -25,16 +25,15 @@ export const Logout = styled.button<Props>`
   display: ${({ active }) => (active === 'true' ? 'block' : 'none')};
   position: absolute;
   cursor: pointer;
-  text-decoration: none;
-  color: #2a2a2a;
-  top: 3rem;
-  right: 0;
-  left: 0;
   background-color: #f4f4f4;
   padding: 1rem;
   font-size: 18px;
   border-radius: 5px;
+  border-style: none;
   transition: all 0.2s ease-in-out;
+  top: 3rem;
+  right: 0;
+  left: 0;
 
   &:hover {
     background-color: #dbdbdb;

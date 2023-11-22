@@ -1,9 +1,10 @@
 import React from 'react';
 import Logo from '../../assets/svg/Logo';
-import User from '../../assets/svg/User';
+import UserImg from '../../assets/svg/User';
 import Arrow from '../../assets/svg/Arrow.svg';
 import { ArrowElement, DivUser, HeaderContainer, Logout } from './style';
 import { useNavigate } from 'react-router-dom';
+import { User } from '../../interfaces/user';
 
 const Header = () => {
   const [active, setActive] = React.useState(false);
@@ -27,7 +28,7 @@ const Header = () => {
       <HeaderContainer>
         <Logo />
         <DivUser onClick={() => setActive(prevActive => !prevActive)}>
-          <User />
+          <UserImg />
           <p>{user.name}</p>
           <ArrowElement src={Arrow} active={`${active}`} />
           <Logout onClick={handleClick} active={`${active}`}>

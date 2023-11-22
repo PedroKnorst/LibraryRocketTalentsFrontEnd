@@ -24,16 +24,23 @@ const AlertMessage = ({ status, tittleMessage, message, messageButton }: Props) 
         Abrir modal
       </button>
       {messageButton}
-      <ContainerModal status={status}>
-        <Toast.Root duration={3000} open={open} onOpenChange={setOpen} className="ToastRoot">
-          <Toast.Title>{tittleMessage}</Toast.Title>
-          <Toast.Description>{message}</Toast.Description>
-          <Toast.Close onClick={() => setOpen(false)}>
-            <Cross1Icon style={{ width: '.5rem', height: '.5rem' }} />
-          </Toast.Close>
-        </Toast.Root>
+      <Toast.Root
+        style={{ backgroundColor: `${status === 'success' ? 'green' : 'red'}` }}
+        duration={3000}
+        open={open}
+        onOpenChange={setOpen}
+        className="ToastRoot"
+      >
+        <Toast.Close onClick={() => setOpen(false)}>
+          <Cross1Icon style={{ width: '1rem', height: '1rem' }} />
+        </Toast.Close>
+        <Toast.Title>{tittleMessage}</Toast.Title>
+        <Toast.Description>{message}</Toast.Description>
+      </Toast.Root>
+
+      <ContainerModal>
+        <Toast.Viewport className="ToastViewport" />
       </ContainerModal>
-      <Toast.Viewport className="ToastViewport" />
     </Toast.Provider>
   );
 };
