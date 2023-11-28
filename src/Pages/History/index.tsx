@@ -7,10 +7,10 @@ const History = () => {
   const { history } = React.useContext(UserHistoryContext);
 
   return (
-    <>
+    <div data-testid="history">
       <NavBack path=".." page="Histórico de empréstimos" />
       <HistoryLoans bookTitle={true} loans={history} />
-    </>
+    </div>
   );
 };
 
