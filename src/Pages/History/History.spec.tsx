@@ -3,6 +3,7 @@ import History from '.';
 import { UserHistoryContext } from '../../context/UserContext';
 import { Loan } from '../../interfaces/history';
 import { BrowserRouter } from 'react-router-dom';
+import "@testing-library/jest-dom"
 
 describe('<HistoryLoans />', () => {
   it('rendering component', () => {
@@ -15,6 +16,7 @@ describe('<HistoryLoans />', () => {
         deliveryDate: '02/03/2005',
       },
     ];
+
     render(
       <UserHistoryContext.Provider value={{ history: userHistoryContextMock }}>
         <BrowserRouter>
@@ -23,6 +25,6 @@ describe('<HistoryLoans />', () => {
       </UserHistoryContext.Provider>
     );
 
-    expect(screen.getByTestId('history')).toBeTruthy();
+    expect(screen.getByTestId('history')).toBeInTheDocument();
   });
 });

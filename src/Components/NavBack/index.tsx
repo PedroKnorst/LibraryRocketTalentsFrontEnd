@@ -8,8 +8,8 @@ interface Props {
 
 const NavBack = ({ page, path }: Props) => {
   return (
-    <NavBackContainer>
-      <NavBackHome to={path}>
+    <NavBackContainer data-testid='navBackContainer'>
+      <NavBackHome data-testid='buttonNavBack' to={path}>
         <Back /> Home
       </NavBackHome>
       <NavBackPage>/ {page}</NavBackPage>

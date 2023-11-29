@@ -18,7 +18,7 @@ const Home = () => {
   }, [navigate]);
 
   return (
-    <>
+    <div data-testid='Home'>
       <Header />
       <MainBackground>
         <Routes>
@@ -57,7 +57,7 @@ const Home = () => {
           />
         </Routes>
       </MainBackground>
-    </>
+    </div>
   );
 };
 
