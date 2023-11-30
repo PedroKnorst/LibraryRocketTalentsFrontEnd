@@ -103,7 +103,7 @@ const HistoryLoans = ({ loans, bookTitle }: Props) => {
   };
 
   return (
-    <ContainerTable>
+    <ContainerTable data-testid="historyContainer">
       <TableLoans>
         <TheadLoans>
           <tr>
@@ -117,29 +117,29 @@ const HistoryLoans = ({ loans, bookTitle }: Props) => {
         <TbodyLoans>
           <tr>
             <td>
-              <FilterButton onClick={sortStudent}>
+              <FilterButton data-testid="sortStudent" onClick={sortStudent}>
                 <Filter />
               </FilterButton>
             </td>
             <td>
-              <FilterButton onClick={sortClass}>
+              <FilterButton data-testid="sortClass" onClick={sortClass}>
                 <Filter />
               </FilterButton>
             </td>
             {bookTitle && (
               <td>
-                <FilterButton onClick={sortBook}>
+                <FilterButton data-testid="sortBook" onClick={sortBook}>
                   <Filter />
                 </FilterButton>
               </td>
             )}
             <td>
-              <FilterButton onClick={sortWithdrawalDate}>
+              <FilterButton data-testid="sortWithdrawalDate" onClick={sortWithdrawalDate}>
                 <Filter />
               </FilterButton>
             </td>
             <td>
-              <FilterButton onClick={sortDeliveryDate}>
+              <FilterButton data-testid="sortDeliveryDate" onClick={sortDeliveryDate}>
                 <Filter />
               </FilterButton>
             </td>

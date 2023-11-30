@@ -1,4 +1,4 @@
-import { ContainerInputText, Input, InputError, LabelInputText } from "./style";
+import { ContainerInputText, Input, InputError, LabelInputText } from './style';
 
 interface Props {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
@@ -10,15 +10,7 @@ interface Props {
   error: string;
 }
 
-const InputText = ({
-  onChange,
-  value,
-  id,
-  label,
-  gridArea,
-  type,
-  error,
-}: Props) => {
+const InputText = ({ onChange, value, id, label, gridArea, type, error }: Props) => {
   return (
     <ContainerInputText style={gridArea}>
       <Input onChange={onChange} value={value} type={type} id={id} />
