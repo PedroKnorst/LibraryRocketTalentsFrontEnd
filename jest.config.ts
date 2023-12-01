@@ -176,6 +176,7 @@ const config: Config = {
 
   // A map from regular expressions to paths to transformers
   transform: {
+    '.+\\.(svg|css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
     '^.+\\.(t|j)sx?$': [
       '@swc/jest',
       {
@@ -192,6 +193,17 @@ const config: Config = {
             react: {
               runtime: 'automatic',
             },
+          },
+          experimental: {
+            plugins: [
+              [
+                '@swc/plugin-styled-components',
+                {
+                  displayName: true,
+                  ssr: true,
+                },
+              ],
+            ],
           },
         },
         module: {

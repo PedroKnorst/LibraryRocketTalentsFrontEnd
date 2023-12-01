@@ -18,7 +18,7 @@ const Home = () => {
   }, [navigate]);
 
   return (
-    <div data-testid='Home'>
+    <div data-testid="Home">
       <Header />
       <MainBackground>
         <Routes>

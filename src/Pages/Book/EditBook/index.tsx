@@ -1,15 +1,22 @@
 import React from 'react';
-import { ButtonCancel, ButtonSave, ContainerButtons, ContainerInputs, ContainerBookPage, SectionInputs } from './style';
-import InputFile from '../../components/Inputs/InputFile';
-import Select from '../../components/Inputs/Select';
+import {
+  ButtonCancel,
+  ButtonSave,
+  ContainerButtons,
+  ContainerInputs,
+  ContainerBookPage,
+  SectionInputs,
+} from '../style';
+import InputFile from '../../../components/Inputs/InputFile';
+import Select from '../../../components/Inputs/Select';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getBook, postCover, putBook } from '../../services/books';
-import useForm from '../../hooks/useForm';
-import { Book } from '../../interfaces/book';
-import { UserBooksContext } from '../../context/UserContext';
-import NavBack from '../../components/NavBack';
-import InputText from '../../components/Inputs/InputText';
-import InputTextArea from '../../components/Inputs/TexArea';
+import { getBook, postCover, putBook } from '../../../services/books';
+import useForm from '../../../hooks/useForm';
+import { Book } from '../../../interfaces/book';
+import { UserBooksContext } from '../../../context/UserContext';
+import NavBack from '../../../components/NavBack';
+import InputText from '../../../components/Inputs/InputText';
+import InputTextArea from '../../../components/Inputs/TexArea';
 
 const EditBook = () => {
   const { id } = useParams();

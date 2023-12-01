@@ -1,14 +1,21 @@
 import React from 'react';
-import { ButtonCancel, ButtonSave, ContainerButtons, ContainerInputs, ContainerBookPage, SectionInputs } from './style';
-import Select from '../../components/Inputs/Select';
-import useForm from '../../hooks/useForm';
-import InputFile from '../../components/Inputs/InputFile';
-import { UserBooksContext } from '../../context/UserContext';
-import { Book } from '../../interfaces/book';
-import InputText from '../../components/Inputs/InputText';
-import NavHome from '../../components/NavBack';
-import InputTextArea from '../../components/Inputs/TexArea';
-import { postBook, postCover } from '../../services/books';
+import {
+  ButtonCancel,
+  ButtonSave,
+  ContainerButtons,
+  ContainerInputs,
+  ContainerBookPage,
+  SectionInputs,
+} from '../style';
+import Select from '../../../components/Inputs/Select';
+import useForm from '../../../hooks/useForm';
+import InputFile from '../../../components/Inputs/InputFile';
+import { UserBooksContext } from '../../../context/UserContext';
+import { Book } from '../../../interfaces/book';
+import InputText from '../../../components/Inputs/InputText';
+import NavHome from '../../../components/NavBack';
+import InputTextArea from '../../../components/Inputs/TexArea';
+import { postBook, postCover } from '../../../services/books';
 import { useNavigate } from 'react-router-dom';
 
 const NewBook = () => {
@@ -92,7 +99,7 @@ const NewBook = () => {
   };
 
   return (
-    <ContainerBookPage>
+    <ContainerBookPage data-testid='containerNewBook'>
       <NavHome path=".." page="Cadastrar novo livro" />
       <SectionInputs onSubmit={handleSubmit} action="/photos" method="post" encType="multipart/form-data">
         <ContainerInputs>
