@@ -13,4 +13,18 @@ describe('<NewBook />', () => {
 
     expect(pageNewBook).toBeInTheDocument();
   });
+
+  describe('<ContainerInputs />', () => {
+    it('should render the field of title', () => {
+      const titleField = screen.getByTestId('titleField');
+
+      expect(titleField).toBeInTheDocument();
+    });
+    
+    it('should render the field of title', () => {
+      const titleField = screen.getByTestId('titleField');
+
+      expect(titleField).toBeInTheDocument();
+    });
+  });
 });

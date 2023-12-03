@@ -1,11 +1,6 @@
-import React from "react";
-import {
-  ArrowSelect,
-  ContainerSelect,
-  OptionsSelect,
-  SelectArea,
-} from "./style";
-import IconSelect from "../../../assets/svg/IconSelect.svg";
+import React from 'react';
+import { ArrowSelect, ContainerSelect, OptionsSelect, SelectArea } from './style';
+import IconSelect from '../../../assets/svg/IconSelect.svg';
 
 interface SelectProps {
   label: string;
@@ -17,6 +12,7 @@ interface SelectProps {
   list: string[];
   defaultItem: React.PointerEventHandler<HTMLElement>;
   mediaquerie: string;
+  dataTestId?: string;
 }
 
 const Select = ({
@@ -29,27 +25,23 @@ const Select = ({
   list,
   defaultItem,
   mediaquerie,
+  dataTestId,
 }: SelectProps) => {
   const [active, setActive] = React.useState(false);
 
   return (
     <ContainerSelect
-      onPointerDown={() => setActive((prevActive) => !prevActive)}
+      data-testid={dataTestId}
+      onPointerDown={() => setActive(prevActive => !prevActive)}
       style={style}
       mediaquerie={`${mediaquerie}`}
     >
-      <SelectArea
-        labelstyle={labelStyle}
-        active={`${active}`}
-        value={value}
-        style={selectStyle}
-        readOnly
-      ></SelectArea>
+      <SelectArea labelstyle={labelStyle} active={`${active}`} value={value} style={selectStyle} readOnly></SelectArea>
       <label>{label}</label>
       <ArrowSelect src={IconSelect} active={`${active}`} />
       <OptionsSelect active={`${active}`}>
         <li onPointerDown={defaultItem}>Selecione</li>
-        {list.map((item) => (
+        {list.map(item => (
           <li onPointerDown={selectItem} key={item}>
             {item}
           </li>

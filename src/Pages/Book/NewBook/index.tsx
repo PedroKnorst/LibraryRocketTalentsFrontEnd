@@ -99,12 +99,13 @@ const NewBook = () => {
   };
 
   return (
-    <ContainerBookPage data-testid='containerNewBook'>
+    <ContainerBookPage data-testid="containerNewBook">
       <NavHome path=".." page="Cadastrar novo livro" />
       <SectionInputs onSubmit={handleSubmit} action="/photos" method="post" encType="multipart/form-data">
         <ContainerInputs>
-          <InputFile error={cover.error} img={img} setImg={infoChange} setFile={setFile} />
+          <InputFile dataTestId="coverField" error={cover.error} img={img} setImg={infoChange} setFile={setFile} />
           <InputText
+            dataTestId="titleField"
             gridArea={{ gridArea: 'titulo' }}
             id="input_title"
             label="Títutlo"
@@ -114,6 +115,7 @@ const NewBook = () => {
             error={title.error}
           />
           <InputTextArea
+            dataTestId="synopsisField"
             gridArea={{ gridArea: 'sinopse' }}
             id="input_synopsis"
             label="Sinopse"
@@ -122,6 +124,7 @@ const NewBook = () => {
             error={synopsis.error}
           />
           <InputText
+            dataTestId="autorField"
             gridArea={{ gridArea: 'autor' }}
             id="input_author"
             label="Autor"
@@ -131,6 +134,7 @@ const NewBook = () => {
             error={author.error}
           />
           <Select
+            dataTestId="genderField"
             mediaquerie="true"
             defaultItem={defaultItem}
             selectItem={e => genre.onSelect(e)}
@@ -141,6 +145,7 @@ const NewBook = () => {
             label={'Gênero'}
           />
           <InputText
+            dataTestId="entryDateField"
             gridArea={{ gridArea: 'data' }}
             id="input_date"
             label="Data de entrada"
