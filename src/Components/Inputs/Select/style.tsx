@@ -26,6 +26,12 @@ export const ContainerSelect = styled.div<Props>`
       : ""}
 `;
 
+export const InputError = styled.p`
+  color: #f31;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+`;
+
 export const SelectArea = styled.textarea<Props>`
   font-family: "Roboto", sans-serif;
   font-size: 1rem;

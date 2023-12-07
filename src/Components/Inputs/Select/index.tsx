@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowSelect, ContainerSelect, OptionsSelect, SelectArea } from './style';
+import { ArrowSelect, ContainerSelect, InputError, OptionsSelect, SelectArea } from './style';
 import IconSelect from '../../../assets/svg/IconSelect.svg';
 
 interface SelectProps {
@@ -13,6 +13,9 @@ interface SelectProps {
   defaultItem: React.PointerEventHandler<HTMLElement>;
   mediaquerie: string;
   dataTestId?: string;
+  error?: string;
+  errorTestId?: string;
+  selectedItemTestId?: string;
 }
 
 const Select = ({
@@ -26,27 +29,39 @@ const Select = ({
   defaultItem,
   mediaquerie,
   dataTestId,
+  error,
+  errorTestId,
+  selectedItemTestId,
 }: SelectProps) => {
   const [active, setActive] = React.useState(false);
 
   return (
     <ContainerSelect
-      data-testid={dataTestId}
       onPointerDown={() => setActive(prevActive => !prevActive)}
       style={style}
       mediaquerie={`${mediaquerie}`}
     >
-      <SelectArea labelstyle={labelStyle} active={`${active}`} value={value} style={selectStyle} readOnly></SelectArea>
+      <SelectArea
+        data-testid={dataTestId}
+        labelstyle={labelStyle}
+        active={`${active}`}
+        value={value}
+        style={selectStyle}
+        readOnly
+      ></SelectArea>
       <label>{label}</label>
       <ArrowSelect src={IconSelect} active={`${active}`} />
       <OptionsSelect active={`${active}`}>
-        <li onPointerDown={defaultItem}>Selecione</li>
+        <li data-testid={selectedItemTestId} onPointerDown={defaultItem}>
+          Selecione
+        </li>
         {list.map(item => (
           <li onPointerDown={selectItem} key={item}>
             {item}
           </li>
         ))}
       </OptionsSelect>
+      {error && <InputError data-testid={errorTestId}>{error}</InputError>}
     </ContainerSelect>
   );
 };

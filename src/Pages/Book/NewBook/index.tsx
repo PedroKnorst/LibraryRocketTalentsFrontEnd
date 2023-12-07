@@ -31,6 +31,26 @@ const NewBook = () => {
   const entryDate = useForm();
   const cover = useForm();
 
+  const validateFields = () => {
+    title.validate();
+    synopsis.validate();
+    author.validate();
+    genre.validate();
+    entryDate.validate();
+    cover.validate();
+
+    if (
+      title.validate() &&
+      synopsis.validate() &&
+      author.validate() &&
+      genre.validate() &&
+      entryDate.validate() &&
+      cover.validate()
+    ) {
+      return true;
+    } else return false;
+  };
+
   const infoChange = (i: string) => {
     setImg(i);
     cover.setValue(i);
@@ -41,14 +61,9 @@ const NewBook = () => {
 
     const findRepeatBookTitle = books.find(book => book.title === title.value);
 
-    if (
-      title.validate() &&
-      synopsis.validate() &&
-      author.validate() &&
-      genre.validate() &&
-      entryDate.validate() &&
-      cover.validate()
-    ) {
+    const validation = validateFields();
+
+    if (validation) {
       if (!findRepeatBookTitle) {
         const changedDateEntry = new Date(entryDate.value).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
 
@@ -105,17 +120,21 @@ const NewBook = () => {
         <ContainerInputs>
           <InputFile dataTestId="coverField" error={cover.error} img={img} setImg={infoChange} setFile={setFile} />
           <InputText
-            dataTestId="titleField"
+            onBlur={title.onBlur}
+            errorTestId="titleError"
+            inputTestId="titleField"
             gridArea={{ gridArea: 'titulo' }}
             id="input_title"
-            label="Títutlo"
+            label="Título"
             onChange={title.onChange}
             value={title.value}
             type="text"
             error={title.error}
           />
           <InputTextArea
-            dataTestId="synopsisField"
+            onBlur={synopsis.onBlur}
+            errorTestId="synopsisError"
+            inputTestId="synopsisField"
             gridArea={{ gridArea: 'sinopse' }}
             id="input_synopsis"
             label="Sinopse"
@@ -124,7 +143,9 @@ const NewBook = () => {
             error={synopsis.error}
           />
           <InputText
-            dataTestId="autorField"
+            onBlur={author.onBlur}
+            inputTestId="autorField"
+            errorTestId="autorError"
             gridArea={{ gridArea: 'autor' }}
             id="input_author"
             label="Autor"
@@ -135,6 +156,8 @@ const NewBook = () => {
           />
           <Select
             dataTestId="genderField"
+            errorTestId="genderError"
+            selectedItemTestId="genderSelected"
             mediaquerie="true"
             defaultItem={defaultItem}
             selectItem={e => genre.onSelect(e)}
@@ -143,9 +166,12 @@ const NewBook = () => {
             style={{ gridArea: 'genero' }}
             labelStyle={'#133052'}
             label={'Gênero'}
+            error={genre.error}
           />
           <InputText
-            dataTestId="entryDateField"
+            onBlur={entryDate.onBlur}
+            inputTestId="entryDateField"
+            errorTestId="entryDateError"
             gridArea={{ gridArea: 'data' }}
             id="input_date"
             label="Data de entrada"
@@ -157,7 +183,7 @@ const NewBook = () => {
         </ContainerInputs>
         <ContainerButtons>
           <ButtonCancel to="..">Cancelar</ButtonCancel>
-          <ButtonSave>Salvar</ButtonSave>
+          <ButtonSave data-testid="saveBook">Salvar</ButtonSave>
         </ContainerButtons>
       </SectionInputs>
     </ContainerBookPage>

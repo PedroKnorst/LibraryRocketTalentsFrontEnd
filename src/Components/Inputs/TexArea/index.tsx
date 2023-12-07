@@ -1,7 +1,7 @@
 import React from 'react';
 import { ContainerInput, InputError, LabelInput, TextArea } from './style';
 
-interface Props {
+interface Props extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
   value: string;
   gridArea?: object;
@@ -9,15 +9,27 @@ interface Props {
   label: string;
   error: string;
   style?: object;
-  dataTestId?: string;
+  inputTestId?: string;
+  errorTestId?: string;
 }
 
-const InputTextArea = ({ onChange, value, gridArea, id, label, error, style, dataTestId }: Props) => {
+const InputTextArea = ({
+  onChange,
+  value,
+  gridArea,
+  id,
+  label,
+  error,
+  style,
+  inputTestId,
+  errorTestId,
+  ...props
+}: Props) => {
   return (
-    <ContainerInput data-testid={dataTestId} style={gridArea}>
-      <TextArea style={style} onChange={onChange} value={value} id={id} />
+    <ContainerInput style={gridArea}>
+      <TextArea {...props} style={style} data-testid={inputTestId} onChange={onChange} value={value} id={id} />
       <LabelInput htmlFor={id}>{label}</LabelInput>
-      {error && <InputError>{error}</InputError>}
+      {error && <InputError data-testid={errorTestId}>{error}</InputError>}
     </ContainerInput>
   );
 };

@@ -1,6 +1,6 @@
 import { ContainerInputText, Input, InputError, LabelInputText } from './style';
 
-interface Props {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   value: string;
   id: string;
@@ -8,15 +8,27 @@ interface Props {
   gridArea?: object;
   type: string;
   error: string;
-  dataTestId?: string;
+  inputTestId?: string;
+  errorTestId?: string;
 }
 
-const InputText = ({ onChange, value, id, label, gridArea, type, error, dataTestId }: Props) => {
+const InputText = ({
+  onChange,
+  value,
+  id,
+  label,
+  gridArea,
+  type,
+  error,
+  inputTestId,
+  errorTestId,
+  ...props
+}: Props) => {
   return (
-    <ContainerInputText data-testid={dataTestId} style={gridArea}>
-      <Input onChange={onChange} value={value} type={type} id={id} />
+    <ContainerInputText style={gridArea}>
+      <Input {...props} data-testid={inputTestId} onChange={onChange} value={value} type={type} id={id} />
       <LabelInputText htmlFor={id}>{label}</LabelInputText>
-      {error && <InputError>{error}</InputError>}
+      {error && <InputError data-testid={errorTestId}>{error}</InputError>}
     </ContainerInputText>
   );
 };
