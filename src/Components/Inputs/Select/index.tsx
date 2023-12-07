@@ -16,6 +16,7 @@ interface SelectProps {
   error?: string;
   errorTestId?: string;
   selectedItemTestId?: string;
+  inputTestId?: string;
 }
 
 const Select = ({
@@ -29,6 +30,7 @@ const Select = ({
   defaultItem,
   mediaquerie,
   dataTestId,
+  inputTestId,
   error,
   errorTestId,
   selectedItemTestId,
@@ -37,12 +39,13 @@ const Select = ({
 
   return (
     <ContainerSelect
-      onPointerDown={() => setActive(prevActive => !prevActive)}
+      data-testid={dataTestId}
+      onClick={() => setActive(prevActive => !prevActive)}
       style={style}
       mediaquerie={`${mediaquerie}`}
     >
       <SelectArea
-        data-testid={dataTestId}
+        data-testid={inputTestId}
         labelstyle={labelStyle}
         active={`${active}`}
         value={value}
@@ -52,11 +55,9 @@ const Select = ({
       <label>{label}</label>
       <ArrowSelect src={IconSelect} active={`${active}`} />
       <OptionsSelect active={`${active}`}>
-        <li data-testid={selectedItemTestId} onPointerDown={defaultItem}>
-          Selecione
-        </li>
+        <li onPointerDown={defaultItem}>Selecione</li>
         {list.map(item => (
-          <li onPointerDown={selectItem} key={item}>
+          <li data-testid={selectedItemTestId} onPointerDown={selectItem} key={item}>
             {item}
           </li>
         ))}

@@ -106,17 +106,17 @@ describe('<NewBook />', () => {
       expect(genderField).toBeInTheDocument();
     });
 
-    // it('should change value when the user types on the field', async () => {
-    //   const genderField = screen.getByTestId('genderField');
+    fit('should change value when the user types on the field', async () => {
+      const genderField = screen.getByTestId('genderField');
 
-    //   await userEvent.click(genderField);
+      await userEvent.click(genderField);
 
-    //   const genderSelected = screen.getAllByTestId('genderSelected');
+      const genderSelected = screen.getAllByTestId('genderSelected');
 
-    //   // await userEvent.click(genderSelected[0]);
+      // await userEvent.click(genderSelected[0]);
 
-    //   expect(genderSelected[0]).toBeInTheDocument();
-    // });
+      expect(genderSelected[0]).toBeInTheDocument();
+    });
 
     // it('should throw an error when the field is empty', async () => {
     //   const genderField = screen.getByTestId('genderField');
