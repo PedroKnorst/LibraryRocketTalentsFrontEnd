@@ -10,9 +10,11 @@ interface Props {
   error: string;
   setFile: (file: File) => void;
   dataTestId?: string;
+  inputTestId?: string;
+  errorTestId?: string;
 }
 
-const InputFile = ({ cover, setImg, img, error, setFile, dataTestId }: Props) => {
+const InputFile = ({ cover, setImg, img, error, setFile, dataTestId, inputTestId, errorTestId }: Props) => {
   function changeImage(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
       const file = e.target.files[0];
@@ -38,7 +40,14 @@ const InputFile = ({ cover, setImg, img, error, setFile, dataTestId }: Props) =>
   return (
     <>
       <ContainerImg>
-        <input onChange={changeImage} type="file" accept="image/*" id="input_capa" name="uploaded_file" />
+        <input
+          data-testid={inputTestId}
+          onChange={changeImage}
+          type="file"
+          accept="image/*"
+          id="input_capa"
+          name="uploaded_file"
+        />
 
         {img ? (
           <span>
@@ -55,7 +64,7 @@ const InputFile = ({ cover, setImg, img, error, setFile, dataTestId }: Props) =>
           </span>
         )}
       </ContainerImg>
-      {error && <InputError>{error}</InputError>}
+      {error && <InputError data-testid={errorTestId}>{error}</InputError>}
     </>
   );
 };

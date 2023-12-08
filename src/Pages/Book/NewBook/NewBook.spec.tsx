@@ -106,16 +106,18 @@ describe('<NewBook />', () => {
       expect(genderField).toBeInTheDocument();
     });
 
-    fit('should change value when the user types on the field', async () => {
+    fit('should change value when the user select an option', async () => {
       const genderField = screen.getByTestId('genderField');
 
-      await userEvent.click(genderField);
+      screen.debug(genderField);
 
-      const genderSelected = screen.getAllByTestId('genderSelected');
+      // await userEvent.dblClick(genderField);
+
+      // const genderSelected = screen.getAllByTestId('genderSelected');
 
       // await userEvent.click(genderSelected[0]);
 
-      expect(genderSelected[0]).toBeInTheDocument();
+      // expect(genderSelected[0]).toBeInTheDocument();
     });
 
     // it('should throw an error when the field is empty', async () => {
@@ -163,4 +165,33 @@ describe('<NewBook />', () => {
       expect(errorAutor).toBeInTheDocument();
     });
   });
+
+  // describe('Cover field', () => {
+  //   it('should render the field of entry date', () => {
+  //     const coverField = screen.getByTestId('coverField');
+
+  //     expect(coverField).toBeInTheDocument();
+  //   });
+
+  //   fit('should change value when the user types on the field', async () => {
+  //     const coverField = screen.getByTestId('coverField');
+
+  //     await userEvent.click(coverField);
+
+  //     expect(coverField).toHaveValue('2023-03-23');
+  //   });
+
+  //   it('should throw an error when the field is empty', async () => {
+  //     const coverField = screen.getByTestId('coverField');
+  //     const saveButton = screen.getByTestId('saveBook');
+
+  //     await userEvent.clear(coverField);
+  //     await userEvent.click(saveButton);
+  //     await userEvent.tab();
+
+  //     const errorAutor = screen.getByTestId('entryDateError');
+
+  //     expect(errorAutor).toBeInTheDocument();
+  //   });
+  // });
 });

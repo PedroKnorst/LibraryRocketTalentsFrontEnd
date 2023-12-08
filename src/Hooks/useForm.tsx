@@ -1,27 +1,30 @@
 import React from 'react';
 
-const validation = {
+type Validation = {
+  group: {
+    regex: RegExp;
+    message: string;
+  };
+};
+
+const validation: Validation = {
   group: {
     regex: /^T\d+$/,
     message: 'A turma deve conter somente a letra T e após somente numeros',
   },
 };
 
-const useForm = (typeValidate?: string) => {
+const useForm = (typeValidate?: 'group') => {
   const [value, setValue] = React.useState('');
   const [error, setError] = React.useState('');
 
   function validate(value: string) {
-    if (typeValidate === '') return true;
-    if (value.length === 0) {
+    if (value === '') {
       setError('Preencha um valor!');
-      return false;
-    } else if (typeValidate && !validation[typeValidate as keyof typeof validation].regex.test(value)) {
+    } else if (typeValidate && !validation[typeValidate].regex.test(value)) {
       setError(validation.group.message);
-      return false;
     } else {
       setError('');
-      return true;
     }
   }
 

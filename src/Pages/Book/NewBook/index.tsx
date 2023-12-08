@@ -22,7 +22,21 @@ const NewBook = () => {
   const { books } = React.useContext(UserBooksContext);
   const [img, setImg] = React.useState<string>('');
   const [file, setFile] = React.useState<Blob | string>('');
+  const [filterGenre, setFilterGenre] = React.useState<string[]>([]);
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    setFilterGenre(
+      books.reduce((items: string[], currentItem: Book) => {
+        if (currentItem.genre) {
+          if (items.indexOf(currentItem.genre) < 0) {
+            items.push(currentItem.genre);
+          }
+        }
+        return items;
+      }, [])
+    );
+  }, []);
 
   const title = useForm();
   const synopsis = useForm();
@@ -100,15 +114,6 @@ const NewBook = () => {
     }
   };
 
-  const filterGenre = books.reduce((items: string[], currentItem: Book) => {
-    if (currentItem.genre) {
-      if (items.indexOf(currentItem.genre) < 0) {
-        items.push(currentItem.genre);
-      }
-    }
-    return items;
-  }, []);
-
   const defaultItem = () => {
     genre.setValue('');
   };
@@ -118,7 +123,15 @@ const NewBook = () => {
       <NavHome path=".." page="Cadastrar novo livro" />
       <SectionInputs onSubmit={handleSubmit} action="/photos" method="post" encType="multipart/form-data">
         <ContainerInputs>
-          <InputFile dataTestId="coverField" error={cover.error} img={img} setImg={infoChange} setFile={setFile} />
+          <InputFile
+            inputTestId="coverInput"
+            errorTestId="coverError"
+            dataTestId="coverField"
+            error={cover.error}
+            img={img}
+            setImg={infoChange}
+            setFile={setFile}
+          />
           <InputText
             onBlur={title.onBlur}
             errorTestId="titleError"
