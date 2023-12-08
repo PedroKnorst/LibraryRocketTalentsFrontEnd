@@ -21,10 +21,13 @@ const useForm = (typeValidate?: 'group') => {
   function validate(value: string) {
     if (value === '') {
       setError('Preencha um valor!');
+      return false;
     } else if (typeValidate && !validation[typeValidate].regex.test(value)) {
       setError(validation.group.message);
+      return false;
     } else {
       setError('');
+      return true;
     }
   }
 
@@ -36,9 +39,9 @@ const useForm = (typeValidate?: 'group') => {
   }
 
   function onSelect(e: React.PointerEvent<HTMLElement>) {
-    if (e.currentTarget.textContent) {
-      if (error) validate(e.currentTarget.textContent);
+    if (e.currentTarget.textContent !== null) {
       setValue(e.currentTarget.textContent);
+      validate(e.currentTarget.textContent);
     }
   }
 

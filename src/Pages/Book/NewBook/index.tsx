@@ -116,6 +116,7 @@ const NewBook = () => {
 
   const defaultItem = () => {
     genre.setValue('');
+    genre.validate();
   };
 
   return (
@@ -168,6 +169,7 @@ const NewBook = () => {
             error={author.error}
           />
           <Select
+            onBlur={genre.onBlur}
             dataTestId="genderField"
             errorTestId="genderError"
             selectedItemTestId="genderSelected"

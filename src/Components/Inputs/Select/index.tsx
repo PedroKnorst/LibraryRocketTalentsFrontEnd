@@ -3,6 +3,7 @@ import { ArrowSelect, ContainerSelect, InputError, OptionsSelect, SelectArea } f
 import IconSelect from '../../../assets/svg/IconSelect.svg';
 
 interface SelectProps {
+  onBlur?: () => void;
   label: string;
   style?: object;
   labelStyle?: string;
@@ -17,6 +18,7 @@ interface SelectProps {
   errorTestId?: string;
   selectedItemTestId?: string;
   inputTestId?: string;
+  defaultItemTestId?: string;
 }
 
 const Select = ({
@@ -34,11 +36,14 @@ const Select = ({
   error,
   errorTestId,
   selectedItemTestId,
+  onBlur,
+  defaultItemTestId,
 }: SelectProps) => {
   const [active, setActive] = React.useState(false);
 
   return (
     <ContainerSelect
+      onBlur={onBlur}
       data-testid={dataTestId}
       onClick={() => setActive(prevActive => !prevActive)}
       style={style}
@@ -55,7 +60,9 @@ const Select = ({
       <label>{label}</label>
       <ArrowSelect src={IconSelect} active={`${active}`} />
       <OptionsSelect active={`${active}`}>
-        <li onPointerDown={defaultItem}>Selecione</li>
+        <li data-testid={defaultItemTestId} onPointerDown={defaultItem}>
+          Selecione
+        </li>
         {list.map(item => (
           <li data-testid={selectedItemTestId} onPointerDown={selectItem} key={item}>
             {item}

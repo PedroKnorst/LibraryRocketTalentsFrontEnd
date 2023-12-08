@@ -99,41 +99,6 @@ describe('<NewBook />', () => {
     });
   });
 
-  describe('Gender field', () => {
-    it('should render the field of entry date', () => {
-      const genderField = screen.getByTestId('genderField');
-
-      expect(genderField).toBeInTheDocument();
-    });
-
-    fit('should change value when the user select an option', async () => {
-      const genderField = screen.getByTestId('genderField');
-
-      screen.debug(genderField);
-
-      // await userEvent.dblClick(genderField);
-
-      // const genderSelected = screen.getAllByTestId('genderSelected');
-
-      // await userEvent.click(genderSelected[0]);
-
-      // expect(genderSelected[0]).toBeInTheDocument();
-    });
-
-    // it('should throw an error when the field is empty', async () => {
-    //   const genderField = screen.getByTestId('genderField');
-    //   const saveButton = screen.getByTestId('saveBook');
-
-    //   await userEvent.clear(genderField);
-    //   await userEvent.click(saveButton);
-    //   await userEvent.tab();
-
-    //   const errorAutor = screen.getByTestId('entryDateError');
-
-    //   expect(errorAutor).toBeInTheDocument();
-    // });
-  });
-
   describe('Entry Date field', () => {
     it('should render the field of entry date', () => {
       const entryDateField = screen.getByTestId('entryDateField');
