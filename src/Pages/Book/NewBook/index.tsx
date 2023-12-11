@@ -20,8 +20,6 @@ import { useNavigate } from 'react-router-dom';
 
 const NewBook = () => {
   const { books } = React.useContext(UserBooksContext);
-  const [img, setImg] = React.useState<string>('');
-  const [file, setFile] = React.useState<Blob | string>('');
   const [filterGenre, setFilterGenre] = React.useState<string[]>([]);
   const navigate = useNavigate();
 
@@ -65,11 +63,6 @@ const NewBook = () => {
     } else return false;
   };
 
-  const infoChange = (i: string) => {
-    setImg(i);
-    cover.setValue(i);
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -82,9 +75,9 @@ const NewBook = () => {
         const changedDateEntry = new Date(entryDate.value).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
 
         const formData = new FormData();
-        formData.append('uploaded_file', file);
+        formData.append('uploaded_file', cover.file);
 
-        let uploadedImg = img;
+        let uploadedImg = cover.value;
 
         await postCover(formData).then(res => {
           uploadedImg = res.data;
@@ -105,7 +98,7 @@ const NewBook = () => {
           image: uploadedImg,
         }).then(res => res.data);
 
-        navigate('home');
+        navigate('/home');
         alert('Livro adicionado a biblioteca!');
         location.reload();
       } else {
@@ -125,13 +118,12 @@ const NewBook = () => {
       <SectionInputs onSubmit={handleSubmit} action="/photos" method="post" encType="multipart/form-data">
         <ContainerInputs>
           <InputFile
+            onChangeFile={cover.onChangeFile}
             inputTestId="coverInput"
             errorTestId="coverError"
             dataTestId="coverField"
             error={cover.error}
-            img={img}
-            setImg={infoChange}
-            setFile={setFile}
+            img={cover.value}
           />
           <InputText
             onBlur={title.onBlur}

@@ -16,6 +16,7 @@ const validation: Validation = {
 
 const useForm = (typeValidate?: 'group') => {
   const [value, setValue] = React.useState('');
+  const [file, setFile] = React.useState<Blob | string>('');
   const [error, setError] = React.useState('');
 
   function validate(value: string) {
@@ -38,6 +39,28 @@ const useForm = (typeValidate?: 'group') => {
     setValue(target.value);
   }
 
+  function onChangeFile({ target }: React.ChangeEvent<HTMLInputElement>) {
+    if (target.files) {
+      const file = target.files[0];
+      setFile(file);
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+          if (reader.result && !(reader.result instanceof ArrayBuffer)) {
+            setValue(reader.result);
+            validate(reader.result);
+          }
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        setValue('');
+        validate('');
+      }
+    }
+  }
+
   function onSelect(e: React.PointerEvent<HTMLElement>) {
     if (e.currentTarget.textContent !== null) {
       setValue(e.currentTarget.textContent);
@@ -52,6 +75,8 @@ const useForm = (typeValidate?: 'group') => {
     error,
     setError,
     onSelect,
+    onChangeFile,
+    file,
     validate: () => validate(value),
     onBlur: () => validate(value),
   };

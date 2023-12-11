@@ -5,44 +5,29 @@ import { InputError } from '../InputText/style';
 
 interface Props {
   cover?: string;
-  setImg: (img: string) => void;
   img: string;
   error: string;
-  setFile: (file: File) => void;
+  onChangeFile: React.ChangeEventHandler<HTMLInputElement>;
+  onBlur?: () => void;
   dataTestId?: string;
   inputTestId?: string;
   errorTestId?: string;
 }
 
-const InputFile = ({ cover, setImg, img, error, setFile, dataTestId, inputTestId, errorTestId }: Props) => {
-  function changeImage(e: React.ChangeEvent<HTMLInputElement>) {
-    if (e.target.files) {
-      const file = e.target.files[0];
-      setFile(file);
-      if (file) {
-        const reader = new FileReader();
-
-        reader.onloadend = () => {
-          if (reader.result && !(reader.result instanceof ArrayBuffer)) setImg(reader.result);
-        };
-
-        reader.readAsDataURL(file);
-      } else {
-        setImg('');
-      }
-    }
-  }
+const InputFile = ({ cover, img, error, dataTestId, inputTestId, errorTestId, onBlur, onChangeFile }: Props) => {
+  const [updatedImg, setUpdatedImg] = React.useState(cover ? cover : img);
 
   React.useEffect(() => {
-    if (cover) setImg(cover);
-  }, [cover]);
+    setUpdatedImg(img);
+  }, [img]);
 
   return (
     <>
       <ContainerImg>
         <input
+          onBlur={() => onBlur && onBlur}
           data-testid={inputTestId}
-          onChange={changeImage}
+          onChange={onChangeFile}
           type="file"
           accept="image/*"
           id="input_capa"
@@ -53,7 +38,7 @@ const InputFile = ({ cover, setImg, img, error, setFile, dataTestId, inputTestId
           <span>
             <img
               data-testid={dataTestId}
-              src={`${cover === img ? `http://localhost:3001/static/${img}` : img}`}
+              src={`${cover === updatedImg ? `http://localhost:3001/static/${cover}` : updatedImg}`}
               alt="uploaded_file"
             />
           </span>

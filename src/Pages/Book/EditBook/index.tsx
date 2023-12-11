@@ -22,8 +22,6 @@ const EditBook = () => {
   const { id } = useParams();
   const { books } = React.useContext(UserBooksContext);
   const [book, setBook] = React.useState<Book | null>(null);
-  const [img, setImg] = React.useState('');
-  const [file, setFile] = React.useState<Blob | string>('');
   const title = useForm();
   const synopsis = useForm();
   const author = useForm();
@@ -36,6 +34,7 @@ const EditBook = () => {
     if (id)
       getBook(id).then(res => {
         setBook(res.data);
+        cover.setValue(res.data.image);
       });
   }, []);
 
@@ -59,29 +58,38 @@ const EditBook = () => {
     }
   }, [book]);
 
-  const infoChange = (i: string) => {
-    setImg(i);
-    cover.setValue(i);
+  const validateFields = () => {
+    title.validate();
+    author.validate();
+    genre.validate();
+    synopsis.validate();
+    entryDate.validate();
+    cover.validate();
+
+    if (
+      title.validate() &&
+      author.validate() &&
+      genre.validate() &&
+      synopsis.validate() &&
+      entryDate.validate() &&
+      cover.validate()
+    ) {
+      return true;
+    } else return false;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (
-      book &&
-      id &&
-      title.validate() &&
-      author.validate() &&
-      genre.validate() &&
-      synopsis.validate() &&
-      entryDate.validate()
-    ) {
+    const validation = validateFields();
+
+    if (book && validation && id) {
       const changedDateEntry = new Date(entryDate.value).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
 
       const formData = new FormData();
-      formData.append('uploaded_file', file);
+      formData.append('uploaded_file', cover.file);
 
-      let uploadedImg = img;
+      let uploadedImg = cover.value;
 
       await postCover(formData).then(res => {
         uploadedImg = res.data;
@@ -121,8 +129,15 @@ const EditBook = () => {
         <NavBack path="/home/biblioteca" page="Editar Livro" />
         <SectionInputs onSubmit={handleSubmit}>
           <ContainerInputs>
-            <InputFile setFile={setFile} error={cover.error} img={img} setImg={infoChange} cover={book.image} />
+            <InputFile
+              onBlur={cover.onBlur}
+              onChangeFile={cover.onChangeFile}
+              error={cover.error}
+              img={cover.value}
+              cover={book.image}
+            />
             <InputText
+              onBlur={title.onBlur}
               gridArea={{ gridArea: 'titulo' }}
               id="input_title"
               label="Títutlo"
@@ -132,6 +147,7 @@ const EditBook = () => {
               error={title.error}
             />
             <InputTextArea
+              onBlur={synopsis.onBlur}
               gridArea={{ gridArea: 'sinopse' }}
               id="input_synopsis"
               label="Sinopse"
@@ -140,6 +156,7 @@ const EditBook = () => {
               error={synopsis.error}
             />
             <InputText
+              onBlur={author.onBlur}
               gridArea={{ gridArea: 'autor' }}
               id="input_author"
               label="Autor"
@@ -149,6 +166,7 @@ const EditBook = () => {
               error={author.error}
             />
             <Select
+              onBlur={genre.onBlur}
               mediaquerie="true"
               defaultItem={defaultItem}
               selectItem={e => genre.onSelect(e)}
@@ -159,6 +177,7 @@ const EditBook = () => {
               label={'Gênero'}
             />
             <InputText
+              onBlur={entryDate.onBlur}
               gridArea={{ gridArea: 'data' }}
               id="input_date"
               label="Data de entrada"
