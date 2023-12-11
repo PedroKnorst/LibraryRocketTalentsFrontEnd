@@ -9,12 +9,23 @@ interface Props {
   error: string;
   onChangeFile: React.ChangeEventHandler<HTMLInputElement>;
   onBlur?: () => void;
-  dataTestId?: string;
+  imgTestId?: string;
   inputTestId?: string;
   errorTestId?: string;
+  addImgTestId?: string;
 }
 
-const InputFile = ({ cover, img, error, dataTestId, inputTestId, errorTestId, onBlur, onChangeFile }: Props) => {
+const InputFile = ({
+  cover,
+  img,
+  error,
+  imgTestId,
+  addImgTestId,
+  inputTestId,
+  errorTestId,
+  onBlur,
+  onChangeFile,
+}: Props) => {
   const [updatedImg, setUpdatedImg] = React.useState(cover ? cover : img);
 
   React.useEffect(() => {
@@ -35,15 +46,14 @@ const InputFile = ({ cover, img, error, dataTestId, inputTestId, errorTestId, on
         />
 
         {img ? (
-          <span>
+          <span data-testid={imgTestId}>
             <img
-              data-testid={dataTestId}
               src={`${cover === updatedImg ? `http://localhost:3001/static/${cover}` : updatedImg}`}
               alt="uploaded_file"
             />
           </span>
         ) : (
-          <span>
+          <span data-testid={addImgTestId}>
             <Add />
             <p>Capa</p>
           </span>

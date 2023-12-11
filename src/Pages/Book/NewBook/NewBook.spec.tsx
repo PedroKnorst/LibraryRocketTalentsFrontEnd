@@ -131,32 +131,34 @@ describe('<NewBook />', () => {
     });
   });
 
-  // describe('Cover field', () => {
-  //   it('should render the field of entry date', () => {
-  //     const coverField = screen.getByTestId('coverField');
+  describe('Cover field', () => {
+    it('should render the field of cover', () => {
+      const coverInput = screen.getByTestId('coverInput');
 
-  //     expect(coverField).toBeInTheDocument();
-  //   });
+      expect(coverInput).toBeInTheDocument();
+    });
 
-  //   fit('should change value when the user types on the field', async () => {
-  //     const coverField = screen.getByTestId('coverField');
+    it('should change value when the user types on the field', async () => {
+      const coverInput: HTMLInputElement = screen.getByTestId('coverInput');
 
-  //     await userEvent.click(coverField);
+      const file = new File(['hello'], 'hello.png', { type: 'image/png' });
 
-  //     expect(coverField).toHaveValue('2023-03-23');
-  //   });
+      await userEvent.upload(coverInput, file);
 
-  //   it('should throw an error when the field is empty', async () => {
-  //     const coverField = screen.getByTestId('coverField');
-  //     const saveButton = screen.getByTestId('saveBook');
+      expect(coverInput.files?.[0]).toEqual(file);
+    });
 
-  //     await userEvent.clear(coverField);
-  //     await userEvent.click(saveButton);
-  //     await userEvent.tab();
+    it('should throw an error when the field is empty', async () => {
+      const coverInput = screen.getByTestId('coverInput');
+      const saveButton = screen.getByTestId('saveBook');
 
-  //     const errorAutor = screen.getByTestId('entryDateError');
+      await userEvent.click(coverInput);
+      await userEvent.click(saveButton);
+      await userEvent.tab();
 
-  //     expect(errorAutor).toBeInTheDocument();
-  //   });
-  // });
+      const errorAutor = screen.getByTestId('coverError');
+
+      expect(errorAutor).toBeInTheDocument();
+    });
+  });
 });

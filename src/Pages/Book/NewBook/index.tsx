@@ -121,7 +121,8 @@ const NewBook = () => {
             onChangeFile={cover.onChangeFile}
             inputTestId="coverInput"
             errorTestId="coverError"
-            dataTestId="coverField"
+            imgTestId="coverField"
+            addImgTestId="coverAddField"
             error={cover.error}
             img={cover.value}
           />

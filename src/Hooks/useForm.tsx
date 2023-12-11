@@ -54,9 +54,6 @@ const useForm = (typeValidate?: 'group') => {
         };
 
         reader.readAsDataURL(file);
-      } else {
-        setValue('');
-        validate('');
       }
     }
   }
