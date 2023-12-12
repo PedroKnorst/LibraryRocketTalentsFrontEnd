@@ -17,6 +17,6 @@
     "forceConsistentCasingInFileNames": true,
     "composite": true
   },
-  "include": ["src"],
+  "include": ["src", "miragejs"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

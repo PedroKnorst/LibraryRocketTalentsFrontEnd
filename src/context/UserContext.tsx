@@ -33,8 +33,7 @@ const UserHistoryStorage = ({ children }: BookProps) => {
     });
   }, []);
 
-  if (history)
-    return <UserHistoryContext.Provider value={{ history: history }}>{children}</UserHistoryContext.Provider>;
+  if (history) return <UserHistoryContext.Provider value={{ history }}>{children}</UserHistoryContext.Provider>;
   else return null;
 };
 
@@ -47,7 +46,7 @@ const UserBooksStorage = ({ children }: BookProps) => {
     });
   }, []);
 
-  if (books) return <UserBooksContext.Provider value={{ books: books }}>{children}</UserBooksContext.Provider>;
+  if (books) return <UserBooksContext.Provider value={{ books }}>{children}</UserBooksContext.Provider>;
   else return null;
 };
 
