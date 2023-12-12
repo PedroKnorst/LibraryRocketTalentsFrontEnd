@@ -145,7 +145,7 @@ const HistoryLoans = ({ loans, bookTitle }: Props) => {
             </td>
           </tr>
           {data.map((loan, id) => (
-            <tr key={id}>
+            <tr data-testid='loanLine' key={id}>
               <td>{loan.studentName}</td>
               <td>{loan.class}</td>
               {bookTitle && <td>{loan.bookTitle}</td>}

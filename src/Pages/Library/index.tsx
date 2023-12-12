@@ -82,7 +82,7 @@ const Library = () => {
 
   if (filteredBooks)
     return (
-      <ContainerLibrary>
+      <ContainerLibrary data-testid="containerLibrary">
         <Routes>
           <Route path="livro/:id" element={<BookContent />} />
           <Route path="emprestar/:id" element={<BookDataBorrow />} />
@@ -117,7 +117,8 @@ const Library = () => {
             />
           </ContainerInputsLibrary>
           <ContainerBooksLibrary>
-            {filteredBooks && filteredBooks.map((book: Book) => <ContainerBook key={book.id} data={book} />)}
+            {filteredBooks &&
+              filteredBooks.map((book: Book) => <ContainerBook dataTestId="book" key={book.id} data={book} />)}
           </ContainerBooksLibrary>
         </SectinoInputsLibrary>
       </ContainerLibrary>
