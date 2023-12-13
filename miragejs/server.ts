@@ -96,6 +96,8 @@ export const mockServer = ({ environment = 'test' }) => {
     },
 
     routes() {
+      this.namespace = 'api';
+
       this.get('http://localhost:3001/books', schema => {
         return schema.all('book');
       });

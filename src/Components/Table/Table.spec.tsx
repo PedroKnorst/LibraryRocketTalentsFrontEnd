@@ -1,41 +1,39 @@
-import { render, renderHook, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import HistoryLoans from '.';
-import { mockServer } from '../../../miragejs/server';
-import { Server } from 'miragejs';
-import { UserHistoryContext, UserHistoryStorage } from '../../context/UserContext';
-import React from 'react';
-import ShallowRenderer from 'react-test-renderer/shallow';
+
+const loans = [
+  {
+    bookTitle: 'Titulo 1',
+    studentName: 'Aluno 1',
+    class: 'T01',
+    withdrawalDate: '23/02/2020',
+    deliveryDate: '25/02/2020',
+  },
+  {
+    bookTitle: 'Titulo 2',
+    studentName: 'Aluno 2',
+    class: 'T02',
+    withdrawalDate: '25/02/2020',
+    deliveryDate: '27/02/2020',
+  },
+  {
+    bookTitle: 'Titulo 3',
+    studentName: 'Aluno 3',
+    class: 'T03',
+    withdrawalDate: '27/02/2020',
+    deliveryDate: '01/03/2020',
+  },
+];
 
 describe('<HistoryLoans />', () => {
-  let server: Server;
-
   beforeEach(() => {
-    server = mockServer({ environment: 'test' });
-
-    const loans = server.createList('loan', 3);
-
-    const useHistory = () => React.useContext(UserHistoryContext);
-
-    const {
-      result: {
-        current: { history },
-      },
-    } = renderHook(() => useHistory());
-
-    render(<HistoryLoans bookTitle loans={history} />);
+    render(<HistoryLoans bookTitle loans={loans} />);
   });
-
-  afterEach(() => {
-    server.shutdown();
-  });
-
   it('should render the component', () => {
-    const history = screen.getByTestId('historyContainer');
+    const historyElement = screen.getByTestId('historyContainer');
 
-    screen.debug(history);
-
-    expect(history).toBeInTheDocument();
+    expect(historyElement).toBeInTheDocument();
   });
 
   // it('should render three lines of loans', () => {
