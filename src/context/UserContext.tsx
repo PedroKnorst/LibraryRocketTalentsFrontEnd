@@ -25,7 +25,7 @@ export const UserHistoryContext = React.createContext<DataHistory>(DataDefault);
 export const UserBooksContext = React.createContext<DataBooks>(DataDefault);
 
 const UserHistoryStorage = ({ children }: BookProps) => {
-  const [history, setHistory] = React.useState(null);
+  const [history, setHistory] = React.useState<Loan[]>();
 
   React.useEffect(() => {
     getHistory().then(res => {
@@ -38,7 +38,7 @@ const UserHistoryStorage = ({ children }: BookProps) => {
 };
 
 const UserBooksStorage = ({ children }: BookProps) => {
-  const [books, setBooks] = React.useState(null);
+  const [books, setBooks] = React.useState<Book[]>();
 
   React.useEffect(() => {
     getBooks().then(res => {

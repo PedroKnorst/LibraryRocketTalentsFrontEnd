@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { renderHook, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Server } from 'miragejs';
 import React from 'react';
 import { mockServer } from '../../miragejs/server';
-import { UserHistoryContext, UserHistoryStorage } from './UserContext';
+import { UserBooksContext, UserBooksStorage, UserHistoryContext, UserHistoryStorage } from './UserContext';
 
 describe('UserContext', () => {
   let server: Server;
@@ -31,6 +32,22 @@ describe('UserContext', () => {
       const history: any = result.current.history;
 
       expect(history.loans).toHaveLength(3);
+    });
+  });
+
+  it('should render 3 books', async () => {
+    server.createList('book', 3);
+
+    const wrapper = ({ children }: { children: React.ReactNode }) => <UserBooksStorage>{children}</UserBooksStorage>;
+
+    const useHistory = () => React.useContext(UserBooksContext);
+
+    const { result } = renderHook(() => useHistory(), { wrapper });
+
+    await waitFor(() => {
+      const books: any = result.current.books;
+
+      expect(books.books).toHaveLength(3);
     });
   });
 });
