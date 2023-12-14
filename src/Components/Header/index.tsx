@@ -23,21 +23,19 @@ const Header = () => {
     if (userStorage) setUser(JSON.parse(userStorage));
   }, []);
 
-  if (user)
-    return (
-      <HeaderContainer>
-        <Logo />
-        <DivUser onClick={() => setActive(prevActive => !prevActive)}>
-          <UserImg />
-          <p>{user.name}</p>
-          <ArrowElement src={Arrow} active={`${active}`} />
-          <Logout onClick={handleClick} active={`${active}`}>
-            Sair
-          </Logout>
-        </DivUser>
-      </HeaderContainer>
-    );
-  else return null;
+  return (
+    <HeaderContainer data-testid="header">
+      <Logo />
+      <DivUser data-testid='openModal' onClick={() => setActive(prevActive => !prevActive)}>
+        <UserImg />
+        <p>{user?.name}</p>
+        <ArrowElement data-testid='arrowLogout' src={Arrow} active={`${active}`} />
+        <Logout data-testid='logout' onClick={handleClick} active={`${active}`}>
+          Sair
+        </Logout>
+      </DivUser>
+    </HeaderContainer>
+  );
 };
 
 export default Header;

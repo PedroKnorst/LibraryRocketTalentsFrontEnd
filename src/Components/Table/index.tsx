@@ -5,7 +5,7 @@ import Filter from '../../assets/svg/Filter';
 
 interface Props {
   loans: Loan[];
-  bookTitle: boolean;
+  bookTitle?: boolean;
 }
 
 const SortOrder = {
@@ -71,35 +71,35 @@ const HistoryLoans = ({ loans, bookTitle }: Props) => {
   const sortWithdrawalDate = () => {
     toggleSortOrder();
 
-    const sortedDate = loans.sort((a, b) => {
+    const sortedDates = loans.sort((a, b) => {
       if (a.withdrawalDate === b.withdrawalDate) return 0;
+      const [dayA, monthA, yearA] = a.withdrawalDate.split('/');
+      const [dayB, monthB, yearB] = b.withdrawalDate.split('/');
+      const updatedDataA = `${monthA}-${dayA}-${yearA}`;
+      const updatedDataB = `${monthB}-${dayB}-${yearB}`;
       return sortOrder === SortOrder.Ascending
-        ? a.withdrawalDate < b.withdrawalDate
-          ? -1
-          : 1
-        : a.withdrawalDate > b.withdrawalDate
-        ? -1
-        : 1;
+        ? new Date(updatedDataA).getTime() - new Date(updatedDataB).getTime()
+        : new Date(updatedDataB).getTime() - new Date(updatedDataA).getTime();
     });
 
-    setData(sortedDate);
+    setData(sortedDates);
   };
 
   const sortDeliveryDate = () => {
     toggleSortOrder();
 
-    const sortedDate = loans.sort((a, b) => {
+    const sortedDates = loans.sort((a, b) => {
       if (a.deliveryDate === b.deliveryDate) return 0;
+      const [dayA, monthA, yearA] = a.withdrawalDate.split('/');
+      const [dayB, monthB, yearB] = b.withdrawalDate.split('/');
+      const updatedDataA = `${monthA}-${dayA}-${yearA}`;
+      const updatedDataB = `${monthB}-${dayB}-${yearB}`;
       return sortOrder === SortOrder.Ascending
-        ? a.deliveryDate < b.deliveryDate
-          ? -1
-          : 1
-        : a.deliveryDate > b.deliveryDate
-        ? -1
-        : 1;
+        ? new Date(updatedDataA).getTime() - new Date(updatedDataB).getTime()
+        : new Date(updatedDataB).getTime() - new Date(updatedDataA).getTime();
     });
 
-    setData(sortedDate);
+    setData(sortedDates);
   };
 
   return (
@@ -109,12 +109,12 @@ const HistoryLoans = ({ loans, bookTitle }: Props) => {
           <tr>
             <th>Aluno</th>
             <th>Turma</th>
-            {bookTitle && <th>Livro</th>}
+            {bookTitle && <th data-testid="titleBook">Livro</th>}
             <th>Data da Retirada</th>
             <th>Data da Entrega</th>
           </tr>
         </TheadLoans>
-        <TbodyLoans>
+        <TbodyLoans data-testid="tbodyLoans">
           <tr>
             <td>
               <FilterButton data-testid="sortStudent" onClick={sortStudent}>
@@ -145,7 +145,7 @@ const HistoryLoans = ({ loans, bookTitle }: Props) => {
             </td>
           </tr>
           {data.map((loan, id) => (
-            <tr data-testid='loanLine' key={id}>
+            <tr data-testid="loanLine" key={id}>
               <td>{loan.studentName}</td>
               <td>{loan.class}</td>
               {bookTitle && <td>{loan.bookTitle}</td>}
