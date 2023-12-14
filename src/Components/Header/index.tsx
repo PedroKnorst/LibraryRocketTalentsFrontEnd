@@ -28,7 +28,7 @@ const Header = () => {
       <Logo />
       <DivUser data-testid='openModal' onClick={() => setActive(prevActive => !prevActive)}>
         <UserImg />
-        <p>{user?.name}</p>
+        <p data-testid='userName'>{user?.name}</p>
         <ArrowElement data-testid='arrowLogout' src={Arrow} active={`${active}`} />
         <Logout data-testid='logout' onClick={handleClick} active={`${active}`}>
           Sair

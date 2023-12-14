@@ -15,11 +15,12 @@ import { Book } from '../../../interfaces/book';
 
 interface Props {
   data: Book;
+  dataTestId?: string;
 }
 
-const BookInfomations = ({ data }: Props) => {
+const BookInfomations = ({ data, dataTestId }: Props) => {
   return (
-    <BookModal>
+    <BookModal data-testid={dataTestId}>
       <ButtonClose to="/home/biblioteca">
         <Close />
       </ButtonClose>

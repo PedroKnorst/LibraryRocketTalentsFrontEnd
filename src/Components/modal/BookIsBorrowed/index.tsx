@@ -17,9 +17,10 @@ import { Book } from '../../../interfaces/book';
 
 interface Props {
   data: Book;
+  dataTestId?: string;
 }
 
-const BookIsBorrowed = ({ data }: Props) => {
+const BookIsBorrowed = ({ data, dataTestId }: Props) => {
   let lastItem = data.rentHistory[data.rentHistory.length - 1];
 
   const changeBorrow = () => {
@@ -46,7 +47,7 @@ const BookIsBorrowed = ({ data }: Props) => {
 
   if (data)
     return (
-      <BookModal>
+      <BookModal data-testid={dataTestId}>
         <ButtonClose to="/home/biblioteca">
           <Close />
         </ButtonClose>

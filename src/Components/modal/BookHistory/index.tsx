@@ -6,7 +6,7 @@ import { Book } from '../../../interfaces/book';
 import { useParams } from 'react-router-dom';
 import { getBook } from '../../../services/books';
 
-const BookHistory = () => {
+const BookHistory = ({ dataTestId }: { dataTestId?: string }) => {
   const { id } = useParams();
   const [data, setData] = React.useState<Book | null>(null);
 
@@ -16,21 +16,19 @@ const BookHistory = () => {
     });
   }, [id]);
 
-  if (data)
-    return (
-      <ContainerBookModal>
-        <BookModal>
-          <ButtonClose to="/home/biblioteca">
-            <Close />
-          </ButtonClose>
-          <ContainerTable>
-            <h2 style={{ justifySelf: 'start' }}>Histórico de empréstimos do livro</h2>
-            <HistoryLoans bookTitle={false} loans={data?.rentHistory} />
-          </ContainerTable>
-        </BookModal>
-      </ContainerBookModal>
-    );
-  else return null;
+  return (
+    <ContainerBookModal data-testid={dataTestId}>
+      <BookModal>
+        <ButtonClose to="/home/biblioteca">
+          <Close />
+        </ButtonClose>
+        <ContainerTable>
+          <h2 style={{ justifySelf: 'start' }}>Histórico de empréstimos do livro</h2>
+          {data && <HistoryLoans bookTitle={false} loans={data?.rentHistory} />}
+        </ContainerTable>
+      </BookModal>
+    </ContainerBookModal>
+  );
 };
 
 export default BookHistory;
