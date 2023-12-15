@@ -1,5 +1,6 @@
 import { Factory, Model, Response, Server } from 'miragejs';
 import { faker } from '@faker-js/faker';
+import { User } from '../src/interfaces/user';
 
 export const mockServer = ({ environment = 'test' }) => {
   return new Server({
@@ -7,6 +8,8 @@ export const mockServer = ({ environment = 'test' }) => {
     models: {
       book: Model,
       loan: Model,
+      photo: Model,
+      user: Model,
     },
 
     factories: {
@@ -88,11 +91,24 @@ export const mockServer = ({ environment = 'test' }) => {
             .toLocaleDateString('pt-BR', { timeZone: 'UTC' });
         },
       }),
+      photo: Factory.extend({ data: FormData }),
+      user: Factory.extend({
+        name() {
+          return faker.person.firstName();
+        },
+        email() {
+          return faker.internet.email();
+        },
+        password() {
+          return faker.number.int();
+        },
+      }),
     },
 
     seeds(server) {
       server.create('book');
       server.create('loan');
+      server.create('user');
     },
 
     routes() {
@@ -100,6 +116,12 @@ export const mockServer = ({ environment = 'test' }) => {
 
       this.get('http://localhost:3001/books', schema => {
         return schema.all('book');
+      });
+
+      this.get('http://localhost:3001/books/:id', (schema, request) => {
+        const id = request.params.id;
+        const book = schema.find('book', id);
+        return book;
       });
 
       this.get('http://localhost:3001/books/history', schema => {
@@ -110,6 +132,22 @@ export const mockServer = ({ environment = 'test' }) => {
         const attrs = JSON.parse(request.requestBody);
 
         return schema.create('book', attrs);
+      });
+
+      this.post('http://localhost:3001/photos', (schema, request) => {
+        const attrs = JSON.parse(request.requestBody);
+
+        return schema.create('photo', attrs);
+      });
+
+      this.post('http://localhost:3001/users', (schema, request) => {
+        const attrs: User = JSON.parse(request.requestBody);
+
+        const users = schema.all('user');
+
+        const findUser = users.filter(user => user.email === attrs.email && user.password === attrs.password);
+
+        return findUser;
       });
 
       this.delete('http://localhost:3001/books/:id', (schema, request) => {

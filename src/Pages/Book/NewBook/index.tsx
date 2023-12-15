@@ -100,7 +100,6 @@ const NewBook = () => {
 
         navigate('/home');
         alert('Livro adicionado a biblioteca!');
-        location.reload();
       } else {
         title.setError('Titulo de livro ja existente.');
       }
@@ -115,7 +114,13 @@ const NewBook = () => {
   return (
     <ContainerBookPage data-testid="containerNewBook">
       <NavHome path=".." page="Cadastrar novo livro" />
-      <SectionInputs onSubmit={handleSubmit} action="/photos" method="post" encType="multipart/form-data">
+      <SectionInputs
+        data-testid="formNewBook"
+        onSubmit={handleSubmit}
+        action="/photos"
+        method="post"
+        encType="multipart/form-data"
+      >
         <ContainerInputs>
           <InputFile
             onChangeFile={cover.onChangeFile}
@@ -162,10 +167,11 @@ const NewBook = () => {
             error={author.error}
           />
           <Select
-            onBlur={genre.onBlur}
+            defaultItemTestId="genderDefault"
             dataTestId="genderField"
             errorTestId="genderError"
             selectedItemTestId="genderSelected"
+            onBlur={genre.onBlur}
             mediaquerie="true"
             defaultItem={defaultItem}
             selectItem={e => genre.onSelect(e)}

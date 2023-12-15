@@ -40,7 +40,12 @@ const Library = () => {
         .toLowerCase()
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
-        .includes(search.normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
+        .includes(
+          search
+            .normalize('NFD')
+            .toLowerCase()
+            .replace(/[\u0300-\u036f]/g, '')
+        )
     );
 
     setfilteredBooks(searchBook);
@@ -97,15 +102,20 @@ const Library = () => {
                 <Search />
               </label>
               <InputSearch
+                data-testid="searchBookInput"
                 onChange={handleChange}
                 value={search}
                 type="text"
                 id="search"
                 placeholder="Pesquisar livro..."
               />
-              <ButtonInputSearch>Buscar</ButtonInputSearch>
+              <ButtonInputSearch data-testid="searchBookButton">Buscar</ButtonInputSearch>
             </ContainerSearchLibrary>
             <Select
+              defaultItemTestId="filterSelectItemDefault"
+              inputTestId="filterSelectInput"
+              selectedItemTestId="filterSelectItem"
+              dataTestId="filterSelectField"
               mediaquerie="false"
               defaultItem={defaultItem}
               selectItem={selectItem}

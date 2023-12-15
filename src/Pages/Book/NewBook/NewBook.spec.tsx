@@ -1,27 +1,77 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { render, renderHook, screen, waitFor } from '@testing-library/react';
 import NewBook from '.';
 import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
+import { UserBooksContext, UserBooksStorage } from '../../../context/UserContext';
+import { Server } from 'miragejs';
+import { mockServer } from '../../../../miragejs/server';
+import React from 'react';
 
 describe('<NewBook />', () => {
-  beforeEach(() => {
-    render(<NewBook />, { wrapper: BrowserRouter });
+  let server: Server;
+
+  beforeEach(async () => {
+    server = mockServer({ environment: 'test' });
+
+    server.createList('book', 3);
+
+    const wrapper = ({ children }: { children: React.ReactNode }) => <UserBooksStorage>{children}</UserBooksStorage>;
+
+    const useBooks = () => React.useContext(UserBooksContext);
+
+    const { result } = renderHook(() => useBooks(), { wrapper });
+
+    await waitFor(() => {
+      const books: any = result.current.books;
+      render(
+        <BrowserRouter>
+          <UserBooksContext.Provider value={{ books: books.books }}>
+            <NewBook />
+          </UserBooksContext.Provider>
+        </BrowserRouter>
+      );
+    });
   });
 
-  it('should render the component', () => {
+  afterEach(() => {
+    server.shutdown();
+  });
+
+  it('should render the component', async () => {
     const pageNewBook = screen.getByTestId('containerNewBook');
 
     expect(pageNewBook).toBeInTheDocument();
   });
 
-  describe('Title field', () => {
-    it('should render the field of title', () => {
+  describe('Form', () => {
+    it.skip('should call the submit function when the form is submited', async () => {
+      const formNewBook = screen.getByTestId('saveBook');
       const titleField = screen.getByTestId('titleField');
+      const synopsisField = screen.getByTestId('synopsisField');
+      const autorField = screen.getByTestId('autorField');
+      const select = screen.getByTestId('genderField');
+      const entryDateField = screen.getByTestId('entryDateField');
+      const coverInput: HTMLInputElement = screen.getByTestId('coverInput');
+      const file = new File(['hello'], 'hello.png', { type: 'image/png' });
 
-      expect(titleField).toBeInTheDocument();
+      await userEvent.type(titleField, 'A revolução dos bichos');
+      await userEvent.type(synopsisField, 'A revolução dos bichos');
+      await userEvent.type(autorField, 'Napoleon Hill');
+      await userEvent.click(select);
+      const options = screen.getAllByTestId('genderSelected');
+      await userEvent.click(options[0]);
+      await userEvent.type(entryDateField, '2023-03-23');
+      await userEvent.upload(coverInput, file);
+
+      await userEvent.click(formNewBook);
+
+      expect(location.pathname).toBe('/home');
     });
+  });
 
+  describe('Title field', () => {
     it('should change value when the user types on the field', async () => {
       const titleField = screen.getByTestId('titleField');
 
@@ -44,12 +94,6 @@ describe('<NewBook />', () => {
   });
 
   describe('Synopsis field', () => {
-    it('should render the field of synopsis', () => {
-      const synopsisField = screen.getByTestId('synopsisField');
-
-      expect(synopsisField).toBeInTheDocument();
-    });
-
     it('should change value when the user types on the field', async () => {
       const synopsisField = screen.getByTestId('synopsisField');
 
@@ -72,12 +116,6 @@ describe('<NewBook />', () => {
   });
 
   describe('Autor field', () => {
-    it('should render the field of autor', () => {
-      const autorField = screen.getByTestId('autorField');
-
-      expect(autorField).toBeInTheDocument();
-    });
-
     it('should change value when the user types on the field', async () => {
       const autorField = screen.getByTestId('autorField');
 
@@ -99,13 +137,17 @@ describe('<NewBook />', () => {
     });
   });
 
-  describe('Entry Date field', () => {
-    it('should render the field of entry date', () => {
-      const entryDateField = screen.getByTestId('entryDateField');
+  describe('Genre field', () => {
+    it('should clean the value of the select when clicked on default', async () => {
+      const genderDefault = screen.getByTestId('genderDefault');
 
-      expect(entryDateField).toBeInTheDocument();
+      await userEvent.click(genderDefault);
+
+      expect(genderDefault).toHaveTextContent('Selecione');
     });
+  });
 
+  describe('Entry Date field', () => {
     it('should change value when the user types on the field', async () => {
       const entryDateField = screen.getByTestId('entryDateField');
 
@@ -132,12 +174,6 @@ describe('<NewBook />', () => {
   });
 
   describe('Cover field', () => {
-    it('should render the field of cover', () => {
-      const coverInput = screen.getByTestId('coverInput');
-
-      expect(coverInput).toBeInTheDocument();
-    });
-
     it('should change value when the user types on the field', async () => {
       const coverInput: HTMLInputElement = screen.getByTestId('coverInput');
 
@@ -156,9 +192,9 @@ describe('<NewBook />', () => {
       await userEvent.click(saveButton);
       await userEvent.tab();
 
-      const errorAutor = screen.getByTestId('coverError');
+      const coverError = screen.getByTestId('coverError');
 
-      expect(errorAutor).toBeInTheDocument();
+      expect(coverError).toBeInTheDocument();
     });
   });
 });

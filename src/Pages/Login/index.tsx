@@ -43,7 +43,7 @@ const Login = () => {
   };
 
   return (
-    <Bacground1 active={Background01}>
+    <Bacground1 data-testid="containerLogin" active={Background01}>
       <Bacground2 active={Background02}>
         <ContainerLogin onSubmit={handleSubmit}>
           <ContainerLogo>
@@ -54,6 +54,7 @@ const Login = () => {
               <Email />
             </IconeInput>
             <InputLogin
+              data-testid="emailInput"
               value={email}
               onChange={({ target }) => setEmail(target.value)}
               id="login_email"
@@ -66,6 +67,7 @@ const Login = () => {
               <Senha />
             </IconeInput>
             <InputLogin
+              data-testid="passwordInput"
               value={password}
               onChange={({ target }) => setPassword(target.value)}
               id="login_senha"
@@ -74,7 +76,7 @@ const Login = () => {
             />
           </ContainerInputLogin>
           <LostPassword href="*">Perdeu a senha?</LostPassword>
-          <ButtonLogin>Entrar</ButtonLogin>
+          <ButtonLogin data-testid="loginButton">Entrar</ButtonLogin>
         </ContainerLogin>
       </Bacground2>
     </Bacground1>

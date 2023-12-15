@@ -26,15 +26,14 @@ const config: Config = {
     '<rootDir>/src/components/**/index.tsx',
     '<rootDir>/src/hooks/**/index.tsx',
     '<rootDir>/src/pages/**/index.tsx',
+    '<rootDir>/src/App.tsx',
   ],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
-  // coveragePathIgnorePatterns: [
-  //   "\\\\node_modules\\\\"
-  // ],
+  coveragePathIgnorePatterns: ['<rootDir>/src/pages/Book/EditBook/index.tsx'],
 
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: 'v8',

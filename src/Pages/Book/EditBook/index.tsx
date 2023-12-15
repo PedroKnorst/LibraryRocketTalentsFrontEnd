@@ -18,6 +18,14 @@ import NavBack from '../../../components/NavBack';
 import InputText from '../../../components/Inputs/InputText';
 import InputTextArea from '../../../components/Inputs/TexArea';
 
+const convertData = (dataString: string) => {
+  const partes = dataString.split('/');
+  const dia = partes[0].padStart(2, '0');
+  const mes = partes[1].padStart(2, '0');
+  const ano = partes[2];
+  return `${ano}-${mes}-${dia}`;
+};
+
 const EditBook = () => {
   const { id } = useParams();
   const { books } = React.useContext(UserBooksContext);
@@ -39,14 +47,6 @@ const EditBook = () => {
   }, []);
 
   React.useEffect(() => {
-    const convertData = (dataString: string) => {
-      const partes = dataString.split('/');
-      const dia = partes[0].padStart(2, '0');
-      const mes = partes[1].padStart(2, '0');
-      const ano = partes[2];
-      return `${ano}-${mes}-${dia}`;
-    };
-
     if (book) {
       book.systemEntryDate = convertData(book.systemEntryDate);
 
@@ -123,77 +123,92 @@ const EditBook = () => {
     genre.setValue('');
   };
 
-  if (book)
-    return (
-      <ContainerBookPage>
-        <NavBack path="/home/biblioteca" page="Editar Livro" />
-        <SectionInputs onSubmit={handleSubmit}>
-          <ContainerInputs>
-            <InputFile
-              onBlur={cover.onBlur}
-              onChangeFile={cover.onChangeFile}
-              error={cover.error}
-              img={cover.value}
-              cover={book.image}
-            />
-            <InputText
-              onBlur={title.onBlur}
-              gridArea={{ gridArea: 'titulo' }}
-              id="input_title"
-              label="Títutlo"
-              onChange={title.onChange}
-              value={title.value}
-              type="text"
-              error={title.error}
-            />
-            <InputTextArea
-              onBlur={synopsis.onBlur}
-              gridArea={{ gridArea: 'sinopse' }}
-              id="input_synopsis"
-              label="Sinopse"
-              onChange={synopsis.onChange}
-              value={synopsis.value}
-              error={synopsis.error}
-            />
-            <InputText
-              onBlur={author.onBlur}
-              gridArea={{ gridArea: 'autor' }}
-              id="input_author"
-              label="Autor"
-              onChange={author.onChange}
-              value={author.value}
-              type="text"
-              error={author.error}
-            />
-            <Select
-              onBlur={genre.onBlur}
-              mediaquerie="true"
-              defaultItem={defaultItem}
-              selectItem={e => genre.onSelect(e)}
-              list={filterGenre}
-              value={genre.value}
-              style={{ gridArea: 'genero' }}
-              labelStyle={'#133052'}
-              label={'Gênero'}
-            />
-            <InputText
-              onBlur={entryDate.onBlur}
-              gridArea={{ gridArea: 'data' }}
-              id="input_date"
-              label="Data de entrada"
-              onChange={entryDate.onChange}
-              value={entryDate.value}
-              type="date"
-              error={entryDate.error}
-            />
-          </ContainerInputs>
-          <ContainerButtons>
-            <ButtonCancel to="/home/biblioteca">Cancelar</ButtonCancel>
-            <ButtonSave>Salvar</ButtonSave>
-          </ContainerButtons>
-        </SectionInputs>
-      </ContainerBookPage>
-    );
+  return (
+    <ContainerBookPage data-testid="editBookContainer">
+      <NavBack path="/home/biblioteca" page="Editar Livro" />
+      <SectionInputs onSubmit={handleSubmit}>
+        <ContainerInputs>
+          <InputFile
+            inputTestId="coverInput"
+            errorTestId="coverError"
+            imgTestId="coverField"
+            addImgTestId="coverAddField"
+            onBlur={cover.onBlur}
+            onChangeFile={cover.onChangeFile}
+            error={cover.error}
+            img={cover.value}
+            cover={book?.image}
+          />
+          <InputText
+            errorTestId="titleError"
+            inputTestId="titleField"
+            onBlur={title.onBlur}
+            gridArea={{ gridArea: 'titulo' }}
+            id="input_title"
+            label="Títutlo"
+            onChange={title.onChange}
+            value={title.value}
+            type="text"
+            error={title.error}
+          />
+          <InputTextArea
+            errorTestId="synopsisError"
+            inputTestId="synopsisField"
+            onBlur={synopsis.onBlur}
+            gridArea={{ gridArea: 'sinopse' }}
+            id="input_synopsis"
+            label="Sinopse"
+            onChange={synopsis.onChange}
+            value={synopsis.value}
+            error={synopsis.error}
+          />
+          <InputText
+            inputTestId="autorField"
+            errorTestId="autorError"
+            onBlur={author.onBlur}
+            gridArea={{ gridArea: 'autor' }}
+            id="input_author"
+            label="Autor"
+            onChange={author.onChange}
+            value={author.value}
+            type="text"
+            error={author.error}
+          />
+          <Select
+            defaultItemTestId="genderDefault"
+            dataTestId="genderField"
+            errorTestId="genderError"
+            selectedItemTestId="genderSelected"
+            onBlur={genre.onBlur}
+            mediaquerie="true"
+            defaultItem={defaultItem}
+            selectItem={e => genre.onSelect(e)}
+            list={filterGenre}
+            value={genre.value}
+            style={{ gridArea: 'genero' }}
+            labelStyle={'#133052'}
+            label={'Gênero'}
+          />
+          <InputText
+            inputTestId="entryDateField"
+            errorTestId="entryDateError"
+            onBlur={entryDate.onBlur}
+            gridArea={{ gridArea: 'data' }}
+            id="input_date"
+            label="Data de entrada"
+            onChange={entryDate.onChange}
+            value={entryDate.value}
+            type="date"
+            error={entryDate.error}
+          />
+        </ContainerInputs>
+        <ContainerButtons>
+          <ButtonCancel to="/home/biblioteca">Cancelar</ButtonCancel>
+          <ButtonSave>Salvar</ButtonSave>
+        </ContainerButtons>
+      </SectionInputs>
+    </ContainerBookPage>
+  );
 };
 
 export default EditBook;
