@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { renderHook, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Server } from 'miragejs';
@@ -29,9 +28,9 @@ describe('UserContext', () => {
     const { result } = renderHook(() => useHistory(), { wrapper });
 
     await waitFor(() => {
-      const history: any = result.current.history;
+      const history = result.current.history;
 
-      expect(history.loans).toHaveLength(3);
+      expect(history).toHaveLength(3);
     });
   });
 
@@ -45,9 +44,9 @@ describe('UserContext', () => {
     const { result } = renderHook(() => useHistory(), { wrapper });
 
     await waitFor(() => {
-      const books: any = result.current.books;
+      const books= result.current.books;
 
-      expect(books.books).toHaveLength(3);
+      expect(books).toHaveLength(3);
     });
   });
 });

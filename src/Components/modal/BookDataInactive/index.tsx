@@ -7,16 +7,17 @@ import useForm from '../../../hooks/useForm';
 import InputTextArea from '../../../components/Inputs/TexArea';
 import { Book } from '../../../interfaces/book';
 
-const BookDataInactive = () => {
+const BookDataInactive = ({ dataTestId }: { dataTestId?: string }) => {
   const [data, setData] = React.useState<Book | null>(null);
   const { id } = useParams();
-  const description = useForm('description');
+  const description = useForm();
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    getBook(`${id}`).then(res => {
-      setData(res.data);
-    });
+    if (id)
+      getBook(id).then(res => {
+        setData(res.data);
+      });
   }, [id]);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -29,12 +30,12 @@ const BookDataInactive = () => {
       }).then(res => {
         return res.data;
       });
-      return navigate(`/home/biblioteca/livro/${id}`);
+      navigate(`/home/biblioteca/livro/${id}`);
     }
   }
 
   return (
-    <ContainerBookModal>
+    <ContainerBookModal data-testid={dataTestId}>
       <BookModal>
         <ButtonClose to="..">
           <Close />
@@ -42,6 +43,7 @@ const BookDataInactive = () => {
         <ContainerFormInactive onSubmit={handleSubmit}>
           <h2 style={{ justifySelf: 'start' }}>Inativar Livro</h2>
           <InputTextArea
+            inputTestId="inactiveBookInput"
             style={{ width: '500px', height: '100px' }}
             gridArea={{ gridColumn: '1 / 3' }}
             id="input_synopsis"
@@ -49,8 +51,11 @@ const BookDataInactive = () => {
             onChange={description.onChange}
             value={description.value}
             error={description.error}
+            errorTestId="errorInactive"
           />
-          <InactiveButton style={{ gridColumn: '2 / 3', justifySelf: 'end' }}>Inativar</InactiveButton>
+          <InactiveButton data-testid="submitButton" style={{ gridColumn: '2 / 3', justifySelf: 'end' }}>
+            Inativar
+          </InactiveButton>
         </ContainerFormInactive>
       </BookModal>
     </ContainerBookModal>

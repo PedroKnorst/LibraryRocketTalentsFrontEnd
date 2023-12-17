@@ -1,14 +1,17 @@
 import { render, renderHook, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import BookHistory from '.';
-import { UserBooksContext, UserBooksStorage } from '../../../context/UserContext';
+import { BrowserRouter } from 'react-router-dom';
+import BookIsInactive from '.';
+import { Server } from 'miragejs';
 import React from 'react';
+import { UserBooksContext, UserBooksStorage } from '../../../context/UserContext';
 import { Book } from '../../../interfaces/book';
 import { mockServer } from '../../../../miragejs/server';
-import { Server } from 'miragejs';
+import userEvent from '@testing-library/user-event';
 
-describe('<BookHistory />', () => {
+describe('<BookIsInactive />', () => {
+  const reloadContent = jest.fn();
+
   let server: Server;
 
   const getBooksRequest = async () => {
@@ -34,13 +37,9 @@ describe('<BookHistory />', () => {
 
     const book = await getBooksRequest();
 
-    render(
-      <MemoryRouter initialEntries={[`/home/biblioteca/historico/${book.id}`]}>
-        <Routes>
-          <Route path="/home/biblioteca/historico/:id" element={<BookHistory dataTestId="historyBookModal" />} />
-        </Routes>
-      </MemoryRouter>
-    );
+    render(<BookIsInactive reloadContent={reloadContent} data={book} />, {
+      wrapper: BrowserRouter,
+    });
   };
 
   afterEach(() => {
@@ -50,16 +49,26 @@ describe('<BookHistory />', () => {
   it('should render the component', async () => {
     await renderComponentWithServer();
 
-    const historyModal = screen.getByTestId('historyBookModal');
+    const modalBookIsInactive = screen.getByTestId('modalBookIsInactive');
 
-    expect(historyModal).toBeInTheDocument();
+    expect(modalBookIsInactive).toBeInTheDocument();
   });
 
-  it('should render the table of history', async () => {
+  it('should change the status of book to isInactive false', async () => {
     await renderComponentWithServer();
 
-    const historyTable = screen.getByTestId('historyContainer');
+    let book = await getBooksRequest();
 
-    expect(historyTable).toBeInTheDocument();
+    book.status.isActive = false;
+
+    expect(book.status.isActive).toBe(false);
+
+    const submitButton = screen.getByTestId('submitButton');
+
+    await userEvent.click(submitButton);
+
+    book = await getBooksRequest();
+
+    expect(book.status.isActive).toBe(true);
   });
 });

@@ -2,18 +2,19 @@ import React from 'react';
 import { ButtonClose, ContainerBookModal, BookModal, ContainerTable } from '../style';
 import Close from '../../../assets/svg/Close';
 import HistoryLoans from '../../../components/Table';
-import { Book } from '../../../interfaces/book';
 import { useParams } from 'react-router-dom';
 import { getBook } from '../../../services/books';
+import { Loan } from '../../../interfaces/history';
 
 const BookHistory = ({ dataTestId }: { dataTestId?: string }) => {
   const { id } = useParams();
-  const [data, setData] = React.useState<Book | null>(null);
+  const [data, setData] = React.useState<Loan[]>([]);
 
   React.useEffect(() => {
-    getBook(`${id}`).then(res => {
-      setData(res.data);
-    });
+    if (id)
+      getBook(id).then(res => {
+        setData(res.data.rentHistory);
+      });
   }, [id]);
 
   return (
@@ -24,7 +25,7 @@ const BookHistory = ({ dataTestId }: { dataTestId?: string }) => {
         </ButtonClose>
         <ContainerTable>
           <h2 style={{ justifySelf: 'start' }}>Histórico de empréstimos do livro</h2>
-          {data && <HistoryLoans bookTitle={false} loans={data?.rentHistory} />}
+          <HistoryLoans bookTitle={false} loans={data} />
         </ContainerTable>
       </BookModal>
     </ContainerBookModal>

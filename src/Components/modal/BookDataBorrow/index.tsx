@@ -43,6 +43,8 @@ const BookDataBorrow = () => {
           timeZone: 'UTC',
         });
 
+        const updateHistory = data.rentHistory;
+
         const newStudent = {
           studentName: student.value,
           class: group.value,
@@ -50,14 +52,16 @@ const BookDataBorrow = () => {
           deliveryDate: changedDateDelivery,
         };
 
+        updateHistory.push(newStudent);
+
         putBook(id, {
           ...data,
-          rentHistory: [...data.rentHistory, newStudent],
+          rentHistory: updateHistory,
           isBorrowed: true,
         }).then(res => {
           return res.data;
         });
-        return navigate(`/home/biblioteca/livro/${id}`);
+        navigate(`/home/biblioteca/livro/${id}`);
       }
     } else {
       date1.setError('A data de retirada deve ser antes da data de entrega!');
@@ -65,7 +69,7 @@ const BookDataBorrow = () => {
   }
 
   return (
-    <ContainerBookModal>
+    <ContainerBookModal data-testid="borrowBookModal">
       <BookModal>
         <h2>Informe os dados do aluno antes de continuar</h2>
         <ButtonClose to="/home/biblioteca">
@@ -73,6 +77,8 @@ const BookDataBorrow = () => {
         </ButtonClose>
         <ContainerBorrowInputs onSubmit={handleSubmit}>
           <InputText
+            errorTestId="errorName"
+            inputTestId="nameInput"
             id="name"
             label="Nome do aluno"
             onChange={student.onChange}
@@ -81,6 +87,8 @@ const BookDataBorrow = () => {
             error={student.error}
           />
           <InputText
+            errorTestId="errorClass"
+            inputTestId="classInput"
             id="class"
             label="Turma"
             onChange={group.onChange}
@@ -89,6 +97,8 @@ const BookDataBorrow = () => {
             error={group.error}
           />
           <InputText
+            errorTestId="errorWithdrawalDate"
+            inputTestId="withdrawalDateInput"
             id="withdrawalDate"
             label="Data de retirada"
             onChange={date1.onChange}
@@ -97,6 +107,8 @@ const BookDataBorrow = () => {
             error={date1.error}
           />
           <InputText
+            errorTestId="errorDeliveryDate"
+            inputTestId="deliveryDateInput"
             id="deliveryDate"
             label="Data de entrega"
             onChange={date2.onChange}
@@ -104,7 +116,7 @@ const BookDataBorrow = () => {
             type="date"
             error={date2.error}
           />
-          <ContainerLinkBorrow>
+          <ContainerLinkBorrow data-testid="submitButton">
             <BookSvg />
             Emprestar
           </ContainerLinkBorrow>

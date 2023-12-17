@@ -132,7 +132,7 @@ const NewBook = () => {
             img={cover.value}
           />
           <InputText
-            onBlur={title.onBlur}
+            onBlur={title.onBlur} 
             errorTestId="titleError"
             inputTestId="titleField"
             gridArea={{ gridArea: 'titulo' }}

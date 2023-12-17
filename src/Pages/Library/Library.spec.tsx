@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import '@testing-library/jest-dom';
 import { fireEvent, render, renderHook, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
@@ -8,70 +7,62 @@ import React from 'react';
 import { mockServer } from '../../../miragejs/server';
 import { Server } from 'miragejs';
 import userEvent from '@testing-library/user-event';
-
-const renderComponent = (server: Server) => {
-  server.createList('book', 3);
-
-  const wrapper = ({ children }: { children: React.ReactNode }) => <UserBooksStorage>{children}</UserBooksStorage>;
-
-  const useBooks = () => React.useContext(UserBooksContext);
-
-  const { result } = renderHook(() => useBooks(), { wrapper });
-
-  return result;
-};
+import { Book } from '../../interfaces/book';
 
 describe('<Library />', () => {
   let server: Server;
 
-  beforeEach(() => {
+  const getBooksRequest = async () => {
+    const wrapper = ({ children }: { children: React.ReactNode }) => <UserBooksStorage>{children}</UserBooksStorage>;
+
+    const useHistory = () => React.useContext(UserBooksContext);
+
+    const { result } = renderHook(() => useHistory(), { wrapper });
+
+    let books: Book[] = [];
+
+    await waitFor(() => {
+      books = result.current.books;
+    });
+
+    return books;
+  };
+
+  const renderComponentWithServer = async () => {
     server = mockServer({ environment: 'test' });
-  });
+
+    server.createList('book', 5);
+
+    const books = await getBooksRequest();
+
+    render(
+      <UserBooksContext.Provider value={{ books: books }}>
+        <Library />
+      </UserBooksContext.Provider>,
+      { wrapper: BrowserRouter }
+    );
+  };
 
   afterEach(() => {
     server.shutdown();
   });
 
   it('should render the component', async () => {
-    const result = renderComponent(server);
+    await renderComponentWithServer();
 
-    await waitFor(() => {
-      const books: any = result.current.books;
-      render(
-        <BrowserRouter>
-          <UserBooksContext.Provider value={{ books: books.books }}>
-            <Library />
-          </UserBooksContext.Provider>
-        </BrowserRouter>
-      );
-    });
     const libraryElement = screen.getByTestId('containerLibrary');
-
-    screen.debug(libraryElement);
 
     expect(libraryElement).toBeInTheDocument();
   });
 
   it('should call the search function', async () => {
-    const result = renderComponent(server);
+    await renderComponentWithServer();
 
-    let books: any;
-
-    await waitFor(() => {
-      books = result.current.books;
-
-      render(
-        <BrowserRouter>
-          <UserBooksContext.Provider value={{ books: books.books }}>
-            <Library />
-          </UserBooksContext.Provider>
-        </BrowserRouter>
-      );
-    });
+    const books = await getBooksRequest();
 
     const searchBookInput = screen.getByTestId('searchBookInput');
 
-    fireEvent.change(searchBookInput, { target: { value: books.books[0].title } });
+    fireEvent.change(searchBookInput, { target: { value: books[0].title } });
 
     const searchBookButton = screen.getByTestId('searchBookButton');
 
@@ -83,21 +74,7 @@ describe('<Library />', () => {
   });
 
   it('should call the filter select function to order books by autor', async () => {
-    const result = renderComponent(server);
-
-    let books: any;
-
-    await waitFor(() => {
-      books = result.current.books;
-
-      render(
-        <BrowserRouter>
-          <UserBooksContext.Provider value={{ books: books.books }}>
-            <Library />
-          </UserBooksContext.Provider>
-        </BrowserRouter>
-      );
-    });
+    await renderComponentWithServer();
 
     const filterSelectField = screen.getByTestId('filterSelectField');
 
@@ -113,21 +90,7 @@ describe('<Library />', () => {
   });
 
   it('should call the filter select function to order books by gender', async () => {
-    const result = renderComponent(server);
-
-    let books: any;
-
-    await waitFor(() => {
-      books = result.current.books;
-
-      render(
-        <BrowserRouter>
-          <UserBooksContext.Provider value={{ books: books.books }}>
-            <Library />
-          </UserBooksContext.Provider>
-        </BrowserRouter>
-      );
-    });
+    await renderComponentWithServer();
 
     const filterSelectField = screen.getByTestId('filterSelectField');
 
@@ -143,21 +106,7 @@ describe('<Library />', () => {
   });
 
   it('should call the filter select function to order books by entryDate', async () => {
-    const result = renderComponent(server);
-
-    let books: any;
-
-    await waitFor(() => {
-      books = result.current.books;
-
-      render(
-        <BrowserRouter>
-          <UserBooksContext.Provider value={{ books: books.books }}>
-            <Library />
-          </UserBooksContext.Provider>
-        </BrowserRouter>
-      );
-    });
+    await renderComponentWithServer();
 
     const filterSelectField = screen.getByTestId('filterSelectField');
 
@@ -173,21 +122,7 @@ describe('<Library />', () => {
   });
 
   it('should call the filter select function to set the books to default order', async () => {
-    const result = renderComponent(server);
-
-    let books: any;
-
-    await waitFor(() => {
-      books = result.current.books;
-
-      render(
-        <BrowserRouter>
-          <UserBooksContext.Provider value={{ books: books.books }}>
-            <Library />
-          </UserBooksContext.Provider>
-        </BrowserRouter>
-      );
-    });
+    await renderComponentWithServer();
 
     const filterSelectField = screen.getByTestId('filterSelectField');
 

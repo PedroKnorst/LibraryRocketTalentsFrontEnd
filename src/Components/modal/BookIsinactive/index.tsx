@@ -17,10 +17,11 @@ import BookSvg from '../../../assets/svg/BookSvg';
 import { Book } from '../../../interfaces/book';
 
 interface Props {
+  reloadContent: () => void;
   data: Book;
 }
 
-const BookIsInactive = ({ data }: Props) => {
+const BookIsInactive = ({ data, reloadContent }: Props) => {
   function activeBook() {
     if (data.id)
       putBook(data.id, {
@@ -30,11 +31,11 @@ const BookIsInactive = ({ data }: Props) => {
         return res.data;
       });
     alert('Livro ativado novamente!');
-    location.reload();
+    reloadContent();
   }
 
   return (
-    <BookModal>
+    <BookModal data-testid="modalBookIsInactive">
       <ButtonClose to="/home/biblioteca">
         <Close />
       </ButtonClose>
@@ -64,7 +65,9 @@ const BookIsInactive = ({ data }: Props) => {
       </TextBook>
       <ContainerBookButtons>
         <EditButton to={`/home/editar/${data.id}`}>Editar</EditButton>
-        <ActiveButton onClick={activeBook}>Ativar</ActiveButton>
+        <ActiveButton onClick={activeBook} data-testid="submitButton">
+          Ativar
+        </ActiveButton>
         <HistoryButton to={`/home/biblioteca/historico/${data.id}`}>Histórico</HistoryButton>
       </ContainerBookButtons>
       <ContainerDataInactive>

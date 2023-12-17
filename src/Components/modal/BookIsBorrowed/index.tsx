@@ -17,10 +17,11 @@ import { Book } from '../../../interfaces/book';
 
 interface Props {
   data: Book;
+  reloadContent: () => void;
   dataTestId?: string;
 }
 
-const BookIsBorrowed = ({ data, dataTestId }: Props) => {
+const BookIsBorrowed = ({ data, dataTestId, reloadContent }: Props) => {
   let lastItem = data.rentHistory[data.rentHistory.length - 1];
 
   const changeBorrow = () => {
@@ -40,7 +41,7 @@ const BookIsBorrowed = ({ data, dataTestId }: Props) => {
       putBook(data.id, { ...data, isBorrowed: false })
         .then(() => {
           alert('Livro devolvido!');
-          location.reload();
+          reloadContent();
         })
         .catch(error => console.log(error));
   };
@@ -52,7 +53,7 @@ const BookIsBorrowed = ({ data, dataTestId }: Props) => {
           <Close />
         </ButtonClose>
         <CoverBook src={`http://localhost:3001/static/${data.image}`} alt="livro" />
-        <LinkBorrowed to={''} onClick={changeBorrow}>
+        <LinkBorrowed data-testid="submitButton" to={''} onClick={changeBorrow}>
           <BookSvg />
           Devolver
         </LinkBorrowed>

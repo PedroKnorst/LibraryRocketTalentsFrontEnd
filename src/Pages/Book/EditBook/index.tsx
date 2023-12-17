@@ -44,7 +44,7 @@ const EditBook = () => {
         setBook(res.data);
         cover.setValue(res.data.image);
       });
-  }, []);
+  }, [id]);
 
   React.useEffect(() => {
     if (book) {
@@ -86,16 +86,18 @@ const EditBook = () => {
     if (book && validation && id) {
       const changedDateEntry = new Date(entryDate.value).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
 
-      const formData = new FormData();
-      formData.append('uploaded_file', cover.file);
-
       let uploadedImg = cover.value;
 
-      await postCover(formData).then(res => {
-        uploadedImg = res.data;
-      });
+      if (cover.file) {
+        const formData = new FormData();
+        formData.append('uploaded_file', cover.file);
 
-      putBook(id, {
+        await postCover(formData).then(res => {
+          uploadedImg = res.data;
+        });
+      }
+
+      await putBook(id, {
         ...book,
         title: title.value,
         author: author.value,
@@ -103,11 +105,12 @@ const EditBook = () => {
         synopsis: synopsis.value,
         systemEntryDate: changedDateEntry,
         image: uploadedImg,
-      }).then(res => res.data);
-
-      navigate('/home/biblioteca');
-      alert('Livro editado com sucesso!');
-      location.reload();
+      })
+        .then(() => {
+          navigate('/home/biblioteca');
+          alert('Livro editado com sucesso!');
+        })
+        .catch(error => console.log(error));
     }
   };
 
@@ -175,10 +178,11 @@ const EditBook = () => {
             error={author.error}
           />
           <Select
-            defaultItemTestId="genderDefault"
-            dataTestId="genderField"
-            errorTestId="genderError"
-            selectedItemTestId="genderSelected"
+            defaultItemTestId="genreDefault"
+            dataTestId="genreField"
+            errorTestId="genreError"
+            selectedItemTestId="genreSelected"
+            inputTestId="genreInput"
             onBlur={genre.onBlur}
             mediaquerie="true"
             defaultItem={defaultItem}
@@ -204,7 +208,7 @@ const EditBook = () => {
         </ContainerInputs>
         <ContainerButtons>
           <ButtonCancel to="/home/biblioteca">Cancelar</ButtonCancel>
-          <ButtonSave>Salvar</ButtonSave>
+          <ButtonSave data-testid="saveBook">Salvar</ButtonSave>
         </ContainerButtons>
       </SectionInputs>
     </ContainerBookPage>

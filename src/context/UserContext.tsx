@@ -31,7 +31,7 @@ const UserHistoryStorage = ({ children }: BookProps) => {
     getHistory().then(res => {
       setHistory(res.data);
     });
-  }, []);
+  }, [children]);
 
   if (history) return <UserHistoryContext.Provider value={{ history }}>{children}</UserHistoryContext.Provider>;
   else return null;
@@ -44,7 +44,7 @@ const UserBooksStorage = ({ children }: BookProps) => {
     getBooks().then(res => {
       setBooks(res.data);
     });
-  }, []);
+  }, [children]);
 
   if (books) return <UserBooksContext.Provider value={{ books }}>{children}</UserBooksContext.Provider>;
   else return null;

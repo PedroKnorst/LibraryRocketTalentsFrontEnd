@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Factory, Model, Response, Server } from 'miragejs';
 import { faker } from '@faker-js/faker';
 import { User } from '../src/interfaces/user';
@@ -91,17 +92,11 @@ export const mockServer = ({ environment = 'test' }) => {
             .toLocaleDateString('pt-BR', { timeZone: 'UTC' });
         },
       }),
-      photo: Factory.extend({ data: FormData }),
+      photo: Factory.extend(FormData),
       user: Factory.extend({
-        name() {
-          return faker.person.firstName();
-        },
-        email() {
-          return faker.internet.email();
-        },
-        password() {
-          return faker.number.int();
-        },
+        name: 'gx2',
+        email: 'gx2tecnologia@gx2.com.br',
+        password: 'gx2@123',
       }),
     },
 
@@ -112,45 +107,61 @@ export const mockServer = ({ environment = 'test' }) => {
     },
 
     routes() {
-      this.namespace = 'api';
+      this.urlPrefix = 'http://localhost:3001';
 
-      this.get('http://localhost:3001/books', schema => {
-        return schema.all('book');
+      this.get('/books', schema => {
+        const books = schema.all('book');
+
+        return books.models;
       });
 
-      this.get('http://localhost:3001/books/:id', (schema, request) => {
+      this.get('/books/:id', (schema, request) => {
         const id = request.params.id;
         const book = schema.find('book', id);
-        return book;
+        if (book) return book.attrs;
+        else return Response;
       });
 
-      this.get('http://localhost:3001/books/history', schema => {
-        return schema.all('loan');
+      this.patch('/books/:id', (schema, request) => {
+        const id = request.params.id;
+        const attrs = JSON.parse(request.requestBody);
+        const book = schema.find('book', id);
+        book?.update(attrs);
+        book?.reload();
+
+        return Response;
       });
 
-      this.post('http://localhost:3001/books', (schema, request) => {
+      this.get('/books/history', schema => {
+        const history = schema.all('loan');
+
+        return history.models;
+      });
+
+      this.post('/books', (schema, request) => {
         const attrs = JSON.parse(request.requestBody);
 
         return schema.create('book', attrs);
       });
 
-      this.post('http://localhost:3001/photos', (schema, request) => {
-        const attrs = JSON.parse(request.requestBody);
-
-        return schema.create('photo', attrs);
+      this.post('/photos', () => {
+        return 'image';
       });
 
-      this.post('http://localhost:3001/users', (schema, request) => {
+      this.post('/users', (schema, request) => {
         const attrs: User = JSON.parse(request.requestBody);
 
         const users = schema.all('user');
 
-        const findUser = users.filter(user => user.email === attrs.email && user.password === attrs.password);
+        const findUser = users.models.find(
+          (user: any) => user.attrs.email === attrs.email && user.attrs.password === attrs.password
+        );
 
-        return findUser;
+        if (findUser) return findUser.attrs;
+        return Response;
       });
 
-      this.delete('http://localhost:3001/books/:id', (schema, request) => {
+      this.delete('/books/:id', (schema, request) => {
         const id = request.params.id;
 
         schema.find('book', id)?.destroy();

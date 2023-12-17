@@ -6,7 +6,7 @@ import PageNotFound from './helpers/PageNotFound';
 
 function App() {
   return (
-    <>
+    <div data-testid='containerApp'>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -14,7 +14,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 

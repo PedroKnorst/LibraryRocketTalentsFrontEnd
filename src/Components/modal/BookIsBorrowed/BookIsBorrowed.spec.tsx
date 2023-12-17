@@ -1,14 +1,18 @@
 import { render, renderHook, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import BookHistory from '.';
-import { UserBooksContext, UserBooksStorage } from '../../../context/UserContext';
+import { BrowserRouter } from 'react-router-dom';
+import BookIsBorrowed from '.';
+import { Server } from 'miragejs';
 import React from 'react';
+import { UserBooksContext, UserBooksStorage } from '../../../context/UserContext';
 import { Book } from '../../../interfaces/book';
 import { mockServer } from '../../../../miragejs/server';
-import { Server } from 'miragejs';
+import userEvent from '@testing-library/user-event';
 
-describe('<BookHistory />', () => {
+describe('<BookIsBorrowed />', () => {
+  window.alert = jest.fn();
+  const reloadContent = jest.fn();
+
   let server: Server;
 
   const getBooksRequest = async () => {
@@ -34,13 +38,9 @@ describe('<BookHistory />', () => {
 
     const book = await getBooksRequest();
 
-    render(
-      <MemoryRouter initialEntries={[`/home/biblioteca/historico/${book.id}`]}>
-        <Routes>
-          <Route path="/home/biblioteca/historico/:id" element={<BookHistory dataTestId="historyBookModal" />} />
-        </Routes>
-      </MemoryRouter>
-    );
+    render(<BookIsBorrowed reloadContent={reloadContent} data={book} dataTestId="bookIsBorrowedModal" />, {
+      wrapper: BrowserRouter,
+    });
   };
 
   afterEach(() => {
@@ -50,16 +50,26 @@ describe('<BookHistory />', () => {
   it('should render the component', async () => {
     await renderComponentWithServer();
 
-    const historyModal = screen.getByTestId('historyBookModal');
+    const bookIsBorrowedModal = screen.getByTestId('bookIsBorrowedModal');
 
-    expect(historyModal).toBeInTheDocument();
+    expect(bookIsBorrowedModal).toBeInTheDocument();
   });
 
-  it('should render the table of history', async () => {
+  it('should change the status of book to isBorrowed false', async () => {
     await renderComponentWithServer();
 
-    const historyTable = screen.getByTestId('historyContainer');
+    let book = await getBooksRequest();
 
-    expect(historyTable).toBeInTheDocument();
+    book.isBorrowed = true;
+
+    expect(book.isBorrowed).toBe(true);
+
+    const submitButton = screen.getByTestId('submitButton');
+
+    await userEvent.click(submitButton);
+
+    book = await getBooksRequest();
+
+    expect(book.isBorrowed).toBe(false);
   });
 });

@@ -33,7 +33,7 @@ const config: Config = {
   coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: ['<rootDir>/src/pages/Book/EditBook/index.tsx'],
+  coveragePathIgnorePatterns: ['<rootDir>/src/components/modal/ModalBook/index.tsx'],
 
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: 'v8',
