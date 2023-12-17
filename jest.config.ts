@@ -26,6 +26,7 @@ const config: Config = {
     '<rootDir>/src/components/**/index.tsx',
     '<rootDir>/src/hooks/**/index.tsx',
     '<rootDir>/src/pages/**/index.tsx',
+    '<rootDir>/src/context/**/*.tsx',
     '<rootDir>/src/App.tsx',
   ],
 
