@@ -6,6 +6,8 @@ import NavBack from '../../components/NavBack';
 const History = () => {
   const { history } = React.useContext(UserHistoryContext);
 
+  console.log('ola');
+
   return (
     <div data-testid="history">
       <NavBack path=".." page="Histórico de empréstimos" />
